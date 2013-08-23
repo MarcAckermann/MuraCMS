@@ -19,8 +19,10 @@ function viewStatusInfo(contenthistid,siteid){
 	var pars = 'muraAction=cArch.statusmodal&compactDisplay=true&siteid=' + siteid  + '&contenthistid=' + contenthistid +'&cacheid=' + Math.random();
 	var d = jQuery('##approvalModalContainer');
 	d.html('<div class="load-inline"></div>');
+	$('##approvalModalContainer .load-inline').spin(spinnerArgs2);
 	$.get(url + "?" + pars, 
 			function(data) {
+			$('##approvalModalContainer .load-inline').spin(false);
 			jQuery('##approvalModalContainer').html(data);
 			stripe('stripe');
 			});

@@ -209,7 +209,9 @@ buttons: {
 				$("#newContentMenuContainer").html('<div class="ui-dialog-content ui-widget-content"><div class="load-inline"></div></div>');
 				var url = 'index.cfm';
 				var pars = 'muraAction=cArch.loadnewcontentmenu&siteid=' + siteid + '&contentid=' + contentid + '&parentid=' + parentid + '&topid=' + parentid + '&ptype=' + type + '&cacheid=' + Math.random();
+				$('#newContentMenuContainer .load-inline').spin(spinnerArgs2);
 				$.get(url + "?" + pars, function(data) {
+					$('#newContentMenuContainer .load-inline').spin(false);
 					$('#newContentMenuContainer').html(data);
 					$("#newContentMenuContainer").dialog("option", "position", "center");
 					setToolTips('.add-content-ui');
@@ -449,7 +451,9 @@ buttons: {
 		var pars = 'muraAction=cArch.siteParents&compactDisplay=true&siteid=' + siteid + '&contentid=' + contentid + '&parentid=' + parentid + '&keywords=' + keywords + '&isNew=' + isNew + '&cacheid=' + Math.random();
 		var d = $('#move');
 		d.html('<div class="load-inline"><input type=hidden name=parentid value=' + parentid + ' ></div>');
+		$('#move .load-inline').spin(spinnerArgs2);
 		$.get(url + "?" + pars, function(data) {
+			$('#move .load-inline').spin(false);
 			$('#move').html(data);
 		});
 	},
@@ -470,7 +474,9 @@ buttons: {
 		var d = $('#classList');
 
 		d.html('<div class="load-inline"></div>');
+		$('#classList .load-inline').spin(spinnerArgs2);
 		$.get(url + "?" + pars, function(data) {
+			$('#classList .load-inline').spin(false);
 			$('#classList').html(data);
 			siteManager.availableObjectTemplate = "";
 			siteManager.availalbeObjectParams = {};
@@ -501,7 +507,9 @@ buttons: {
 		if(d.html() == '') {
 			d.show();
 			d.html('<div class="load-inline"></div>');
+			$('#selectNotify .load-inline').spin(spinnerArgs2);
 			$.get(url + "?" + pars, function(data) {
+				$('#selectNotify .load-inline').spin(false);
 				$('#selectNotify').html(data);
 			});
 		} else {
@@ -518,7 +526,9 @@ buttons: {
 		if(d.html() == '') {
 			d.show();
 			d.html('<div class="load-inline"></div>');
+			$('#selectExpiresNotify .load-inline').spin(spinnerArgs2);
 			$.get(url + "?" + pars, function(data) {
+				$('#selectExpiresNotify .load-inline').spin(false);
 				$('#selectExpiresNotify').html(data);
 			});
 		} else {
@@ -607,7 +617,9 @@ buttons: {
 		
 		var d = $('#selectRelatedContent');
 		d.html('<div class="load-inline"></div>');
+		$('#selectRelatedContent .load-inline').spin(spinnerArgs2);
 		$.get(url + "?" + pars, function(data) {
+			$('#selectRelatedContent .load-inline').spin(false);
 			$('#selectRelatedContent').html(data);
 			$(".rcDraggable li.item").draggable({
 				connectToSortable: '.rcSortable',
@@ -803,6 +815,7 @@ buttons: {
 		function() {
 			if($(this).html() != '') {
 				$(this).html('<div class="load-inline"></div>');
+				$(this).find('.load-inline').spin(spinnerArgs2);
 			}
 		});
 
@@ -819,6 +832,7 @@ buttons: {
 
 		$.each(r, function(name, value) {
 			//alert(name + ": " + value);
+			$('#extendset-container-' + name + ' .load-inline').spin(false);
 			$('#extendset-container-' + name).html(value);
 
 		});
@@ -988,6 +1002,8 @@ buttons: {
 		var d = $('#gridContainer');
 		if(!this.activeQuickEdit) {
 			d.html('<div class="load-inline"></div>').show();
+			$('#gridContainer .load-inline').spin(spinnerArgs2);
+
 		}
 		// return false;
 		$.get(url + "?" + pars, function(data) {
@@ -995,6 +1011,7 @@ buttons: {
 				var r = eval("(" + data + ")");
 				if(!siteManager.activeQuickEdit) {
 					d.hide()
+					$('#gridContainer .load-inline').spin(false);
 				}
 				d.html(r.html);
 				$('#newContentMenu').addClass('hide');
@@ -1108,6 +1125,9 @@ buttons: {
 		var d = $('#flatViewContainer');
 
 		d.html('<div class="load-inline"></div>');
+
+		$('#flatViewContainer .load-inline').spin(spinnerArgs2);
+
 		$('#newContentMenu').addClass('hide');
 
 		$.post(url + "?" + pars, args, function(data) {
@@ -1115,6 +1135,8 @@ buttons: {
 			if(data.indexOf('mura-primary-login-token') != -1) {
 				location.href = './';
 			}
+			$('#flatViewContainer .load-inline').spin(false);
+
 			d.html(data);
 			stripe('stripe');
 			setCheckboxTrees();
@@ -2300,7 +2322,7 @@ buttons: {
 
 		$("#contentDiffContainer").remove();
 		$("body").append('<div id="contentDiffContainer" title="Loading..." style="display:none"><div class="ui-dialog-content ui-widget-content"><div class="load-inline"></div></div></div>');
-
+		$('#contentDiffContainer .load-inline').spin(spinnerArgs2);
 		$("#contentDiffContainer").dialog({
 			resizable: false,
 			modal: true,
@@ -2318,6 +2340,7 @@ buttons: {
 						if(data.indexOf('mura-primary-login-token') != -1) {
 							location.href = './';
 						}
+						$('#contentDiffContainer .load-inline').spin(false);
 						$('#contentDiffContainer').html(data);
 						$("#contentDiffContainer").dialog("option", "position", "center");
 						$(".ui-widget-overlay").css('height',$(document).height());
@@ -2327,6 +2350,7 @@ buttons: {
 						if(data.responseText.indexOf('mura-primary-login-token') != -1) {
 							location.href = './';
 						}
+						$('#contentDiffContainer .load-inline').spin(false);
 						$('#contentDiffContainer').html(data.responseText);
 						$("#contentDiffContainer").dialog("option", "position", "center");
 						//$(".ui-widget-overlay").css('height',window.height);

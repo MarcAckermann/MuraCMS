@@ -656,13 +656,11 @@ function submitForm(frm, action, msg) {
 function actionModal(action) {
 	$('body').append('<div id="action-modal" class="modal-backdrop fade in"></div>');
 	if(typeof(action)=='string'){
-		$('#action-modal').spin(spinnerArgs, 
-			function(){
-				location.href=action;
-			}
-		);
+		$('#action-modal').spin(spinnerArgs);
+		location.href=action;
 	} else {
-		$('#action-modal').spin(spinnerArgs, action);
+		$('#action-modal').spin(spinnerArgs);
+		action();
 	}
  
 	return false;
@@ -947,13 +945,15 @@ function openFileMetaData(contenthistid,fileid,siteid,property) {
 				$("#newFileMetaContainer").html('<div class="ui-dialog-content ui-widget-content"><div class="load-inline"></div></div>');
 				var url = 'index.cfm';
 				var pars = 'muraAction=cArch.loadfilemetadata&fileid=' + fileid + '&property=' + property  + '&contenthistid=' + contenthistid + '&siteid=' + siteid + '&cacheid=' + Math.random();
-				
+				$("#newFileMetaContainer .load-inline").spin(spinnerArgs2);
+
 				$.get(url + "?" + pars).done(function(data) {
 
 					if(data.indexOf('mura-primary-login-token') != -1) {
 						location.href = './';
 					}
 					
+					$("#newFileMetaContainer .load-inline").spin(false);
 					$('#newFileMetaContainer').html(data);
 					
 					if(property in fileMetaDataAssign){
@@ -1017,10 +1017,11 @@ function openFileMetaData(contenthistid,fileid,siteid,property) {
 			var url = 'index.cfm';
 			var pars = 'muraAction=cArch.assocfiles&compactDisplay=true&siteid=' + $elm.attr('data-siteid') + '&fileid=' + $elm.attr('data-fileid') + '&type=' + $elm.attr('data-filetype') + '&contentid=' + $elm.attr('data-contentid') +  '&property=' + $elm.attr('data-property') +'&keywords=' + keywords + '&cacheid=' + Math.random();
 			$elm.find(".mura-file-existing").html('<div class="load-inline"></div>');
-
+			$elm.find('.load-inline').spin(spinnerArgs2);
 			$.ajax(url + "?" + pars)
 			.done( 
 				function(data) {
+					$elm.find('.load-inline').spin(false);
 					$elm.find(".mura-file-existing").html(data);
 					$elm.find(".mura-file-existing").find('.btn').click(function(){
 						loadAssocFiles($elm.find(".mura-file-existing").find(".filesearch").val());
@@ -1031,6 +1032,7 @@ function openFileMetaData(contenthistid,fileid,siteid,property) {
 			)
 			.error(
 				function(data) {
+				$elm.find('.load-inline').spin(false);
 				$elm.find(".mura-file-existing").html(data.responseText);
 				}
 			);
@@ -1043,6 +1045,7 @@ function openFileMetaData(contenthistid,fileid,siteid,property) {
 	    		loadAssocFiles('');
 	    	} else {
 	    		$elm.find(".mura-file-existing").html('<div class="load-inline"></div>')
+	    		$elm.find('.load-inline').spin(spinnerArgs2);
 	    	}
 	    }
 
@@ -1333,6 +1336,7 @@ spinnerArgs = {
 	left: 'auto' // Left position relative to parent in px
 }
 
+spinnerArgs2=$.extend(spinnerArgs,{color:'#000'})
 //preloadimages(['./assets/images/ajax-loader.gif']);
 
 function removePunctuation(item){

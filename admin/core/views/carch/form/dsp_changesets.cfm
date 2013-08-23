@@ -32,8 +32,10 @@ function saveToChangeset(changesetid,siteid,keywords){
 	var pars = 'muraAction=cArch.availablechangesets&compactDisplay=true&siteid=' + siteid  + '&keywords=' + keywords + '&changesetid=' + changesetid +'&cacheid=' + Math.random();
 	var d = jQuery('##changesetContainer');
 	d.html('<div class="load-inline"></div>');
+	$('##changesetContainer .load-inline').spin(spinnerArgs2);
 	jQuery.get(url + "?" + pars, 
 			function(data) {
+			$('##changesetContainer .load-inline').spin(false);
 			jQuery('##changesetContainer').html(data);
 			stripe('stripe');
 			});

@@ -286,8 +286,11 @@
 		       	});
 	    });
 
-		<cfif rc.compactDisplay eq "true">
+		
 		$(document).ready(function(){
+			$('.load-inline').spin(spinnerArgs2);
+
+			<cfif rc.compactDisplay eq "true">
 			if (top.location != self.location) {
 				if(jQuery("##ProxyIFrame").length){
 					jQuery("##ProxyIFrame").load(
@@ -299,8 +302,9 @@
 					frontEndProxy.post({cmd:'setWidth',width:'standard'});
 				}
 			}
+			</cfif> 
 		});
-		</cfif> 
+		
 		</script>
 		
 	    <!-- /Hidden dialog -->
