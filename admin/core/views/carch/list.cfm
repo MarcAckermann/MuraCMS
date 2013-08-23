@@ -497,13 +497,13 @@ copyAll = 'false';
 	<div class="tab-content"> 
 		<div id="tabArchitectural" class="tab-pane fade">
 			<div id="gridContainer">
-				<div class="load-inline"></div>
+				
 			</div>
 		</div>
 		
 		<div id="tabFlat" class="tab-pane fade">
 			<div id="flatViewContainer">
-				<div class="load-inline"></div>
+				
 			</div>
 		</div>
 	</div>	
