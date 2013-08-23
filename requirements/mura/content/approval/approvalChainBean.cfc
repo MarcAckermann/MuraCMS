@@ -83,7 +83,8 @@ component extends="mura.bean.beanORM"  table="tapprovalchains" entityname="appro
                     qs.addParam(name="groupID", value=listGetAt(deleteID,i), cfsqltype='cf_sql_varchar');
                     qs.addParam(name="firstID", value=firstID, cfsqltype='cf_sql_varchar');
                     qs.addParam(name="chainID", value=getValue('chainID'), cfsqltype='cf_sql_varchar');
-                    qs.setSQL(sql).execute();
+                    qs.setSQL(sql);
+                    qs.execute();
 
                     getBean('approvalChainMembership').loadBy(membershipID=listGetAt(deleteID,i)).delete();
 
@@ -99,7 +100,8 @@ component extends="mura.bean.beanORM"  table="tapprovalchains" entityname="appro
 
             qs.addParam(name="firstID", value=firstID, cfsqltype='cf_sql_varchar');
             qs.addParam(name="chainID", value=getValue('chainID'), cfsqltype='cf_sql_varchar');
-            qs.setSQL(sql).execute();
+            qs.setSQL(sql);
+            qs.execute();
 
         }
 
