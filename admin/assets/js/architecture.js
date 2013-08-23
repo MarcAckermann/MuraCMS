@@ -1111,8 +1111,9 @@ buttons: {
 	loadSiteManagerInTab: function(loader) {
 		archViewLoaded = true;
 		window.scrollTo(0, 0);
-		loader();
+		$('#gridContainer').html('<div class="load-inline"></div>');
 		$('#viewTabs a[href="#tabArchitectural"]').tab('show');
+		loader();
 		//document.getElementById("newContentMenu").style.visibility="hidden"; 
 		return false;
 	},
