@@ -365,7 +365,7 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 
 	if(len($.siteConfig('customTagGroups'))){
 		taggrouparray=listToArray($.siteConfig('customTagGroups'));
-		for(var g=1;g <= arrayLen(taggrouparray);g++){
+		for(g=1;g <= arrayLen(taggrouparray);g++){
 			if(not structKeyExists(session.flatViewArgs["#session.siteid#"],"#taggrouparray[g]#tags")){
 				session.flatViewArgs["#rc.siteID#"]["#taggrouparray[g]#tags"]=rc["#taggrouparray[g]#tags"];
 			}
