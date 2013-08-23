@@ -184,6 +184,15 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 	
 	<cfset rsParams=params.getParams() />
 
+	<cfloop query="rsParams">
+		<cfif listLen(rsParams.field,".") eq 2>
+			<cfset jointable=listFirst(rsParams.field,".") >
+			<cfif jointable neq "tusers" and not listFind(jointables,jointable) and not params.hasJoin(jointable)>
+				<cfset jointables=listAppend(jointables,jointable)>
+			</cfif>
+		</cfif>
+	</cfloop>
+
 	<!--- Generate a sorted (if specified) list of baseIDs with additional fields --->
 	<cfquery attributeCollection="#variables.configBean.getReadOnlyQRYAttrs(name='rsAdvancedUserSearch')#">
 	<cfif not arguments.countOnly and dbType eq "oracle" and params.getMaxItems()>select * from (</cfif>

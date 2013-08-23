@@ -158,6 +158,15 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 	<cfif len(arguments.tag)>
 		<cfset jointables="tcontenttags">
 	</cfif>
+
+	<cfloop query="rsParams">
+		<cfif listLen(rsParams.field,".") eq 2>
+			<cfset jointable=listFirst(rsParams.field,".") >
+			<cfif not listFindNoCase("tcontent,tcontentstats,tfiles,tparent,tcontentcategoryassign",jointable) and not listFind(jointables,jointable)>
+				<cfset jointables=listAppend(jointables,jointable)>
+			</cfif>
+		</cfif>
+	</cfloop>
 	
 	<cfquery attributeCollection="#variables.configBean.getReadOnlyQRYAttrs(name='rsFeed',blockFactor=blockFactor)#">
 	<cfif not arguments.countOnly and dbType eq "oracle" and arguments.feedBean.getMaxItems()>select * from (</cfif>
