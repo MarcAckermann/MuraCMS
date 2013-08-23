@@ -443,6 +443,7 @@ select * from rsSubTypes where subType <> 'Default'
 <div class="tab-content">
 #tabContent#
 <div class="load-inline tab-preloader"></div>
+<script>$('.tab-preloader').spin(spinnerArgs2);</script>
 <div class="form-actions">
 	<cfif rc.userid eq ''>
 		<input type="button" class="btn" onclick="submitForm(document.forms.form1,'add');" value="#application.rbFactory.getKeyValue(session.rb,'user.add')#" />

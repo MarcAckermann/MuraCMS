@@ -302,6 +302,7 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 			</table>
 		</div>
 		<div class="load-inline tab-preloader"></div>
+		<script>$('.tab-preloader').spin(spinnerArgs2);</script>
 	</div>
 	</div>
 	<!---

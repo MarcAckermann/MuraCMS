@@ -711,6 +711,7 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 		<div class="tab-content">
 			#tabContent#
 			<div class="load-inline tab-preloader"></div>
+			<script>$('.tab-preloader').spin(spinnerArgs2);</script>
 			#actionButtons#
 		</div>
 	</div>
@@ -954,6 +955,7 @@ jQuery(document).ready(function(){
 	<div class="tab-content">
 	#tabContent#
 	<div class="load-inline tab-preloader"></div>
+	<script>$('.tab-preloader').spin(spinnerArgs2);</script>
 
 	<div class="form-actions">
 		<cfif rc.feedID eq ''>

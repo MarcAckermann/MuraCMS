@@ -102,6 +102,7 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 <form class="" novalidate="novalidate" action="index.cfm?muraAction=cEmail.update&siteid=#URLEncodedFormat(rc.siteid)#" method="post" name="form1" onSubmit="return false;">
     
 <div class="load-inline tab-preloader"></div>
+<script>$('.tab-preloader').spin(spinnerArgs2);</script>
     
 <div class="tabbable tabs-left mura-ui">
     <ul class="nav nav-tabs tabs initActiveTab">

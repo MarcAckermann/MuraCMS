@@ -1076,7 +1076,10 @@ to your own modified versions of Mura CMS.
 #application.pluginManager.renderScripts("onSiteEdit",rc.siteid,pluginEvent,rsPluginScript)#
         </cfif>
       </cfoutput> </div>
-  </cfoutput> <cfoutput> <div class="load-inline tab-preloader"></div> #actionButtons#
+  </cfoutput> <cfoutput> 
+    <div class="load-inline tab-preloader"></div>
+    <script>$('.tab-preloader').spin(spinnerArgs2);</script>
+     #actionButtons#
     <input type="hidden" name="action" value="update">
     </form>
   </cfoutput>

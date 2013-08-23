@@ -634,6 +634,7 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 		<div class="tab-content row-fluid">		
 			#tabContent#
 			<div class="load-inline tab-preloader"></div>
+			<script>$('.tab-preloader').spin(spinnerArgs2);</script>
 			#actionButtons#
 		</div>
 	</div>

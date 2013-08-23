@@ -2163,6 +2163,7 @@ buttons: {
 		//$(instance).dialog("destroy");
 		$("#configuratorContainer").remove();
 		$("body").append('<div id="configuratorContainer" title="Loading..." style="display:none"><div id="configurator"><div class="load-inline"></div></div></div>');
+		$("#configuratorContainer .load-inline").spin(spinnerArgs2);
 	},
 
 	initConfiguratorParams: function() {
