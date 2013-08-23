@@ -137,7 +137,7 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 			<ul class="#lcase(rc.rstop.type)#">
 				<cfif verdict neq 'none'>
 				<li class="edit">
-					<a title="#application.rbFactory.getKeyValue(session.rb,'sitemanager.content.edit')#" class="draftprompt" data-siteid="#rc.siteid#" data-contentid="#rc.rstop.contentid#" data-contenthistid="#rc.rstop.contenthistid#"title="#application.rbFactory.getKeyValue(session.rb,'sitemanager.content.edit')#" href="index.cfm?muraAction=cArch.edit&contenthistid=#rc.rstop.ContentHistID#&contentid=#rc.rstop.ContentID#&type=#rc.rstop.type#&parentid=#rc.rstop.parentID#&topid=#URLEncodedFormat(rc.topid)#&siteid=#URLEncodedFormat(rc.siteid)#&moduleid=#rc.moduleid#"><i class="icon-pencil"></i></a></li>
+					<a title="#application.rbFactory.getKeyValue(session.rb,'sitemanager.content.edit')#" class="draftprompt" data-siteid="#rc.siteid#" data-contentid="#rc.rstop.contentid#" data-contenthistid="#rc.rstop.contenthistid#" href="index.cfm?muraAction=cArch.edit&contenthistid=#rc.rstop.ContentHistID#&contentid=#rc.rstop.ContentID#&type=#rc.rstop.type#&parentid=#rc.rstop.parentID#&topid=#URLEncodedFormat(rc.topid)#&siteid=#URLEncodedFormat(rc.siteid)#&moduleid=#rc.moduleid#"><i class="icon-pencil"></i></a></li>
 					<li class="version-history"><a title="#application.rbFactory.getKeyValue(session.rb,'sitemanager.content.versionhistory')#" href="index.cfm?muraAction=cArch.hist&contentid=#rc.rstop.ContentID#&type=#rc.rstop.type#&parentid=#rc.rstop.parentID#&topid=#URLEncodedFormat(rc.topid)#&siteid=#URLEncodedFormat(rc.siteid)#&moduleid=#rc.moduleid#"><i class="icon-book"></i></a></li>
 					<cfif rc.moduleid eq '00000000000000000000000000000000004'>
 						<li class="manage-data"><a title="#application.rbFactory.getKeyValue(session.rb,'sitemanager.content.managedata')#" href="index.cfm?muraAction=cArch.datamanager&contentid=#rc.rstop.ContentID#&siteid=#URLEncodedFormat(rc.siteid)#&moduleid=#rc.moduleid#&contenthistid=#rc.rstop.ContentHistID#&topid=#URLEncodedFormat(rc.topid)#&parentid=#URLEncodedFormat(rc.parentid)#&type=Form"><i class="icon-wrench"></i></a></li>
@@ -365,7 +365,7 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 
 	if(len($.siteConfig('customTagGroups'))){
 		taggrouparray=listToArray($.siteConfig('customTagGroups'));
-		for(var g=1;g <= arrayLen(taggrouparray);g++){
+		for(g=1;g <= arrayLen(taggrouparray);g++){
 			if(not structKeyExists(session.flatViewArgs["#session.siteid#"],"#taggrouparray[g]#tags")){
 				session.flatViewArgs["#rc.siteID#"]["#taggrouparray[g]#tags"]=rc["#taggrouparray[g]#tags"];
 			}

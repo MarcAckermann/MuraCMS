@@ -879,6 +879,7 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 					<cfif structKeyExists(rstcontentcategories,'isfeatureable')>
 					, isfeatureable
 					</cfif>
+					)
 					values
 					(
 					<cfqueryparam cfsqltype="cf_sql_VARCHAR" value="#keys.get(rstcontentcategories.categoryID)#">,
