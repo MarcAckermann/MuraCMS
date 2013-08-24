@@ -1266,6 +1266,8 @@ buttons: {
 
 				icon.removeClass('hasChildren closed');
 				icon.addClass('hasChildren open');
+				icon.append('<div id="mura-section-loading" class="spinner-wrap"></div>');
+				$("#mura-section-loading").spin(spinnerArgs2);
 
 				//d.find(".loadProgress").show();
 				$.get(url + "?" + pars, function(data) {
@@ -1273,7 +1275,10 @@ buttons: {
 						var r = eval("(" + data + ")");
 
 						//d.find(".loadProgress").remove();
+						$("#mura-section-loading").spin(false);
+						$("#mura-section-loading").remove();
 						node.find('.section:first').remove();
+						
 						node.append(r.html);
 
 						$('#newContentMenu').addClass('hide');
@@ -1289,6 +1294,8 @@ buttons: {
 						if(data.indexOf('mura-primary-login-token') != -1) {
 							location.href = './';
 						}
+						$("#mura-section-loading").spin(false);
+						$("#mura-section-loading").remove();
 						node.append(data);
 					}
 

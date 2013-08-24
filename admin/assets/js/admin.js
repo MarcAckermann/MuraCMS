@@ -654,12 +654,12 @@ function submitForm(frm, action, msg) {
 }
 
 function actionModal(action) {
-	$('body').append('<div id="action-modal" class="modal-backdrop fade in"></div>');
+	$('body').append('<div id="action-modal" class="modal-backdrop fade in"><div class="spinner-wrap"></div></div>');
 	if(typeof(action)=='string'){
-		$('#action-modal').spin(spinnerArgs);
+		$('#action-modal .spinner-wrap').spin(spinnerArgs);
 		location.href=action;
 	} else {
-		$('#action-modal').spin(spinnerArgs);
+		$('#action-modal .spinner-wrap').spin(spinnerArgs);
 		action();
 	}
  
