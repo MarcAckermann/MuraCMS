@@ -149,7 +149,7 @@ component persistent="false" accessors="true" output="false" extends="controller
 			}
 		}
 
-		getFW().redirect(action='cComments.default', preserve='processed,isapproved,siteid');
+		getFW().redirect(action='cComments.default', preserve='processed,isapproved,siteid',path="./");
 	}
 
 
@@ -158,7 +158,7 @@ component persistent="false" accessors="true" output="false" extends="controller
 		if ( StructKeyExists(arguments.rc, 'commentid') ) {
 			rc.processed = getContentCommentManager().approve(arguments.rc.commentid);
 		}
-		getFW().redirect(action='cComments.default', preserve='processed,isapproved,siteid');
+		getFW().redirect(action='cComments.default', preserve='processed,isapproved,siteid',path="./");
 	}
 
 
@@ -167,7 +167,7 @@ component persistent="false" accessors="true" output="false" extends="controller
 		if ( StructKeyExists(arguments.rc, 'commentid') ) {
 			rc.processed = getContentCommentManager().disapprove(arguments.rc.commentid);
 		}
-		getFW().redirect(action='cComments.default', preserve='processed,isapproved,siteid');
+		getFW().redirect(action='cComments.default', preserve='processed,isapproved,siteid',path="./");
 	}
 
 
@@ -176,7 +176,7 @@ component persistent="false" accessors="true" output="false" extends="controller
 		if ( StructKeyExists(arguments.rc, 'commentid') ) {
 			rc.processed = getContentCommentManager().delete(arguments.rc.commentid);
 		}
-		getFW().redirect(action='cComments.default', preserve='processed,isapproved,siteid');
+		getFW().redirect(action='cComments.default', preserve='processed,isapproved,siteid',path="./");
 	}
 
 }

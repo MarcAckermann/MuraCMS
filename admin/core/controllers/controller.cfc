@@ -59,7 +59,7 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 		<cfset request.context.returnURL=request.context.currentURL>
 
 		<cfif not session.mura.isLoggedIn>
-			<cfset variables.fw.redirect(action="cLogin.main",append="returnURL,compactDisplay")>
+			<cfset variables.fw.redirect(action="cLogin.main",append="returnURL,compactDisplay",path="./")>
 		<cfelse>
 			<cfset variables.utility.backUp()>
 		</cfif>

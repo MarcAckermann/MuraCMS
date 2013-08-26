@@ -53,7 +53,7 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 	<cfif rc.action neq 'updateCore'>
 		<cfif application.configBean.getAllowAutoUpdates()>
 			<div class="btn-group">
-				<a class="btn" href="##" onclick="confirmDialog('WARNING: Do not update your core files unless you have backed up your current Mura install.<cfif application.configBean.getDbType() eq "mssql">\n\nIf your are using MSSQL you must uncheck Maintain Connections in your CF administrator datasource settings before proceeding. You may turn it back on after the update is complete.</cfif>',function(){actionModal('index.cfm?muraAction=cSettings.list&action=updateCore')});return false;"><i class="icon-bolt"></i> Update Core Files to Latest Version</a>
+				<a class="btn" href="##" onclick="confirmDialog('WARNING: Do not update your core files unless you have backed up your current Mura install.<cfif application.configBean.getDbType() eq "mssql">\n\nIf your are using MSSQL you must uncheck Maintain Connections in your CF administrator datasource settings before proceeding. You may turn it back on after the update is complete.</cfif>',function(){actionModal('./?muraAction=cSettings.list&action=updateCore')});return false;"><i class="icon-bolt"></i> Update Core Files to Latest Version</a>
 				<cfif rc.siteUpdateSelect neq "true">
 					<a class="btn" href="./?muraAction=cSettings.list&siteUpdateSelect=true"><i class="icon-bolt"></i> Multi-Site Version Update</a>
 				</cfif>
@@ -191,7 +191,7 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 									</cfif>
 								</cfif>
 								<cfif rc.rsSites.siteid neq 'default'>
-									<li class="delete"><a title="Delete" href="##" onclick="confirmDialog('#JSStringFormat("WARNING: A deleted site and all of its files cannot be recovered. Are you sure that you want to delete the site named '#Ucase(rc.rsSites.site)#'?")#',function(){actionModal('index.cfm?muraAction=cSettings.updateSite&action=delete&siteid=#rc.rsSites.siteid#')});return false;"><i class="icon-remove-sign"></i></a></li>
+									<li class="delete"><a title="Delete" href="##" onclick="confirmDialog('#JSStringFormat("WARNING: A deleted site and all of its files cannot be recovered. Are you sure that you want to delete the site named '#Ucase(rc.rsSites.site)#'?")#',function(){actionModal('./?muraAction=cSettings.updateSite&action=delete&siteid=#rc.rsSites.siteid#')});return false;"><i class="icon-remove-sign"></i></a></li>
 									<cfelse>
 									<li class="delete disabled"><i class="icon-remove-sign"></i></li>
 								</cfif>
@@ -290,7 +290,7 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 						<td>#rc.rsPlugins.pluginID#</td>
 						<td class="actions"><ul>
 								<li class="edit"><a title="Edit" href="./?muraAction=cSettings.editPlugin&moduleID=#rc.rsPlugins.moduleID#"><i class="icon-pencil"></i></a></li>
-								<li class="delete"><a title="Delete" href="##" onclick="confirmDialog('Delete #jsStringFormat("'#Ucase(rc.rsPlugins.name)#'")#?',function(){actionModal('index.cfm?muraAction=cSettings.deletePlugin&moduleID=#rc.rsPlugins.moduleID#')});return false;"><i class="icon-remove-sign"></i></a></li>
+								<li class="delete"><a title="Delete" href="##" onclick="confirmDialog('Delete #jsStringFormat("'#Ucase(rc.rsPlugins.name)#'")#?',function(){actionModal('./?muraAction=cSettings.deletePlugin&moduleID=#rc.rsPlugins.moduleID#')});return false;"><i class="icon-remove-sign"></i></a></li>
 							</ul></td>
 					</tr>
 					</cfoutput>

@@ -72,7 +72,7 @@ component extends="controller" {
 	function save(rc){
         if(not isdefined('arguments.rc.siteid')){
         	arguments.rc.siteID=session.siteid;
-        	variables.fw.redirect(action="cchain.list",append="siteid");
+        	variables.fw.redirect(action="cchain.list",append="siteid",path="./");
         }
 		bean=getBean('approvalChain').loadBy(chainID=arguments.rc.chainID).set(arguments.rc).save();
 
@@ -83,7 +83,7 @@ component extends="controller" {
 
 	function delete(rc){
 		bean=getBean('approvalChain').loadBy(chainID=arguments.rc.chainID).delete();
-		variables.fw.redirect(action="cchain.list",append="siteid");
+		variables.fw.redirect(action="cchain.list",append="siteid",path="./");
 	}
 
 }

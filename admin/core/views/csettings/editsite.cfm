@@ -55,7 +55,7 @@ to your own modified versions of Mura CMS.
       <cfif rc.action eq "updateFiles">
         <a href="./?muraAction=cSettings.editSite&siteid=#URLEncodedFormat(rc.siteid)#"><i class="icon-pencil"></i> Edit Site</a>
         <cfelseif application.configBean.getAllowAutoUpdates()>
-        <a  class="btn" href="##" onclick="confirmDialog('WARNING: Do not update your site files unless you have backed up your current siteID directory.',function(){actionModal('index.cfm?muraAction=cSettings.editSite&siteid=#URLEncodedFormat(rc.siteid)#&action=updateFiles')});return false;"><i class="icon-bolt"></i> Update Site Files to Latest Version</a> 
+        <a  class="btn" href="##" onclick="confirmDialog('WARNING: Do not update your site files unless you have backed up your current siteID directory.',function(){actionModal('./?muraAction=cSettings.editSite&siteid=#URLEncodedFormat(rc.siteid)#&action=updateFiles')});return false;"><i class="icon-bolt"></i> Update Site Files to Latest Version</a> 
 
         <a  class="btn" href="?muraAction=cSettings.selectBundleOptions&siteID=#URLEncodedFormat(rc.siteBean.getSiteID())#"><i class="icon-gift"></i> Create Site Bundle</a>
       </cfif>
@@ -80,7 +80,7 @@ to your own modified versions of Mura CMS.
           <button type="button" class="btn" onclick="submitForm(document.forms.form1,'add');"  /><i class="icon-plus-sign"></i> Add</button>
           <cfelse>
           <cfif rc.siteBean.getsiteid() neq 'default'>
-            <button type="button" class="btn" onclick="return confirmDialog('#JSStringFormat("WARNING: A deleted site and all of its files cannot be recovered. Are you sure that you want to continue?")#',function(){actionModal('index.cfm?muraAction=cSettings.updateSite&action=delete&siteid=#rc.siteBean.getSiteID()#')});" /><i class="icon-remove-sign"></i> Delete</button>
+            <button type="button" class="btn" onclick="return confirmDialog('#JSStringFormat("WARNING: A deleted site and all of its files cannot be recovered. Are you sure that you want to continue?")#',function(){actionModal('./?muraAction=cSettings.updateSite&action=delete&siteid=#rc.siteBean.getSiteID()#')});" /><i class="icon-remove-sign"></i> Delete</button>
           </cfif>
           <button type="button" class="btn" onclick="submitForm(document.forms.form1,'update');" /><i class="icon-ok-sign"></i> Update</button>
         </cfif>

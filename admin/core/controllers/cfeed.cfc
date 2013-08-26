@@ -117,7 +117,7 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 	  
 	 
 	<cfif arguments.rc.closeCompactDisplay neq 'true' and not (arguments.rc.action neq  'delete' and not structIsEmpty(arguments.rc.feedBean.getErrors()))>
-			<cfset variables.fw.redirect(action="cFeed.list",append="siteid")>
+			<cfset variables.fw.redirect(action="cFeed.list",append="siteid",path="./")>
 	</cfif>
 
 	<cfif arguments.rc.action neq  'delete' and not structIsEmpty(arguments.rc.feedBean.getErrors())>

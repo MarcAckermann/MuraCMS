@@ -113,10 +113,10 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 			<cfset arguments.rc.fileid=request.newImageIDList>
 			<cfset arguments.rc.userid=arguments.rc.userBean.getUserID()>
 			<cfset arguments.rc.siteID=arguments.rc.userBean.getSiteID()>
-			<cfset variables.fw.redirect(action="cArch.imagedetails",append="userid,siteid,fileid,compactDisplay")>
+			<cfset variables.fw.redirect(action="cArch.imagedetails",append="userid,siteid,fileid,compactDisplay",path="./")>
 		</cfif>
 
-		 <cfset variables.fw.redirect(action="home.redirect")>
+		 <cfset variables.fw.redirect(action="home.redirect",path="./")>
 	</cfif>
 </cffunction>
 
