@@ -28,7 +28,7 @@
 		     <cfloop condition="requests.hasNext()">
 			    <cfsilent>
 			      <cfset item=requests.next()>
-			      <cfset editlink="index.cfm?muraAction=cArch.edit&contenthistid=#item.getContentHistID()#&contentid=#item.getContentID()#&type=#item.getType()#&parentid=#item.getParentID()#&siteid=#URLEncodedFormat(item.getSiteID())#&moduleid=#item.getModuleID()#&return=chain">
+			      <cfset editlink="./?muraAction=cArch.edit&contenthistid=#item.getContentHistID()#&contentid=#item.getContentID()#&type=#item.getType()#&parentid=#item.getParentID()#&siteid=#URLEncodedFormat(item.getSiteID())#&moduleid=#item.getModuleID()#&return=chain">
 			    </cfsilent>
 		        <tr>  
 		          <td class="title var-width">#$.dspZoom(item.getCrumbArray())#</td>
@@ -53,7 +53,7 @@
 							</cfif>
 						</cfcase>
 						</cfswitch>
-						 <li class="version-history"><a title="Version History" href="index.cfm?muraAction=cArch.hist&contentid=#item.getContentID()#&type=#item.getType()#&parentid=#item.getParentID()#&siteid=#URLEncodedFormat(item.getSiteID())#&moduleid=#item.getModuleID()#"><i class="icon-book"></i></a></li>
+						 <li class="version-history"><a title="Version History" href="./?muraAction=cArch.hist&contentid=#item.getContentID()#&type=#item.getType()#&parentid=#item.getParentID()#&siteid=#URLEncodedFormat(item.getSiteID())#&moduleid=#item.getModuleID()#"><i class="icon-book"></i></a></li>
 		            </ul>
 		          </td>
 		        </tr>

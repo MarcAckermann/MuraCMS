@@ -115,10 +115,10 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 			<cfinclude template="/#application.configBean.getWebRootMap()#/#session.siteID#/includes/display_objects/custom/admin/dsp_secondary_menu.cfm" >
 	  </cfif>
 	  
-      <!--- <cfif listFind(session.mura.memberships,'S2') or listFind(session.mura.memberships,'Admin;#application.settingsManager.getSite(session.siteid).getPrivateUserPoolID()#;0')><li<cfif rc.originalcircuit eq 'cPrivateUsers'>class="active"</cfif>><a href="index.cfm?muraAction=cPrivateUsers.list&siteid=#session.siteid#" >Administrative Users</a><cfif rc.originalcircuit eq 'cPrivateUsers'><cfinclude template="../../view/vPrivateUsers/dsp_secondary_menu.cfm"></cfif></li></cfif> --->
+      <!--- <cfif listFind(session.mura.memberships,'S2') or listFind(session.mura.memberships,'Admin;#application.settingsManager.getSite(session.siteid).getPrivateUserPoolID()#;0')><li<cfif rc.originalcircuit eq 'cPrivateUsers'>class="active"</cfif>><a href="./?muraAction=cPrivateUsers.list&siteid=#session.siteid#" >Administrative Users</a><cfif rc.originalcircuit eq 'cPrivateUsers'><cfinclude template="../../view/vPrivateUsers/dsp_secondary_menu.cfm"></cfif></li></cfif> --->
      
 	
-  	<li <cfif rc.originalcircuit eq 'cFilemanager'>class="active"</cfif>><a href="index.cfm?muraAction=cFilemanager.default&siteid=#session.siteid#"><i class="icon-cog"></i> #application.rbFactory.getKeyValue(session.rb,"layout.filemanager")#</a>
+  	<li <cfif rc.originalcircuit eq 'cFilemanager'>class="active"</cfif>><a href="./?muraAction=cFilemanager.default&siteid=#session.siteid#"><i class="icon-cog"></i> #application.rbFactory.getKeyValue(session.rb,"layout.filemanager")#</a>
   	</li>
     <cfset rc.rsplugins=application.pluginManager.getSitePlugins(siteID=session.siteid, applyPermFilter=true) />
      <cfif rc.rsplugins.recordcount or listFind(session.mura.memberships,'S2')>

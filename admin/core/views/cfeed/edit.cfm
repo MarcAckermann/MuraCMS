@@ -177,7 +177,7 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 #application.pluginManager.renderEvent("onFeedEditMessageRender",event)#
 </span>
 
-<form novalidate="novalidate" action="index.cfm?muraAction=cFeed.update&siteid=#URLEncodedFormat(rc.siteid)#" method="post" name="form1" id="feedFrm" onsubmit="return validate(this);"<cfif len(rc.assignmentID)> style="width: 412px"</cfif>>
+<form novalidate="novalidate" action="./?muraAction=cFeed.update&siteid=#URLEncodedFormat(rc.siteid)#" method="post" name="form1" id="feedFrm" onsubmit="return validate(this);"<cfif len(rc.assignmentID)> style="width: 412px"</cfif>>
 <cfif not isObjectInstance>
 	<cfif rc.compactDisplay eq "true">
 	<ul class="navTask nav nav-pills">
@@ -783,7 +783,7 @@ jQuery(document).ready(function(){
 #application.pluginManager.renderEvent("onFeedEditMessageRender", event)#
 </span>
 
-<form novalidate="novalidate" action="index.cfm?muraAction=cFeed.update&siteid=#URLEncodedFormat(rc.siteid)#" method="post" name="form1" onsubmit="return validate(this);">
+<form novalidate="novalidate" action="./?muraAction=cFeed.update&siteid=#URLEncodedFormat(rc.siteid)#" method="post" name="form1" onsubmit="return validate(this);">
 </cfoutput>
 <cfsavecontent variable='tabContent'>
 <cfoutput>

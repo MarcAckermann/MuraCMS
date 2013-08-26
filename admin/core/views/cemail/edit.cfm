@@ -80,16 +80,16 @@ version 2 without this exception.  You may, if you choose, apply this exception 
             0%
           </cfif>
           )</li>
-        <li><a href="index.cfm?muraAction=cEmail.showReturns&emailid=#rc.emailid#&siteid=#URLEncodedFormat(rc.siteid)#"><strong>#application.rbFactory.getKeyValue(session.rb,'email.userswhoclicked')#:</strong></a> #clicks# (
+        <li><a href="./?muraAction=cEmail.showReturns&emailid=#rc.emailid#&siteid=#URLEncodedFormat(rc.siteid)#"><strong>#application.rbFactory.getKeyValue(session.rb,'email.userswhoclicked')#:</strong></a> #clicks# (
           <cfif sent gt 0>
 #evaluate(round((clicks/sent)*100))#%
             <cfelse>
             0%
           </cfif>
           )</li>
-        <li><a href="index.cfm?muraAction=cEmail.showReturns&emailid=#rc.emailid#&siteid=#URLEncodedFormat(rc.siteid)#"><strong>#application.rbFactory.getKeyValue(session.rb,'email.uniqueclicks')#:</strong></a> #uniqueClicks# </li>
-        <li><a href="index.cfm?muraAction=cEmail.showReturns&emailid=#rc.emailid#&siteid=#URLEncodedFormat(rc.siteid)#"><strong>#application.rbFactory.getKeyValue(session.rb,'email.totalclicks')#:</strong></a> #totalClicks# </li>
-        <li><a href="index.cfm?muraAction=cEmail.showBounces&emailid=#rc.emailid#&siteid=#URLEncodedFormat(rc.siteid)#"><strong>Bounces:</strong></a> #bounces# (
+        <li><a href="./?muraAction=cEmail.showReturns&emailid=#rc.emailid#&siteid=#URLEncodedFormat(rc.siteid)#"><strong>#application.rbFactory.getKeyValue(session.rb,'email.uniqueclicks')#:</strong></a> #uniqueClicks# </li>
+        <li><a href="./?muraAction=cEmail.showReturns&emailid=#rc.emailid#&siteid=#URLEncodedFormat(rc.siteid)#"><strong>#application.rbFactory.getKeyValue(session.rb,'email.totalclicks')#:</strong></a> #totalClicks# </li>
+        <li><a href="./?muraAction=cEmail.showBounces&emailid=#rc.emailid#&siteid=#URLEncodedFormat(rc.siteid)#"><strong>Bounces:</strong></a> #bounces# (
           <cfif sent gt 0>
 #evaluate(round((bounces/sent)*100))#%
             <cfelse>
@@ -99,7 +99,7 @@ version 2 without this exception.  You may, if you choose, apply this exception 
       </cfif>
     </ul>
   </cfif>
-<form class="" novalidate="novalidate" action="index.cfm?muraAction=cEmail.update&siteid=#URLEncodedFormat(rc.siteid)#" method="post" name="form1" onSubmit="return false;">
+<form class="" novalidate="novalidate" action="./?muraAction=cEmail.update&siteid=#URLEncodedFormat(rc.siteid)#" method="post" name="form1" onSubmit="return false;">
     
 <div class="load-inline tab-preloader"></div>
 <script>$('.tab-preloader').spin(spinnerArgs2);</script>

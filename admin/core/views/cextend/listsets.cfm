@@ -58,11 +58,11 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 <h1>Class Extension Attribute Sets</h1>
 <cfoutput>
 	<div id="nav-module-specific" class="btn-group">
-		<a class="btn" href="index.cfm?muraAction=cExtend.listSubTypes&siteid=#URLEncodedFormat(rc.siteid)#"><i class="icon-circle-arrow-left"></i> Back to Class Extensions</a>
-		<a class="btn" href="index.cfm?muraAction=cExtend.editSubType&subTypeID=#rc.subTypeID#&siteid=#URLEncodedFormat(rc.siteid)#"><i class="icon-pencil"></i> Edit Class Extension</a>
-		<a class="btn" href="index.cfm?muraAction=cExtend.editSet&subTypeID=#rc.subTypeID#&siteid=#URLEncodedFormat(rc.siteid)#&extendSetID="><i class="icon-plus-sign"></i> Add Attribute Set</a>
+		<a class="btn" href="./?muraAction=cExtend.listSubTypes&siteid=#URLEncodedFormat(rc.siteid)#"><i class="icon-circle-arrow-left"></i> Back to Class Extensions</a>
+		<a class="btn" href="./?muraAction=cExtend.editSubType&subTypeID=#rc.subTypeID#&siteid=#URLEncodedFormat(rc.siteid)#"><i class="icon-pencil"></i> Edit Class Extension</a>
+		<a class="btn" href="./?muraAction=cExtend.editSet&subTypeID=#rc.subTypeID#&siteid=#URLEncodedFormat(rc.siteid)#&extendSetID="><i class="icon-plus-sign"></i> Add Attribute Set</a>
 		<cfif showRelatedContentSets>
-			<a class="btn" href="index.cfm?muraAction=cExtend.editRelatedContentSet&subTypeID=#rc.subTypeID#&siteid=#URLEncodedFormat(rc.siteid)#&relatedContentSetID="><i class="icon-plus-sign"></i> Add Related Content Set</a>
+			<a class="btn" href="./?muraAction=cExtend.editRelatedContentSet&subTypeID=#rc.subTypeID#&siteid=#URLEncodedFormat(rc.siteid)#&relatedContentSetID="><i class="icon-plus-sign"></i> Add Related Content Set</a>
 		</cfif>
 	</div>
 	<h2><i class="#application.settingsManager.getSite(rc.siteID).getContentRenderer().iconClassByContentType(type=subType.getType(),subtype=subType.getSubType())#"></i> #application.classExtensionManager.getTypeAsString(subType.getType())#/#subType.getSubType()#</h2>
@@ -83,8 +83,8 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 					<span id="handle#s#" class="handle" style="display:none;"><i class="icon-move"></i></span>
 					<p>#extendSetBean.getName()#</p>
 					<div class="btns">
-						<a title="Edit" href="index.cfm?muraAction=cExtend.editAttributes&subTypeID=#rc.subTypeID#&extendSetID=#extendSetBean.getExtendSetID()#&siteid=#URLEncodedFormat(rc.siteid)#"><i class="icon-pencil"></i></a>
-						<a title="Delete" href="index.cfm?muraAction=cExtend.updateSet&action=delete&subTypeID=#rc.subTypeID#&extendSetID=#extendSetBean.getExtendSetID()#&siteid=#URLEncodedFormat(rc.siteid)#" onclick="return confirmDialog('Delete  #jsStringFormat("'#extendSetBean.getname()#'")#?',this.href)"><i class="icon-remove-sign"></i></a>
+						<a title="Edit" href="./?muraAction=cExtend.editAttributes&subTypeID=#rc.subTypeID#&extendSetID=#extendSetBean.getExtendSetID()#&siteid=#URLEncodedFormat(rc.siteid)#"><i class="icon-pencil"></i></a>
+						<a title="Delete" href="./?muraAction=cExtend.updateSet&action=delete&subTypeID=#rc.subTypeID#&extendSetID=#extendSetBean.getExtendSetID()#&siteid=#URLEncodedFormat(rc.siteid)#" onclick="return confirmDialog('Delete  #jsStringFormat("'#extendSetBean.getname()#'")#?',this.href)"><i class="icon-remove-sign"></i></a>
 					</div>
 				</li>
 			</cfoutput>
@@ -111,8 +111,8 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 						<span id="handleRelated#s#" class="handleRelated" style="display:none;"><i class="icon-move"></i></span>
 						<p>#rcsBean.getName()#</p>
 						<div class="btns">
-							<a title="Edit" href="index.cfm?muraAction=cExtend.editRelatedContentSet&subTypeID=#rc.subTypeID#&relatedContentSetID=#rcsBean.getRelatedContentSetID()#&siteid=#URLEncodedFormat(rc.siteid)#"><i class="icon-pencil"></i></a>
-							<a title="Delete" href="index.cfm?muraAction=cExtend.updateRelatedContentSet&action=delete&subTypeID=#rc.subTypeID#&relatedContentSetID=#rcsBean.getRelatedContentSetID()#&siteid=#URLEncodedFormat(rc.siteid)#" onclick="return confirmDialog('Delete  #jsStringFormat("'#rcsBean.getname()#'")#?',this.href)"><i class="icon-remove-sign"></i></a>
+							<a title="Edit" href="./?muraAction=cExtend.editRelatedContentSet&subTypeID=#rc.subTypeID#&relatedContentSetID=#rcsBean.getRelatedContentSetID()#&siteid=#URLEncodedFormat(rc.siteid)#"><i class="icon-pencil"></i></a>
+							<a title="Delete" href="./?muraAction=cExtend.updateRelatedContentSet&action=delete&subTypeID=#rc.subTypeID#&relatedContentSetID=#rcsBean.getRelatedContentSetID()#&siteid=#URLEncodedFormat(rc.siteid)#" onclick="return confirmDialog('Delete  #jsStringFormat("'#rcsBean.getname()#'")#?',this.href)"><i class="icon-remove-sign"></i></a>
 						</div>
 					</li>
 				</cfoutput>

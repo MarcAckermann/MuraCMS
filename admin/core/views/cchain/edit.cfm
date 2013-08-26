@@ -15,7 +15,7 @@
     <div class="alert alert-error">#application.utility.displayErrors(chain.getErrors())#</div>
 </cfif>
 
-<form class="fieldset-wrap" novalidate="novalidate" action="index.cfm?muraAction=cchain.save" method="post" name="form1" onsubmit="return validateForm(this);">
+<form class="fieldset-wrap" novalidate="novalidate" action="./?muraAction=cchain.save" method="post" name="form1" onsubmit="return validateForm(this);">
 <div class="fieldset">
 <div class="control-group">
   <label class="control-label">

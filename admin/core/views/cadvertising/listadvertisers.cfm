@@ -65,7 +65,7 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 
 <!--- 
 <ul class="navTask nav nav-pills">
-<li><a href="index.cfm?muraAction=cPublicUsers.editUser&userid=&siteid=#URLEncodedFormat(rc.siteid)#&groupid=#application.advertiserManager.getGroupID(rc.siteid)#&routeid=adManager">Add Advertiser</li>
+<li><a href="./?muraAction=cPublicUsers.editUser&userid=&siteid=#URLEncodedFormat(rc.siteid)#&groupid=#application.advertiserManager.getGroupID(rc.siteid)#&routeid=adManager">Add Advertiser</li>
 </ul> --->
 
 <table class="mura-table-grid">
@@ -78,10 +78,10 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 <cfif rc.rslist.recordcount>
 <cfoutput query="rc.rslist">
 	<tr>
-		<td class="var-width"><a title="#application.rbFactory.getKeyValue(session.rb,'advertising.edit')#" href="index.cfm?muraAction=cAdvertising.viewAdvertiser&userid=#rc.rslist.userid#&siteid=#URLEncodedFormat(rc.siteid)#">#company#</a></td>
+		<td class="var-width"><a title="#application.rbFactory.getKeyValue(session.rb,'advertising.edit')#" href="./?muraAction=cAdvertising.viewAdvertiser&userid=#rc.rslist.userid#&siteid=#URLEncodedFormat(rc.siteid)#">#company#</a></td>
 		<td>#fname# #lname#</td>
 		<td><cfif email neq ''><a href="mailto:#email#">#email#</a><cfelse>&nbsp;</cfif></td>
-		<td class="actions"><ul class="advertisers"><li class="edit"><a title="#application.rbFactory.getKeyValue(session.rb,'advertising.edit')#" href="index.cfm?muraAction=cAdvertising.viewAdvertiser&userid=#rc.rslist.userid#&siteid=#URLEncodedFormat(rc.siteid)#"><i class="icon-pencil"></i></a></li></ul></td></tr>
+		<td class="actions"><ul class="advertisers"><li class="edit"><a title="#application.rbFactory.getKeyValue(session.rb,'advertising.edit')#" href="./?muraAction=cAdvertising.viewAdvertiser&userid=#rc.rslist.userid#&siteid=#URLEncodedFormat(rc.siteid)#"><i class="icon-pencil"></i></a></li></ul></td></tr>
 </cfoutput>
 <cfelse>
 <tr>

@@ -240,8 +240,8 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 					 				<cfif application.settingsManager.getSite(session.siteid).getextranet() and  application.permUtility.getModulePerm("00000000000000000000000000000000008","#session.siteid#")>
 					 					 <li <cfif request.action eq 'core:cpublicusers.list' or (rc.originalcircuit eq 'cPerm' and  rc.moduleid eq '00000000000000000000000000000000008') or (rc.originalcircuit eq 'cpublicusers' and len(rc.userid))>class="active"</cfif>><a href="#application.configBean.getContext()#/admin/?muraAction=cPublicUsers.list&siteid=#session.siteid#"><i class="icon-group"></i> #application.rbFactory.getKeyValue(session.rb,"user.viewsitemembers")#</a>
 					 					</li>
-						 				 <li<cfif request.action eq "core:cpublicusers.edituser" and not len(rc.userID)> class="active"</cfif>><a href="index.cfm?muraAction=cPublicUsers.edituser&siteid=#URLEncodedFormat(rc.siteid)#&userid="><i class="icon-plus-sign"></i> #application.rbFactory.getKeyValue(session.rb,'user.addmember')#</a></li>
-						 				<li<cfif request.action eq "core:cpublicusers.editgroup" and not len(rc.userID)> class="active"</cfif>><a href="index.cfm?muraAction=cPublicUsers.editgroup&siteid=#URLEncodedFormat(rc.siteid)#&userid="><i class="icon-plus-sign"></i> #application.rbFactory.getKeyValue(session.rb,'user.addmembergroup')#</a></li>
+						 				 <li<cfif request.action eq "core:cpublicusers.edituser" and not len(rc.userID)> class="active"</cfif>><a href="./?muraAction=cPublicUsers.edituser&siteid=#URLEncodedFormat(rc.siteid)#&userid="><i class="icon-plus-sign"></i> #application.rbFactory.getKeyValue(session.rb,'user.addmember')#</a></li>
+						 				<li<cfif request.action eq "core:cpublicusers.editgroup" and not len(rc.userID)> class="active"</cfif>><a href="./?muraAction=cPublicUsers.editgroup&siteid=#URLEncodedFormat(rc.siteid)#&userid="><i class="icon-plus-sign"></i> #application.rbFactory.getKeyValue(session.rb,'user.addmembergroup')#</a></li>
 			 					   	</cfif>
 		 					  </ul>			
 	 					</li>
@@ -280,7 +280,7 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 		 					<cfset rsExts=application.classExtensionManager.getSubTypes(siteID=rc.siteID,activeOnly=false) />
 
 		 					<li class="dropdown-submenu">
-		 					<a href="index.cfm?muraAction=cExtend.listSubTypes&siteid=#URLEncodedFormat(rc.siteid)#"><i class="icon-wrench"></i> Class Extension Manager</a>
+		 					<a href="./?muraAction=cExtend.listSubTypes&siteid=#URLEncodedFormat(rc.siteid)#"><i class="icon-wrench"></i> Class Extension Manager</a>
 			 					<ul class="dropdown-menu">
 				 					<cfloop query="rsExts">
 				 						<li><a href="#application.configBean.getContext()#/admin/?muraAction=cExtend.listSets&subTypeID=#rsExts.subtypeID#&siteid=#URLEncodedFormat(rc.siteid)#">
@@ -309,7 +309,7 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 
 									 					
 		 					<li>
-		 						<a href="index.cfm?muraAction=cTrash.list&siteID=#URLEncodedFormat(rc.siteid)#">
+		 						<a href="./?muraAction=cTrash.list&siteID=#URLEncodedFormat(rc.siteid)#">
 		 							<i class="icon-trash"></i> Trash Bin
 		 						</a>
 		 					</li>

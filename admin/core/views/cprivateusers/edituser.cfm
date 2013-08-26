@@ -63,7 +63,7 @@ select * from rsSubTypes where subType <> 'Default'
 </cfif>
 <cfset tabLabelList=listAppend(tabLabelList,application.rbFactory.getKeyValue(session.rb,'user.advanced'))>
 <cfset tabList=listAppend(tabList,"tabAdvanced")></cfsilent>
-<cfoutput><form novalidate="novalidate" action="index.cfm?muraAction=cPrivateUsers.update&userid=#URLEncodedFormat(rc.userid)#&routeid=#rc.routeid#&siteid=#URLEncodedFormat(rc.siteid)#" method="post" enctype="multipart/form-data" name="form1" onsubmit="return validate(this);"  autocomplete="off" >
+<cfoutput><form novalidate="novalidate" action="./?muraAction=cPrivateUsers.update&userid=#URLEncodedFormat(rc.userid)#&routeid=#rc.routeid#&siteid=#URLEncodedFormat(rc.siteid)#" method="post" enctype="multipart/form-data" name="form1" onsubmit="return validate(this);"  autocomplete="off" >
 	<h1>#application.rbFactory.getKeyValue(session.rb,'user.adminuserform')#</h1>
 	
 	<div id="nav-module-specific" class="btn-group">
@@ -274,7 +274,7 @@ select * from rsSubTypes where subType <> 'Default'
 		
 	<cfelse>
 		<div class="control-group">
-			<ul class="navTask nav nav-pills"><li><a href="index.cfm?muraAction=cPrivateUsers.editAddress&userid=#URLEncodedFormat(rc.userid)#&siteid=#URLEncodedFormat(rc.siteid)#&routeID=#rc.routeid#&addressID="><i class="icon-plus-sign"></i> #application.rbFactory.getKeyValue(session.rb,'user.addnewaddress')#</a></li></ul>
+			<ul class="navTask nav nav-pills"><li><a href="./?muraAction=cPrivateUsers.editAddress&userid=#URLEncodedFormat(rc.userid)#&siteid=#URLEncodedFormat(rc.siteid)#&routeID=#rc.routeid#&addressID="><i class="icon-plus-sign"></i> #application.rbFactory.getKeyValue(session.rb,'user.addnewaddress')#</a></li></ul>
 			<cfset rsAddresses=rc.userBean.getAddresses()>
 		
 			<cfif rsAddresses.recordcount>
@@ -286,7 +286,7 @@ select * from rsSubTypes where subType <> 'Default'
 					<input type="radio" name="primaryAddressID" value="#rsAddresses.addressID#" <cfif rsAddresses.isPrimary eq 1 or rsAddresses.recordcount eq 1>checked</cfif>>
 					</td>
 					<td class="var-width">
-					<cfif rsAddresses.addressName neq ''><a title="#application.rbFactory.getKeyValue(session.rb,'user.edit')#" href="index.cfm?muraAction=cPrivateUsers.editAddress&userid=#URLEncodedFormat(rc.userid)#&siteid=#URLEncodedFormat(rc.siteid)#&routeID=#URLEncodedFormat(rc.routeid)#&addressID=#rsAddresses.addressID#">#rsAddresses.addressName#</a><br /></cfif>
+					<cfif rsAddresses.addressName neq ''><a title="#application.rbFactory.getKeyValue(session.rb,'user.edit')#" href="./?muraAction=cPrivateUsers.editAddress&userid=#URLEncodedFormat(rc.userid)#&siteid=#URLEncodedFormat(rc.siteid)#&routeID=#URLEncodedFormat(rc.routeid)#&addressID=#rsAddresses.addressID#">#rsAddresses.addressName#</a><br /></cfif>
 					<cfif rsAddresses.address1 neq ''>#HTMLEditFormat(rsAddresses.address1)#<br /></cfif>
 					<cfif rsAddresses.address2 neq ''>#HTMLEditFormat(rsAddresses.address2)#<br /></cfif>
 					<cfif rsAddresses.city neq ''>#HTMLEditFormat(rsAddresses.city)# </cfif><cfif rsAddresses.state neq ''><cfif rsaddresses.city neq ''>,</cfif> #HTMLEditFormat(rsAddresses.state)# </cfif><cfif rsaddresses.zip neq ''> #HTMLEditFormat(rsAddresses.zip)#</cfif><cfif rsAddresses.city neq '' or rsAddresses.state neq '' or rsAddresses.zip neq ''><br/></cfif>
@@ -295,8 +295,8 @@ select * from rsSubTypes where subType <> 'Default'
 					<cfif rsAddresses.addressURL neq ''>#application.rbFactory.getKeyValue(session.rb,'user.website')#: <a href="#rsAddresses.addressURL#" target="_blank">#HTMLEditFormat(rsAddresses.addressURL)#</a><br/></cfif>
 					<cfif rsAddresses.addressEmail neq ''>#application.rbFactory.getKeyValue(session.rb,'user.email')#: <a href="mailto:#rsAddresses.addressEmail#">#HTMLEditFormat(rsAddresses.addressEmail)#</a></cfif>
 					</td>
-					<td nowrap class="actions"><ul class="users"><li class="edit"><a title="#application.rbFactory.getKeyValue(session.rb,'user.edit')#" href="index.cfm?muraAction=cPrivateUsers.editAddress&userid=#URLEncodedFormat(rc.userid)#&siteid=#URLEncodedFormat(rc.siteid)#&routeID=#rc.routeid#&addressID=#rsAddresses.addressID#"><i class="icon-pencil"></i></a></li>
-					<cfif rsAddresses.isPrimary neq 1><li class="delete"><a title="Delete" href="index.cfm?muraAction=cPrivateUsers.updateAddress&userid=#URLEncodedFormat(rc.userid)#&action=delete&siteid=#URLEncodedFormat(rc.siteid)#&routeID=#URLEncodedFormat(rc.routeid)#&addressID=#rsAddresses.addressID#" onclick="return confirmDialog('#jsStringFormat(application.rbFactory.getKeyValue(session.rb,'user.deleteaddressconfirm'))#',this.href);"><i class="icon-remove-sign"></i></a></li><cfelse><li class="delete disabled">#application.rbFactory.getKeyValue(session.rb,'user.delete')#</li></cfif></ul></td>
+					<td nowrap class="actions"><ul class="users"><li class="edit"><a title="#application.rbFactory.getKeyValue(session.rb,'user.edit')#" href="./?muraAction=cPrivateUsers.editAddress&userid=#URLEncodedFormat(rc.userid)#&siteid=#URLEncodedFormat(rc.siteid)#&routeID=#rc.routeid#&addressID=#rsAddresses.addressID#"><i class="icon-pencil"></i></a></li>
+					<cfif rsAddresses.isPrimary neq 1><li class="delete"><a title="Delete" href="./?muraAction=cPrivateUsers.updateAddress&userid=#URLEncodedFormat(rc.userid)#&action=delete&siteid=#URLEncodedFormat(rc.siteid)#&routeID=#URLEncodedFormat(rc.routeid)#&addressID=#rsAddresses.addressID#" onclick="return confirmDialog('#jsStringFormat(application.rbFactory.getKeyValue(session.rb,'user.deleteaddressconfirm'))#',this.href);"><i class="icon-remove-sign"></i></a></li><cfelse><li class="delete disabled">#application.rbFactory.getKeyValue(session.rb,'user.delete')#</li></cfif></ul></td>
 				</tr>
 				</cfloop>
 				</table>

@@ -370,7 +370,7 @@ if(len($.siteConfig('customTagGroups'))){
 
 		<cfset deletable=((item.getParentID() neq '00000000000000000000000000000000001' and application.settingsManager.getSite(item.getSiteID()).getLocking() neq 'all') or (item.getParentID() eq '00000000000000000000000000000000001' and application.settingsManager.getSite(item.getSiteID()).getLocking() eq 'none')) and (verdict eq 'editor')  and item.getIsLocked() neq 1 and item.getContentID() neq '00000000000000000000000000000000001'>
 
-		<cfset editLink="index.cfm?muraAction=cArch.edit&contenthistid=#item.getContentHistID()#&contentid=#item.getContentID()#&type=#item.gettype()#&parentid=#item.getParentID()#&topid=#URLEncodedFormat(topID)#&siteid=#URLEncodedFormat(item.getSiteid())#&moduleid=#item.getmoduleid()#&startrow=#$.event('startrow')#">
+		<cfset editLink="./?muraAction=cArch.edit&contenthistid=#item.getContentHistID()#&contentid=#item.getContentID()#&type=#item.gettype()#&parentid=#item.getParentID()#&topid=#URLEncodedFormat(topID)#&siteid=#URLEncodedFormat(item.getSiteid())#&moduleid=#item.getmoduleid()#&startrow=#$.event('startrow')#">
 
 		<!---
 		<cfif $.event('report') eq "mydrafts">
@@ -412,16 +412,16 @@ if(len($.siteConfig('customTagGroups'))){
 							</cfcase>
 						</cfswitch>
 						 
-						 <li class="version-history"><a title="Version History" href="index.cfm?muraAction=cArch.hist&contentid=#item.getContentID()#&type=#item.gettype()#&parentid=#item.getparentID()#&topid=#topid#&siteid=#URLEncodedFormat(item.getSiteID())#&moduleid=#item.getmoduleid()#&startrow=#$.event('startrow')#"><i class="icon-book"></i></a></li>
+						 <li class="version-history"><a title="Version History" href="./?muraAction=cArch.hist&contentid=#item.getContentID()#&type=#item.gettype()#&parentid=#item.getparentID()#&topid=#topid#&siteid=#URLEncodedFormat(item.getSiteID())#&moduleid=#item.getmoduleid()#&startrow=#$.event('startrow')#"><i class="icon-book"></i></a></li>
 					      
 					    <cfif listFind(session.mura.memberships,'Admin;#application.settingsManager.getSite(item.getSiteID()).getPrivateUserPoolID()#;0') or listFind(session.mura.memberships,'S2')>
-					        <li class="permissions"><a title="#application.rbFactory.getKeyValue(session.rb,'sitemanager.permissions')#" href="index.cfm?muraAction=cPerm.main&contentid=#item.getContentID()#&type=#item.gettype()#&parentid=#item.getparentID()#&topid=#topID#&siteid=#URLEncodedFormat(item.getSiteID())#&moduleid=#item.getmoduleid()#&startrow=#$.event('startrow')#"><i class="icon-group"></i></a></li>
+					        <li class="permissions"><a title="#application.rbFactory.getKeyValue(session.rb,'sitemanager.permissions')#" href="./?muraAction=cPerm.main&contentid=#item.getContentID()#&type=#item.gettype()#&parentid=#item.getparentID()#&topid=#topID#&siteid=#URLEncodedFormat(item.getSiteID())#&moduleid=#item.getmoduleid()#&startrow=#$.event('startrow')#"><i class="icon-group"></i></a></li>
 					    <cfelse>
 							<li class="permissions disabled"><a><i class="icon-group"></i></a></li>
 						</cfif>
 					    
 					    <cfif deletable>
-					        <li class="delete"><a title="#application.rbFactory.getKeyValue(session.rb,'sitemanager.delete')#" href="index.cfm?muraAction=cArch.update&contentid=#item.getContentID()#&type=#item.gettype()#&action=deleteall&topid=#topID#&siteid=#URLEncodedFormat(item.getSiteID())#&moduleid=#item.getmoduleid()#&parentid=#URLEncodedFormat(item.getParentID())#&startrow=#$.event('startrow')#"<cfif listFindNoCase("Page,Portal,Calendar,Gallery,Link,File",item.gettype())>onclick="return confirmDialog('#jsStringFormat(application.rbFactory.getResourceBundle(session.rb).messageFormat(application.rbFactory.getKeyValue(session.rb,'sitemanager.content.deletecontentrecursiveconfirm'),item.getmenutitle()))#',this.href)"<cfelse>onclick="return confirmDialog('#jsStringFormat(application.rbFactory.getKeyValue(session.rb,'sitemanager.content.deletecontentconfirm'))#',this.href)"</cfif>>
+					        <li class="delete"><a title="#application.rbFactory.getKeyValue(session.rb,'sitemanager.delete')#" href="./?muraAction=cArch.update&contentid=#item.getContentID()#&type=#item.gettype()#&action=deleteall&topid=#topID#&siteid=#URLEncodedFormat(item.getSiteID())#&moduleid=#item.getmoduleid()#&parentid=#URLEncodedFormat(item.getParentID())#&startrow=#$.event('startrow')#"<cfif listFindNoCase("Page,Portal,Calendar,Gallery,Link,File",item.gettype())>onclick="return confirmDialog('#jsStringFormat(application.rbFactory.getResourceBundle(session.rb).messageFormat(application.rbFactory.getKeyValue(session.rb,'sitemanager.content.deletecontentrecursiveconfirm'),item.getmenutitle()))#',this.href)"<cfelse>onclick="return confirmDialog('#jsStringFormat(application.rbFactory.getKeyValue(session.rb,'sitemanager.content.deletecontentconfirm'))#',this.href)"</cfif>>
 							<i class="icon-remove-sign"></i></a></li>
 					    <cfelseif rc.locking neq 'all'>
 					        <li class="delete disabled"><i class="icon-remove-sign"></i></li>
@@ -457,7 +457,7 @@ if(len($.siteConfig('customTagGroups'))){
 			
 			<h2>
 				<cfif not listFindNoCase('none,read',verdict) or listFindNoCase('myapprovals,mysubmissions',$.event('report'))>
-					<a title="#application.rbFactory.getKeyValue(session.rb,'sitemanager.edit')#" class="draftprompt"  href="index.cfm?muraAction=cArch.edit&contenthistid=#item.getContentHistID()#&contentid=#item.getContentID()#&type=#item.gettype()#&parentid=#item.getParentID()#&topid=#URLEncodedFormat(topID)#&siteid=#URLEncodedFormat(item.getSiteid())#&moduleid=#item.getmoduleid()#&startrow=#$.event('startrow')#">#HTMLEditFormat(item.getMenuTitle())#
+					<a title="#application.rbFactory.getKeyValue(session.rb,'sitemanager.edit')#" class="draftprompt"  href="./?muraAction=cArch.edit&contenthistid=#item.getContentHistID()#&contentid=#item.getContentID()#&type=#item.gettype()#&parentid=#item.getParentID()#&topid=#URLEncodedFormat(topID)#&siteid=#URLEncodedFormat(item.getSiteid())#&moduleid=#item.getmoduleid()#&startrow=#$.event('startrow')#">#HTMLEditFormat(item.getMenuTitle())#
 						<!---
 						<cfif $.event('report') eq 'mydrafts'>
 							(

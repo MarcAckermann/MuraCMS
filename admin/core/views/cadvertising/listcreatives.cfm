@@ -75,7 +75,7 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 <cfif rc.rslist.recordcount>
 <cfoutput query="rc.rsList">
 	<tr>
-		<td class="var-width"><a title="#application.rbFactory.getKeyValue(session.rb,'advertising.edit')#" href="index.cfm?muraAction=cAdvertising.editCreative&userid=#rc.rslist.userid#&siteid=#URLEncodedFormat(rc.siteid)#&creativeid=#rc.rslist.creativeID#">#rc.rslist.name#</a></td>
+		<td class="var-width"><a title="#application.rbFactory.getKeyValue(session.rb,'advertising.edit')#" href="./?muraAction=cAdvertising.editCreative&userid=#rc.rslist.userid#&siteid=#URLEncodedFormat(rc.siteid)#&creativeid=#rc.rslist.creativeID#">#rc.rslist.name#</a></td>
 		<td class="var-width">#rc.rslist.company#</td>
 		<td>#application.rbFactory.getKeyValue(session.rb,'advertising.creativetype.#replace(rc.rslist.creativeType,' ','','all')#')#</td>
 		<td>#application.rbFactory.getKeyValue(session.rb,'advertising.mediatype.#rc.rslist.mediatype#')#</td>
@@ -92,7 +92,7 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 		<span>#application.rbFactory.getKeyValue(session.rb,'advertising.active')#</span>
 		</td>
 		<td class="actions"><ul class="creatives">
-		<li class="edit"><a title="#application.rbFactory.getKeyValue(session.rb,'advertising.edit')#" href="index.cfm?muraAction=cAdvertising.editCreative&userid=#rc.rslist.userid#&siteid=#URLEncodedFormat(rc.siteid)#&creativeid=#rc.rslist.creativeID#"><i class="icon-pencil"></i></a></li></ul>
+		<li class="edit"><a title="#application.rbFactory.getKeyValue(session.rb,'advertising.edit')#" href="./?muraAction=cAdvertising.editCreative&userid=#rc.rslist.userid#&siteid=#URLEncodedFormat(rc.siteid)#&creativeid=#rc.rslist.creativeID#"><i class="icon-pencil"></i></a></li></ul>
 		</td></tr>
 </cfoutput>
 <cfelse>

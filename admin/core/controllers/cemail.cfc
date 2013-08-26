@@ -122,7 +122,7 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 <cffunction name="deleteBounces" output="false">
 <cfargument name="rc">
 	<cfset variables.emailManager.deleteBounces(arguments.rc)>
-	<cflocation url="index.cfm?muraAction=cEmail.showAllBounces&siteid=#arguments.rc.siteid#">
+	<cflocation url="./?muraAction=cEmail.showAllBounces&siteid=#arguments.rc.siteid#">
 </cffunction>
 
 </cfcomponent>

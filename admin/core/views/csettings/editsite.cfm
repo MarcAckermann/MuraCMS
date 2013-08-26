@@ -51,9 +51,9 @@ to your own modified versions of Mura CMS.
 <h1>Site Settings</h1>
 <cfoutput>
   <cfif len(rc.siteid)>
-    <div id="nav-module-specific" class="btn-group"> <a class="btn" href="index.cfm?muraAction=cExtend.listSubTypes&siteid=#URLEncodedFormat(rc.siteid)#"><i class="icon-list-alt"></i> Class Extension Manager</a> <a  class="btn" href="index.cfm?muraAction=cTrash.list&siteID=#URLEncodedFormat(rc.siteid)#"><i class="icon-trash"></i> Trash Bin</a>
+    <div id="nav-module-specific" class="btn-group"> <a class="btn" href="./?muraAction=cExtend.listSubTypes&siteid=#URLEncodedFormat(rc.siteid)#"><i class="icon-list-alt"></i> Class Extension Manager</a> <a  class="btn" href="./?muraAction=cTrash.list&siteID=#URLEncodedFormat(rc.siteid)#"><i class="icon-trash"></i> Trash Bin</a>
       <cfif rc.action eq "updateFiles">
-        <a href="index.cfm?muraAction=cSettings.editSite&siteid=#URLEncodedFormat(rc.siteid)#"><i class="icon-pencil"></i> Edit Site</a>
+        <a href="./?muraAction=cSettings.editSite&siteid=#URLEncodedFormat(rc.siteid)#"><i class="icon-pencil"></i> Edit Site</a>
         <cfelseif application.configBean.getAllowAutoUpdates()>
         <a  class="btn" href="##" onclick="confirmDialog('WARNING: Do not update your site files unless you have backed up your current siteID directory.',function(){actionModal('index.cfm?muraAction=cSettings.editSite&siteid=#URLEncodedFormat(rc.siteid)#&action=updateFiles')});return false;"><i class="icon-bolt"></i> Update Site Files to Latest Version</a> 
 
@@ -67,7 +67,7 @@ to your own modified versions of Mura CMS.
 </cfoutput>
 <cfif rc.action neq "updateFiles">
   <cfoutput>
-    <form novalidate method ="post"  enctype="multipart/form-data" action="index.cfm?muraAction=cSettings.updateSite" name="form1"  onsubmit="return validate(this);">
+    <form novalidate method ="post"  enctype="multipart/form-data" action="./?muraAction=cSettings.updateSite" name="form1"  onsubmit="return validate(this);">
     <!---
 <cfhtmlhead text='<link rel="stylesheet" href="css/tab-view.css" type="text/css" media="screen">'>
 <cfhtmlhead text='<script type="text/javascript" src="assets/js/ajax.js"></script>'>

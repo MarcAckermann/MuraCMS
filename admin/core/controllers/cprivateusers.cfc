@@ -246,7 +246,7 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 	  	<cfset variables.userManager.createAddress(arguments.rc) /> 
 	  </cfif>
 	  
-	  <cflocation url="index.cfm?#rc.returnURL#" addtoken="false"/>
+	  <cflocation url="./?#rc.returnURL#" addtoken="false"/>
 </cffunction>
 	
 </cfcomponent>

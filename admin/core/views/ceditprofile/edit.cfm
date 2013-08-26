@@ -59,7 +59,7 @@ select * from rsSubTypes where subType <> 'Default'
 </cfif>
 <cfset tabLabelList=listAppend(tabLabelList,application.rbFactory.getKeyValue(session.rb,'user.advanced'))>
 <cfset tabList=listAppend(tabList,"tabAdvanced")>
-<form novalidate="novalidate" action="index.cfm?muraAction=cEditProfile.update" method="post" enctype="multipart/form-data" name="form1" class="columns" onsubmit="return validate(this);">
+<form novalidate="novalidate" action="./?muraAction=cEditProfile.update" method="post" enctype="multipart/form-data" name="form1" class="columns" onsubmit="return validate(this);">
 <cfoutput><h1>#application.rbFactory.getKeyValue(session.rb,'user.editprofile')#</h1>
 
 	<cfif not structIsEmpty(rc.userBean.getErrors())>
@@ -183,7 +183,7 @@ select * from rsSubTypes where subType <> 'Default'
 		<div class="fieldset">
 
 			<div class="control-group">
-				<ul class="navTask nav nav-pills"><li><a href="index.cfm?muraAction=cPrivateUsers.editAddress&userID=#session.mura.userID#&siteid=#rc.userBean.getsiteid()#&routeID=#rc.routeid#&addressID=&returnURL=#urlencodedformat(cgi.query_string)#">#application.rbFactory.getKeyValue(session.rb,'user.addnewaddress')#</a></li></ul>
+				<ul class="navTask nav nav-pills"><li><a href="./?muraAction=cPrivateUsers.editAddress&userID=#session.mura.userID#&siteid=#rc.userBean.getsiteid()#&routeID=#rc.routeid#&addressID=&returnURL=#urlencodedformat(cgi.query_string)#">#application.rbFactory.getKeyValue(session.rb,'user.addnewaddress')#</a></li></ul>
 				
 		      <cfset rsAddresses=rc.userBean.getAddresses()>
 				<cfif rsAddresses.recordcount>
@@ -204,8 +204,8 @@ select * from rsSubTypes where subType <> 'Default'
 					<cfif rsAddresses.addressURL neq ''>#application.rbFactory.getKeyValue(session.rb,'user.website')#: <a href="#rsAddresses.addressURL#" target="_blank">#rsAddresses.addressURL#</a><br/></cfif>
 					<cfif rsAddresses.addressEmail neq ''>#application.rbFactory.getKeyValue(session.rb,'user.email')#: <a href="mailto:#rsAddresses.addressEmail#">#rsAddresses.addressEmail#</a></cfif>
 					</td>
-					<td nowrap class="actions"><ul class="users"><li class="edit"><a title="#application.rbFactory.getKeyValue(session.rb,'user.edit')#" href="index.cfm?muraAction=cPrivateUsers.editAddress&userID=#session.mura.userID#&siteid=#rc.userBean.getsiteid()#&routeID=#rc.routeid#&addressID=#rsAddresses.addressID#&returnURL=#urlencodedformat(cgi.query_string)#"><i class="icon-pencil"></i></a></li>
-					<cfif rsAddresses.isPrimary neq 1><li class="delete"><a title="Delete" href="index.cfm?muraAction=cPrivateUsers.updateAddress&userID=#session.mura.userID#&action=delete&siteid=#rc.userBean.getsiteid()#&routeID=#rc.routeid#&addressID=#rsAddresses.addressID#&returnURL=#urlencodedformat(cgi.query_string)#" onclick="return confirmDialog('#jsStringFormat(application.rbFactory.getKeyValue(session.rb,'user.deleteaddressconfirm'))#',this.href);"><i class="icon-remove-sign"></i></a></li><cfelse><li class="delete disabled">#application.rbFactory.getKeyValue(session.rb,'user.delete')#</li></cfif></ul></td>
+					<td nowrap class="actions"><ul class="users"><li class="edit"><a title="#application.rbFactory.getKeyValue(session.rb,'user.edit')#" href="./?muraAction=cPrivateUsers.editAddress&userID=#session.mura.userID#&siteid=#rc.userBean.getsiteid()#&routeID=#rc.routeid#&addressID=#rsAddresses.addressID#&returnURL=#urlencodedformat(cgi.query_string)#"><i class="icon-pencil"></i></a></li>
+					<cfif rsAddresses.isPrimary neq 1><li class="delete"><a title="Delete" href="./?muraAction=cPrivateUsers.updateAddress&userID=#session.mura.userID#&action=delete&siteid=#rc.userBean.getsiteid()#&routeID=#rc.routeid#&addressID=#rsAddresses.addressID#&returnURL=#urlencodedformat(cgi.query_string)#" onclick="return confirmDialog('#jsStringFormat(application.rbFactory.getKeyValue(session.rb,'user.deleteaddressconfirm'))#',this.href);"><i class="icon-remove-sign"></i></a></li><cfelse><li class="delete disabled">#application.rbFactory.getKeyValue(session.rb,'user.delete')#</li></cfif></ul></td>
 				</tr>
 				</cfloop>
 				</table>

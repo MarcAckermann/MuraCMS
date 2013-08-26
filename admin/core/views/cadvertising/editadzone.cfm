@@ -51,7 +51,7 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 
 #application.utility.displayErrors(rc.adZoneBean.getErrors())#
 
-<form <cfif rc.adZoneID neq ''>class="fieldset-wrap"</cfif> novalidate="novalidate" name="form1" method="post" action="index.cfm?muraAction=cAdvertising.updateAdZone&siteid=#URLEncodedFormat(rc.siteid)#" onsubmit="return false;">
+<form <cfif rc.adZoneID neq ''>class="fieldset-wrap"</cfif> novalidate="novalidate" name="form1" method="post" action="./?muraAction=cAdvertising.updateAdZone&siteid=#URLEncodedFormat(rc.siteid)#" onsubmit="return false;">
 
 
 <cfif rc.adZoneID neq ''>
