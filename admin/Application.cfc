@@ -353,7 +353,7 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 							len(request.context.muraAction) 
 							and not listfindNoCase("clogin,cMessage,cEditprofile",listLast(listFirst(request.context.muraAction,"."),":") )
 						)){
-				location(url="#application.configBean.getContext()#/admin/index.cfm?muraAction=cMessage.noaccess", addtoken="false");
+				location(url="#application.configBean.getContext()#/admin/?muraAction=cMessage.noaccess", addtoken="false");
 			}
 		}
 		

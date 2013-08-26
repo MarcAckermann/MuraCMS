@@ -1178,7 +1178,7 @@ function CountDown() {
 		if(document.getElementById('clock').innerHTML != undefined) {
 			document.getElementById('clock').innerHTML = 0 + ':' + 0 + ':' + 0;
 		}
-		//location.href=context + "/admin/index.cfm?muraAction=cLogin.logout"
+		//location.href=context + "/admin/?muraAction=cLogin.logout"
 	}
 }
 

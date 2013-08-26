@@ -410,7 +410,7 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 		<a <cfif arguments.ajax> 
 			href="" onclick="return siteManager.loadSiteManagerInTab(function(){siteManager.loadSiteManager('#arguments.crumbdata[I].siteid#','#arguments.crumbdata[I].contentid#','00000000000000000000000000000000000','','','#arguments.crumbdata[I].type#',1)});"
 		<cfelse>
-			href="#application.configBean.getContext()#/admin/index.cfm?muraAction=cArch.list&siteid=#arguments.crumbdata[I].siteid#&topid=#arguments.crumbdata[I].contentid#&moduleid=00000000000000000000000000000000000&activeTab=0"
+			href="#application.configBean.getContext()#/admin/?muraAction=cArch.list&siteid=#arguments.crumbdata[I].siteid#&topid=#arguments.crumbdata[I].contentid#&moduleid=00000000000000000000000000000000000&activeTab=0"
 		</cfif>>#HTMLEditformat(arguments.crumbdata[I].menutitle)#</a> &raquo;</li>
 		</cfloop>
 		<cfsilent>
@@ -424,7 +424,7 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 		<a <cfif arguments.ajax> 
 			href="" onclick="return siteManager.loadSiteManagerInTab(function(){siteManager.loadSiteManager('#arguments.crumbdata[1].siteid#','#arguments.crumbdata[1].contentid#','00000000000000000000000000000000000','','','#arguments.crumbdata[1].type#',1)});"
 		<cfelse>
-			href="#application.configBean.getContext()#/admin/index.cfm?muraAction=cArch.list&siteid=#arguments.crumbdata[1].siteid#&topid=#arguments.crumbdata[1].contentid#&moduleid=00000000000000000000000000000000000&activeTab=0"
+			href="#application.configBean.getContext()#/admin/?muraAction=cArch.list&siteid=#arguments.crumbdata[1].siteid#&topid=#arguments.crumbdata[1].contentid#&moduleid=00000000000000000000000000000000000&activeTab=0"
 		</cfif>>#HTMLEditformat(arguments.crumbdata[1].menutitle)#</a></strong></li></ul>
 		</cfoutput>
 		</cfsavecontent>
@@ -1233,7 +1233,7 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 				<cfset showEditable=arguments.hasConfigurator and listFindNoCase("editor,author",arguments.assignmentPerm)>		
 				<cfif showEditable>
 					<cfset editableControl.class="editablePlugin">
-					<cfset editableControl.editLink = "#variables.$.globalConfig('context')#/admin/index.cfm?muraAction=cArch.frontEndConfigurator">
+					<cfset editableControl.editLink = "#variables.$.globalConfig('context')#/admin/?muraAction=cArch.frontEndConfigurator">
 					<cfset editableControl.isConfigurator=true>
 				</cfif>
 			</cfif>
@@ -1244,7 +1244,7 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 				<cfset showEditable=this.showEditableObjects and listFindNoCase("editor,author",arguments.assignmentPerm)>		
 				<cfif showEditable>
 					<cfset editableControl.class="editableFeed">
-					<cfset editableControl.editLink =  "#variables.$.globalConfig('context')#/admin/index.cfm?muraAction=cArch.frontEndConfigurator">
+					<cfset editableControl.editLink =  "#variables.$.globalConfig('context')#/admin/?muraAction=cArch.frontEndConfigurator">
 					<cfset editableControl.isConfigurator=true>
 				</cfif>
 			</cfif>
@@ -1254,7 +1254,7 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 				<cfset showEditable=this.showEditableObjects and listFindNoCase("editor,author",arguments.assignmentPerm)>		
 				<cfif showEditable>
 					<cfset editableControl.class="editableCategorySummary">
-					<cfset editableControl.editLink =  "#variables.$.globalConfig('context')#/admin/index.cfm?muraAction=cArch.frontEndConfigurator">
+					<cfset editableControl.editLink =  "#variables.$.globalConfig('context')#/admin/?muraAction=cArch.frontEndConfigurator">
 					<cfset editableControl.isConfigurator=true>
 				</cfif>
 			</cfif>
@@ -1264,7 +1264,7 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 				<cfset showEditable=this.showEditableObjects and listFindNoCase("editor,author",arguments.assignmentPerm)>		
 				<cfif showEditable>
 					<cfset editableControl.class="editableTagCloud">
-					<cfset editableControl.editLink =  "#variables.$.globalConfig('context')#/admin/index.cfm?muraAction=cArch.frontEndConfigurator">
+					<cfset editableControl.editLink =  "#variables.$.globalConfig('context')#/admin/?muraAction=cArch.frontEndConfigurator">
 					<cfset editableControl.isConfigurator=true>
 				</cfif>
 			</cfif>
@@ -1279,7 +1279,7 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 				<cfset showEditable=this.showEditableObjects and listFindNoCase("editor,author",arguments.assignmentPerm)>		
 				<cfif showEditable>
 					<cfset editableControl.class="editableRelatedContent">
-					<cfset editableControl.editLink =  "#variables.$.globalConfig('context')#/admin/index.cfm?muraAction=cArch.frontEndConfigurator">
+					<cfset editableControl.editLink =  "#variables.$.globalConfig('context')#/admin/?muraAction=cArch.frontEndConfigurator">
 					<cfset editableControl.isConfigurator=true>
 				</cfif>
 			</cfif>
@@ -1294,7 +1294,7 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 					<cfelse>
 						<cfset editableControl.class="editableForm">
 					</cfif>
-					<cfset editableControl.editLink = "#variables.$.globalConfig('context')#/admin/index.cfm?muraAction=cArch.edit">
+					<cfset editableControl.editLink = "#variables.$.globalConfig('context')#/admin/?muraAction=cArch.edit">
 					<cfif len(variables.$.event('previewID'))>
 						<cfset editableControl.editLink = editableControl.editLink & "&amp;contenthistid=" & variables.$.event('previewID')>
 					<cfelse>

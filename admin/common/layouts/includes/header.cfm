@@ -74,9 +74,9 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 	          </a>--->
 	              
               <cfif session.showdashboard>
-                  <cfset baseURL="#application.configBean.getContext()#/admin/index.cfm?muraAction=cDashboard.main">
+                  <cfset baseURL="#application.configBean.getContext()#/admin/?muraAction=cDashboard.main">
               <cfelse>
-                   <cfset baseURL="#application.configBean.getContext()#/admin/index.cfm?muraAction=cArch.list&amp;moduleID=00000000000000000000000000000000000&amp;topID=00000000000000000000000000000000001">
+                   <cfset baseURL="#application.configBean.getContext()#/admin/?muraAction=cArch.list&amp;moduleID=00000000000000000000000000000000000&amp;topID=00000000000000000000000000000000001">
                </cfif> 
 	         
 	          <div class="nav-collapse">
@@ -112,18 +112,18 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 	                    </a>
 		                    <ul class="dropdown-menu">
 		                    <li>
-		                        <a href="#application.configBean.getContext()#/admin/index.cfm?muraAction=cSettings.list"><i class="icon-cogs"></i> #application.rbFactory.getKeyValue(session.rb,"layout.globalsettings")#</a>
+		                        <a href="#application.configBean.getContext()#/admin/?muraAction=cSettings.list"><i class="icon-cogs"></i> #application.rbFactory.getKeyValue(session.rb,"layout.globalsettings")#</a>
 		                    </li>
 		                    <li>
-		                        <a href="#application.configBean.getContext()#/admin/index.cfm?muraAction=cSettings.list##tabPlugins"><i class="icon-cog"></i> #application.rbFactory.getKeyValue(session.rb,"layout.globalsettings-plugins")#</a>
+		                        <a href="#application.configBean.getContext()#/admin/?muraAction=cSettings.list##tabPlugins"><i class="icon-cog"></i> #application.rbFactory.getKeyValue(session.rb,"layout.globalsettings-plugins")#</a>
 		                    </li>
 		                    <li>
-		                      <a href="#application.configBean.getContext()#/admin/index.cfm?muraAction=cSettings.editSite&siteid="><i class="icon-plus-sign"></i> #application.rbFactory.getKeyValue(session.rb,"layout.addsite")#</a>
+		                      <a href="#application.configBean.getContext()#/admin/?muraAction=cSettings.editSite&siteid="><i class="icon-plus-sign"></i> #application.rbFactory.getKeyValue(session.rb,"layout.addsite")#</a>
 		                    </li>
-		                    <li><a href="#application.configBean.getContext()#/admin/index.cfm?muraAction=cSettings.sitecopyselect"><i class="icon-copy"></i> #application.rbFactory.getKeyValue(session.rb,"layout.sitecopytool")#</a>
+		                    <li><a href="#application.configBean.getContext()#/admin/?muraAction=cSettings.sitecopyselect"><i class="icon-copy"></i> #application.rbFactory.getKeyValue(session.rb,"layout.sitecopytool")#</a>
 		                    </li>
 		                   
-		                     	<li><a href="#application.configBean.getContext()#/admin/index.cfm?#urlEncodedFormat(application.appreloadkey)#&reload=#urlEncodedFormat(application.appreloadkey)#" onclick="return actionModal(this.href);"><i class="icon-refresh"></i> #application.rbFactory.getKeyValue(session.rb,"layout.reloadapplication")#</a></li>
+		                     	<li><a href="#application.configBean.getContext()#/admin/?#urlEncodedFormat(application.appreloadkey)#&reload=#urlEncodedFormat(application.appreloadkey)#" onclick="return actionModal(this.href);"><i class="icon-refresh"></i> #application.rbFactory.getKeyValue(session.rb,"layout.reloadapplication")#</a></li>
 		                     	
 		                     	<cfif not isBoolean(application.configBean.getAllowAutoUpdates()) or application.configBean.getAllowAutoUpdates()>
 		                     	<li>
@@ -156,8 +156,8 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 	                 		<b class="caret"></b></a>
 		                 <ul class="dropdown-menu">
 		                 <li>
-		                 <a href="#application.configBean.getContext()#/admin/index.cfm?muraAction=cEditProfile.edit"><i class="icon-pencil"></i> #application.rbFactory.getKeyValue(session.rb,"layout.editprofile")#</a></li>
-		                 <li id="navLogout"><a href="#application.configBean.getContext()#/admin/index.cfm?muraAction=cLogin.logout"><i class="icon-signout"></i> #application.rbFactory.getKeyValue(session.rb,"layout.logout")#</a></li>
+		                 <a href="#application.configBean.getContext()#/admin/?muraAction=cEditProfile.edit"><i class="icon-pencil"></i> #application.rbFactory.getKeyValue(session.rb,"layout.editprofile")#</a></li>
+		                 <li id="navLogout"><a href="#application.configBean.getContext()#/admin/?muraAction=cLogin.logout"><i class="icon-signout"></i> #application.rbFactory.getKeyValue(session.rb,"layout.logout")#</a></li>
 		                 </ul>
 	                 </li>
 	               
@@ -205,12 +205,12 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 	 				
 	 				<cfif session.showdashboard>
 	 				<li<cfif  rc.originalcircuit eq 'cDashboard'> class="active"</cfif>>
-	 					<a href="#application.configBean.getContext()#/admin/index.cfm?muraAction=cDashboard.main&siteid=#session.siteid#&span=#session.dashboardSpan#"> <i class="icon-dashboard"></i><span>#application.rbFactory.getKeyValue(session.rb,"layout.dashboard")#</span></a>
+	 					<a href="#application.configBean.getContext()#/admin/?muraAction=cDashboard.main&siteid=#session.siteid#&span=#session.dashboardSpan#"> <i class="icon-dashboard"></i><span>#application.rbFactory.getKeyValue(session.rb,"layout.dashboard")#</span></a>
 	 				</li>
 	 				</cfif>
 	 				
 	 				<li <cfif rc.originalcircuit eq 'cArch' and not listFind('00000000000000000000000000000000003,00000000000000000000000000000000004',rc.moduleID) and not (rc.originalfuseaction eq 'imagedetails' and isDefined('url.userID'))> class="active"</cfif>>
-	 					<a href="#application.configBean.getContext()#/admin/index.cfm?muraAction=cArch.list&siteid=#session.siteid#&moduleid=00000000000000000000000000000000000">
+	 					<a href="#application.configBean.getContext()#/admin/?muraAction=cArch.list&siteid=#session.siteid#&moduleid=00000000000000000000000000000000000">
 	 						<i class="icon-list-alt"></i> <span>#application.rbFactory.getKeyValue(session.rb,"layout.sitemanager")#</span>
 	 					</a>	    				
 	 				</li>
@@ -230,15 +230,15 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 		 					<cfparam name="rc.userid" default="">
 		 					<ul class="dropdown-menu">
 		 						<cfif listFind(session.mura.memberships,'Admin;#application.settingsManager.getSite(session.siteid).getPrivateUserPoolID()#;0') or listFind(session.mura.memberships,'S2')>
-			 						<li <cfif request.action eq "core:cprivateusers.list" or (rc.originalcircuit eq 'cprivateusers' and len(rc.userid))> class="active"</cfif>><a href="#application.configBean.getContext()#/admin/index.cfm?muraAction=cPrivateUsers.list&siteid=#session.siteid#"><i class="icon-group"></i> #application.rbFactory.getKeyValue(session.rb,"layout.viewadministrativeusers")#</a></li>
-				 					<li<cfif request.action eq "core:cprivateusers.edituser" and not len(rc.userID)> class="active"</cfif>><a href="#application.configBean.getContext()#/admin/index.cfm?muraAction=cPrivateUsers.edituser&siteid=#session.siteid#&userid="><i class="icon-plus-sign"></i> #application.rbFactory.getKeyValue(session.rb,"layout.addadministrativeuser")#</a></li>
-				 					<li class="last<cfif request.action eq "core:cprivateusers.editgroup" and not len(rc.userID)> active</cfif>"><a href="#application.configBean.getContext()#/admin/index.cfm?muraAction=cPrivateUsers.editgroup&siteid=#session.siteid#&userid="><i class="icon-plus-sign"></i> #application.rbFactory.getKeyValue(session.rb,"layout.addadministrativegroup")#</a></li>
+			 						<li <cfif request.action eq "core:cprivateusers.list" or (rc.originalcircuit eq 'cprivateusers' and len(rc.userid))> class="active"</cfif>><a href="#application.configBean.getContext()#/admin/?muraAction=cPrivateUsers.list&siteid=#session.siteid#"><i class="icon-group"></i> #application.rbFactory.getKeyValue(session.rb,"layout.viewadministrativeusers")#</a></li>
+				 					<li<cfif request.action eq "core:cprivateusers.edituser" and not len(rc.userID)> class="active"</cfif>><a href="#application.configBean.getContext()#/admin/?muraAction=cPrivateUsers.edituser&siteid=#session.siteid#&userid="><i class="icon-plus-sign"></i> #application.rbFactory.getKeyValue(session.rb,"layout.addadministrativeuser")#</a></li>
+				 					<li class="last<cfif request.action eq "core:cprivateusers.editgroup" and not len(rc.userID)> active</cfif>"><a href="#application.configBean.getContext()#/admin/?muraAction=cPrivateUsers.editgroup&siteid=#session.siteid#&userid="><i class="icon-plus-sign"></i> #application.rbFactory.getKeyValue(session.rb,"layout.addadministrativegroup")#</a></li>
 				 					  
 
 					 				<li class="divider"></li>
 					 				</cfif>
 					 				<cfif application.settingsManager.getSite(session.siteid).getextranet() and  application.permUtility.getModulePerm("00000000000000000000000000000000008","#session.siteid#")>
-					 					 <li <cfif request.action eq 'core:cpublicusers.list' or (rc.originalcircuit eq 'cPerm' and  rc.moduleid eq '00000000000000000000000000000000008') or (rc.originalcircuit eq 'cpublicusers' and len(rc.userid))>class="active"</cfif>><a href="#application.configBean.getContext()#/admin/index.cfm?muraAction=cPublicUsers.list&siteid=#session.siteid#"><i class="icon-group"></i> #application.rbFactory.getKeyValue(session.rb,"user.viewsitemembers")#</a>
+					 					 <li <cfif request.action eq 'core:cpublicusers.list' or (rc.originalcircuit eq 'cPerm' and  rc.moduleid eq '00000000000000000000000000000000008') or (rc.originalcircuit eq 'cpublicusers' and len(rc.userid))>class="active"</cfif>><a href="#application.configBean.getContext()#/admin/?muraAction=cPublicUsers.list&siteid=#session.siteid#"><i class="icon-group"></i> #application.rbFactory.getKeyValue(session.rb,"user.viewsitemembers")#</a>
 					 					</li>
 						 				 <li<cfif request.action eq "core:cpublicusers.edituser" and not len(rc.userID)> class="active"</cfif>><a href="index.cfm?muraAction=cPublicUsers.edituser&siteid=#URLEncodedFormat(rc.siteid)#&userid="><i class="icon-plus-sign"></i> #application.rbFactory.getKeyValue(session.rb,'user.addmember')#</a></li>
 						 				<li<cfif request.action eq "core:cpublicusers.editgroup" and not len(rc.userID)> class="active"</cfif>><a href="index.cfm?muraAction=cPublicUsers.editgroup&siteid=#URLEncodedFormat(rc.siteid)#&userid="><i class="icon-plus-sign"></i> #application.rbFactory.getKeyValue(session.rb,'user.addmembergroup')#</a></li>
@@ -259,18 +259,18 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 		 				<ul class="dropdown-menu">
 		 					<cfif listFind(session.mura.memberships,'S2')>
 		 				 	<li>
-		 						<a href="#application.configBean.getContext()#/admin/index.cfm?muraAction=cSettings.editSite&siteid=#session.siteid#">
+		 						<a href="#application.configBean.getContext()#/admin/?muraAction=cSettings.editSite&siteid=#session.siteid#">
 		 							<i class="icon-pencil"></i> #application.rbFactory.getKeyValue(session.rb,"layout.editcurrentsite")#
 		 						</a>
 		 					</li>
 		 					</cfif>
 		 					<li <cfif (rc.originalcircuit eq 'cPerm' and  rc.moduleid eq '00000000000000000000000000000000000')>class='active'</cfif>>
-		 					   	<a href="#application.configBean.getContext()#/admin/index.cfm?muraAction=cPerm.module&contentid=00000000000000000000000000000000000&siteid=#session.siteid#&moduleid=00000000000000000000000000000000000">
+		 					   	<a href="#application.configBean.getContext()#/admin/?muraAction=cPerm.module&contentid=00000000000000000000000000000000000&siteid=#session.siteid#&moduleid=00000000000000000000000000000000000">
 		 					   		<i class="icon-group"></i> #application.rbFactory.getKeyValue(session.rb,"layout.permissions")#
 		 					   	</a>
 		 					</li>
 		 					<li <cfif rc.originalcircuit eq 'cChain'>class='active'</cfif>>
-		 					   	<a href="#application.configBean.getContext()#/admin/index.cfm?muraAction=cChain.list&siteid=#session.siteid#">
+		 					   	<a href="#application.configBean.getContext()#/admin/?muraAction=cChain.list&siteid=#session.siteid#">
 		 					   		<i class="icon-group"></i> #application.rbFactory.getKeyValue(session.rb,"layout.approvalchains")#
 		 					   	</a>
 		 					</li>
@@ -283,7 +283,7 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 		 					<a href="index.cfm?muraAction=cExtend.listSubTypes&siteid=#URLEncodedFormat(rc.siteid)#"><i class="icon-wrench"></i> Class Extension Manager</a>
 			 					<ul class="dropdown-menu">
 				 					<cfloop query="rsExts">
-				 						<li><a href="#application.configBean.getContext()#/admin/index.cfm?muraAction=cExtend.listSets&subTypeID=#rsExts.subtypeID#&siteid=#URLEncodedFormat(rc.siteid)#">
+				 						<li><a href="#application.configBean.getContext()#/admin/?muraAction=cExtend.listSets&subTypeID=#rsExts.subtypeID#&siteid=#URLEncodedFormat(rc.siteid)#">
 				 							<i class="icon-cog"></i> 
 				 							<cfif rsExts.type eq 1>Group<cfelseif rsExts.type eq 2>User<cfelse>#HTMLEditFormat(rsExts.type)#</cfif>/#HTMLEditFormat(rsExts.subtype)#	
 				 						</a></li>
@@ -291,7 +291,7 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 				 					<cfif rsExts.recordcount>
 				 						<li class="divider"></li>
 				 					</cfif>
-				 					 <li><a href="#application.configBean.getContext()#/admin/index.cfm?muraAction=cExtend.editSubType&subTypeID=&siteid=#URLEncodedFormat(rc.siteid)#"><i class="icon-plus-sign"></i> #application.rbFactory.getKeyValue(session.rb,"layout.addclassextension")#</a>
+				 					 <li><a href="#application.configBean.getContext()#/admin/?muraAction=cExtend.editSubType&subTypeID=&siteid=#URLEncodedFormat(rc.siteid)#"><i class="icon-plus-sign"></i> #application.rbFactory.getKeyValue(session.rb,"layout.addclassextension")#</a>
 			 					</ul>	
 		 					</li>
 
@@ -302,7 +302,7 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 		 					</li>
 
 							<li>
-		 						<a href="#application.configBean.getContext()#/admin/index.cfm?muraAction=cSettings.editSite&siteid=#session.siteid###tabBundles">
+		 						<a href="#application.configBean.getContext()#/admin/?muraAction=cSettings.editSite&siteid=#session.siteid###tabBundles">
 		 							<i class="icon-download-alt"></i> Deploy Site Bundle
 		 						</a>
 		 					</li>

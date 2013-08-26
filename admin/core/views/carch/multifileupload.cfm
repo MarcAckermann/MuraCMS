@@ -471,7 +471,7 @@ $(function () {
 
     // Initialize the jQuery File Upload widget:
     $('##fileupload').fileupload(
-        {url:'#application.configBean.getContext()#/admin/index.cfm',
+        {url:'#application.configBean.getContext()#/admin/',
         getFilesFromResponse: function (data) {
                 if (data.result && $.isArray(data.result.files)) {
                     return data.result.files;

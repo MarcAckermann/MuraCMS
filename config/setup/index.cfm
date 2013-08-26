@@ -126,7 +126,7 @@ to your own modified versions of Mura CMS.
   <cfset cleanIni( settingsPath ) />
   --->
   <!--- cflocate to the admin --->
-  <cflocation url="#context#/admin/index.cfm?appreload" addtoken="false" />
+  <cflocation url="#context#/admin/?appreload" addtoken="false" />
 </cfif>
 <!--- run save process --->
 <cfif isDefined( "FORM.#application.setupSubmitButton#" )>
