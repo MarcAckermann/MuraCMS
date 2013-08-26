@@ -1266,8 +1266,8 @@ buttons: {
 
 				icon.removeClass('hasChildren closed');
 				icon.addClass('hasChildren open');
-				icon.append('<div id="mura-section-loading" class="spinner-wrap"></div>');
-				$("#mura-section-loading").spin(spinnerArgs2);
+				//icon.append('<div id="mura-section-loading" class="spinner-wrap"></div>');
+				//$("#mura-section-loading").spin(spinnerArgs2);
 
 				//d.find(".loadProgress").show();
 				$.get(url + "?" + pars, function(data) {
@@ -1275,8 +1275,8 @@ buttons: {
 						var r = eval("(" + data + ")");
 
 						//d.find(".loadProgress").remove();
-						$("#mura-section-loading").spin(false);
-						$("#mura-section-loading").remove();
+						//$("#mura-section-loading").spin(false);
+						//$("#mura-section-loading").remove();
 						node.find('.section:first').remove();
 						
 						node.append(r.html);
