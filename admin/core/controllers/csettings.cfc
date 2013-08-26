@@ -173,10 +173,10 @@ to your own modified versions of Mura CMS.
 	<cfif arguments.rc.action eq 'Delete'>
 			<cfset variables.settingsManager.delete(arguments.rc.siteid)  />
 			<cfset session.siteid="default" />
-			<cfset session.userFilesPath = "#application.configBean.getAssetPath()#/default/assets/",path="./">
+			<cfset session.userFilesPath = "#application.configBean.getAssetPath()#/default/assets/">
 			<cfset arguments.rc.siteid="default"/>
 	</cfif>
-	<cfset variables.fw.redirect(action="cSettings.list")>
+	<cfset variables.fw.redirect(action="cSettings.list",path="./")>
 </cffunction>
 
 <cffunction name="sitecopyselect" output="false">
