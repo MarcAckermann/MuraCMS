@@ -77,7 +77,7 @@ component extends="controller" {
 		bean=getBean('approvalChain').loadBy(chainID=arguments.rc.chainID).set(arguments.rc).save();
 
 		if(not bean.hasErrors()){
-			variables.fw.redirect(action="cchain.list",append="siteid");
+			variables.fw.redirect(action="cchain.list",append="siteid",path="./");
 		}
 	}
 
