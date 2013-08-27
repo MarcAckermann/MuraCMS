@@ -1346,7 +1346,7 @@ var spinnerArgs2 = {
 	// Corner roundness (0..1)
 	rotate: 0,
 	// The rotation offset
-	color: '#ccc',
+	color: '#000',
 	// #rgb or #rrggbb
 	speed: 0.9,
 	// Rounds per second

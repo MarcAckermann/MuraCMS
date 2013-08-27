@@ -158,6 +158,7 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 		<div class="mura">
 			<img src="#application.configBean.getContext()#/admin/assets/images/logo_small_feTools.png" id="frontEndToolsHandle" onclick="if (document.getElementById('frontEndTools').style.display == 'none') { createCookie('FETDISPLAY','',5); } else { createCookie('FETDISPLAY','none',5); } toggleAdminToolbar();" />
 			<div id="frontEndTools" style="display: #Cookie.fetDisplay#">
+			
 			<cfif $.currentUser().isLoggedIn()>
 				<ul id="tools-status">
 					<li id="adminStatus">
@@ -255,7 +256,7 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 				<cfif not request.contentBean.getIsNew()>
 					<cfif ListFindNoCase('editor,author',request.r.perm)>
 						<ul id="tools-version">
-							<li id="adminEditPage" class="dropdown"><a class="dropdown-toggle"><i class="icon-pencil"></i><!--- #application.rbFactory.getKeyValue(session.rb,'sitemanager.content.edit')# ---></a>
+							<li id="adminEditPage" class="dropdown"><a class="dropdown-toggle"><i class="icon-pencil"></i><b class="caret"></b><!--- #application.rbFactory.getKeyValue(session.rb,'sitemanager.content.edit')# ---></a>
 								<ul class="dropdown-menu">
 									<li id="adminFullEdit">
 										<a href="#variables.editLink#" #variables.targetHook#><i class="icon-pencil"></i>#application.rbFactory.getKeyValue(session.rb,'sitemanager.content.edit-full')#</a>
@@ -356,7 +357,7 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 				<!--- END CHANGESETS ---> 
 
 				<cfif listFind(session.mura.memberships,'S2IsPrivate')>
-				<ul id="adminSiteManager"><li><a href="#variables.adminLink#" title="#application.rbFactory.getKeyValue(session.rb,'layout.sitemanager')#" target="admin"><i class="icon-list-alt"></i><!---  #application.rbFactory.getKeyValue(session.rb,'layout.sitemanager')# ---></a></li></ul>
+				<ul id="adminSiteManager"><li><a href="#variables.adminLink#" title="#application.rbFactory.getKeyValue(session.rb,'layout.sitemanager')#" target="admin"><i class="icon-list-alt"></i> #application.rbFactory.getKeyValue(session.rb,'layout.sitemanager')#<!---  #application.rbFactory.getKeyValue(session.rb,'layout.sitemanager')# ---></a></li></ul>
 				</cfif>
 				
 			<cfif $.currentUser().isLoggedIn()>

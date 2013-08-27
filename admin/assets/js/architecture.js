@@ -1522,7 +1522,7 @@ buttons: {
 
 		var pars = $.extend({}, basePars, attributeParams);
 
-		$("#mura-quickEditor").html('<img class="loader" src="assets/images/ajax-loader-big.gif" />');
+		$("#mura-quickEditor").html('<img class="loader" src="assets/images/ajax-loader-alt.gif" />');
 
 		$.ajax({
 			  type: "POST",
@@ -1669,7 +1669,7 @@ buttons: {
 		};
 
 		//alert(JSON.stringify(categoryAssignment));
-		$("#mura-quickEditor").html('<img class="loader" src="assets/images/ajax-loader-big.gif" />');
+		$("#mura-quickEditor").html('<img class="loader" src="assets/images/ajax-loader-alt.gif" />');
 
 		$.ajax({
 		  type: "POST",
@@ -2378,7 +2378,7 @@ buttons: {
 
 
 quickEditTmpl = '<div class="mura-quickEdit" id="mura-quickEditor">';
-quickEditTmpl += '<img class="loader" src="assets/images/ajax-loader-big.gif" />';
+quickEditTmpl += '<img class="loader" src="assets/images/ajax-loader-alt.gif" />';
 quickEditTmpl += '</div>';
 
 $(document).ready(

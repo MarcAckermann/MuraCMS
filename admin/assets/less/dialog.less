@@ -57,48 +57,48 @@
 	@import url("../bootstrap/less/reset.less");
 	
 	// Grid system and page structure
-	@import url("../bootstrap/less/scaffolding.less");
-	@import url("../bootstrap/less/grid.less");
-	@import url("../bootstrap/less/layouts.less");
+	//@import url("../bootstrap/less/scaffolding.less");
+	//@import url("../bootstrap/less/grid.less");
+	//@import url("../bootstrap/less/layouts.less");
 	
 	// Base CSS
 	@import url("../bootstrap/less/type.less");
-	@import url("../bootstrap/less/code.less");
-	@import url("../bootstrap/less/forms.less");
-	@import url("../bootstrap/less/tables.less");
+	//@import url("../bootstrap/less/code.less");
+	//@import url("../bootstrap/less/forms.less");
+	//@import url("../bootstrap/less/tables.less");
 	
 	// Components: common
 	@import url("../fonts/font-awesome/less/font-awesome.less");
 	@import url("../bootstrap/less/dropdowns.less");
-	@import url("../bootstrap/less/wells.less");
-	@import url("../bootstrap/less/component-animations.less");
-	@import url("../bootstrap/less/close.less");
+	//@import url("../bootstrap/less/wells.less");
+	//@import url("../bootstrap/less/component-animations.less");
+	//@import url("../bootstrap/less/close.less");
 	
 	// Components: Buttons & Alerts
-	@import url("../bootstrap/less/buttons.less");
-	@import url("../bootstrap/less/button-groups.less");
-	@import url("../bootstrap/less/alerts.less"); // Note: alerts share common CSS with buttons and thus have styles in buttons.less
+	//@import url("../bootstrap/less/buttons.less");
+	//@import url("../bootstrap/less/button-groups.less");
+	//@import url("../bootstrap/less/alerts.less"); // Note: alerts share common CSS with buttons and thus have styles in buttons.less
 	
 	// Components: Nav
 	@import url("../bootstrap/less/navs.less");
 	@import url("../bootstrap/less/navbar.less");
-	@import url("../bootstrap/less/breadcrumbs.less");
-	@import url("../bootstrap/less/pagination.less");
-	@import url("../bootstrap/less/pager.less");
+	//@import url("../bootstrap/less/breadcrumbs.less");
+	//@import url("../bootstrap/less/pagination.less");
+	//@import url("../bootstrap/less/pager.less");
 	
 	// Components: Popovers
-	@import url("../bootstrap/less/modals.less");
-	@import url("../bootstrap/less/tooltip.less");
-	@import url("../bootstrap/less/popovers.less");
+	//@import url("../bootstrap/less/modals.less");
+	//@import url("../bootstrap/less/tooltip.less");
+	//@import url("../bootstrap/less/popovers.less");
 	
 	// Components: Misc
-	@import url("../bootstrap/less/thumbnails.less");
-	@import url("../bootstrap/less/media.less");
-	@import url("../bootstrap/less/labels-badges.less");
-	@import url("../bootstrap/less/progress-bars.less");
-	@import url("../bootstrap/less/accordion.less");
-	@import url("../bootstrap/less/carousel.less");
-	@import url("../bootstrap/less/hero-unit.less");
+	//@import url("../bootstrap/less/thumbnails.less");
+	//@import url("../bootstrap/less/media.less");
+	//@import url("../bootstrap/less/labels-badges.less");
+	//@import url("../bootstrap/less/progress-bars.less");
+	//@import url("../bootstrap/less/accordion.less");
+	//@import url("../bootstrap/less/carousel.less");
+	//@import url("../bootstrap/less/hero-unit.less");
 	
 	// Utility classes
 	@import url("../bootstrap/less/utilities.less"); // Has to be last to override when necessary
@@ -263,7 +263,7 @@
     // Commented out because it blows up dropdowns in IE
     //filter: e(%("progid:DXImageTransform.Microsoft.gradient(startColorstr='%d', endColorstr='%d', GradientType=0)",argb(@feToolBarBGStart),argb(@feToolBarBGEnd))); // IE9 and down
 	
-	min-height: 30px !important;
+	min-height: 31px !important;
 	position: fixed !important;
 	left: 0px !important;
 	top: 0px !important;
@@ -277,7 +277,7 @@
 }
 
 #frontEndTools > ul {
-	min-height: 30px !important;
+	min-height: 31px !important;
 	list-style: none !important;
 	margin: 0 !important;
 	padding: 0 !important;
@@ -286,8 +286,8 @@
 	float: left !important;
 	
 	&:first-child {
-		margin: 0 0 0 51px !important;
-		border-left: 1px solid hsla(0,0,.33,.85) !important;
+		margin: 0 0 0 36px !important;
+		border-left: 0 solid hsla(0,0,.33,.85) !important;
 	}
 	
 	&:last-child {
@@ -295,13 +295,19 @@
 	}
 }
 
+
+#frontEndTools > ul li#adminSiteManager, #frontEndTools > ul > li#adminSiteManager404 {
+	border-right: 0 !important;
+}
+
 #frontEndTools > ul > li {
+
 	color: rgba(255,255,255,.85) !important;
 	float: left !important;
-	line-height: 22px !important;
-	min-height: 22px !important;
+	line-height: 21px !important;
+	height: 23px !important;
 	margin: 0 !important;
-	padding: 4px 1px !important;
+	padding: 4px 0 !important;
 	list-style: none !important;
 	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
 	font-weight: normal !important;
@@ -313,7 +319,7 @@
 	overflow: visible !important;
 	
 	&:first-child {
-		border-left: 0 solid hsla(0,0,.19,.85) !important;
+		border-left: 0 !important;
 		padding-left: 1em !important;
 		}
 	
@@ -322,63 +328,65 @@
 		padding-right: 1em !important;
 		}
 	
-	/*
-&.dropdown > a > .caret {
-		margin: 12px 0 0 4px !important;
-		}
-*/
-}
-
-#frontEndTools > ul li#adminSiteManager, #frontEndTools > ul > li#adminSiteManager404 {
-	border-right: 0 !important;
-}
-
-#frontEndTools > ul > li > a {
+	a {
 	display: block !important;
 	color: @gray !important;
 	background: #4D4D4D !important;
 	background: rgba(255,255,255,.13) !important;
 	font-size: 12px !important;
-	line-height: 24px !important;
-	height: 20px !important;
+	height: 21px !important;
 	line-height: 22px !important;
-	padding: 1px 3px !important;
+	padding: 1px 5px !important;
 	text-decoration: none !important;
 	font-weight: normal !important;
 	font-style: normal !important;
 	outline: 0 !important;
 	text-shadow: 0 -1px 0 rgba(0,0,0,.9) !important;
-	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;	
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+	border-right: 1px solid rgba(255,255,255,.05) !important;
+	border-left: 1px solid rgba(0,0,0,.25) !important;
+	
+		> i {
+		color: #868686 !important;
+		font-size: 16px !important;
+		text-shadow: 0 -1px 0 rgba(0,0,0,.65) !important;
+		position: relative !important;
+		top: 2px !important;
+		width: 1em !important;
+		padding-top: 0 !important;
+		padding-bottom: 0 !important;
+		//line-height: .8 !important;
+		overflow: visible !important;	
+		}
+	
 	}
 	
-#frontEndTools > ul > li {
+	.caret {
+			border-top-color: rgba(255,255,255,.25) !important;
+			margin-left: 3px !important;
+			margin-right: 3px !important;
+			margin-top: 9px !important;
+		}
 	
 	&:first-child a {
 		.border-left-radius(3px);
+		border-left: 0 !important;
 		}
 	
 	&:last-child a {
 		.border-right-radius(3px);
+		border-right: 0 !important;
 		}
 }
-
-#frontEndTools > ul > li > a > i {
-	color: #868686 !important;
-	font-size: 16px !important;
-	text-shadow: 0 -1px 0 rgba(0,0,0,.65) !important;
-	position: relative !important;
-	top: 1px !important;
-	width: 1em !important;
-	padding-top: 0 !important;
-	padding-bottom: 0 !important;
-	//line-height: .8 !important;
-	overflow: visible !important;	
-	}
 
 #frontEndTools > #tools-status > li {
 	
 	padding-right: 1em !important;
 	border-right: 1px solid hsla(0,0,.33,.85) !important;
+	
+	> a {
+		border: 0 !important;
+	}
 	
 	&#adminStatus > a {
 		padding-right: 6px !important;
@@ -386,9 +394,25 @@
 		}
 	}
 	
+#frontEndTools > ul#tools-version {
+
+	> li {
+		
+		&#adminEditPage {
+			padding-right: 0 !important;
+			
+			.caret {
+				margin-left: 2px !important;
+				margin-right: 0 !important;
+			}
+		}
+			
+		}	
+	}
+	
 #frontEndTools > ul#tools-changesets {
 
-	> li#cs-title > a {
+		> li#cs-title > a {
 		padding-right: 4px !important;
 		
 		& > i {
@@ -407,13 +431,6 @@
 		overflow: visible !important;
 		.border-radius(18px);
 		margin-right: 4px;
-		}
-		
-		& .caret {
-			border-top-color: rgba(255,255,255,.25) !important;
-			margin-left: 3px !important;
-			margin-right: 3px !important;
-			margin-top: 9px !important;
 		}
 	}
 }
@@ -557,6 +574,8 @@
 			display: block !important;
 			height: auto !important;
 			cursor: pointer !important;
+			background: transparent !important;
+			.border-radius(0);
 			}
 			
 		li > a:hover {
@@ -577,11 +596,6 @@
 			}
 	}
 
-/*
-#frontEndTools > ul > li#adminEditPage .dropdown-menu {
-	.border-top-radius(0) !important;
-	}
-*/
 
 #frontEndTools > ul li.dropdown-submenu a {
 	max-width: 180px !important;
