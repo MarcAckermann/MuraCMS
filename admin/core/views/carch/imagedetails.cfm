@@ -3,11 +3,11 @@
 <cfset $=application.serviceFactory.getBean('$').init(session.siteID)>
 <cfif isDefined('url.userid')>
 	<cfset rc.userBean=$.getBean('user').loadBy(userID=rc.userID,siteID=rc.siteID)>
-<cfelse>
+<cfelseif isDefined('url.contentHistID')>
 	<cfset rc.contentBean=$.getBean('content').loadBy(contentHistID=rc.contentHistID)>
 </cfif>
 
-<cfif not (isDefined('rc.fileID') and len(rc.fileID))>
+<cfif (not (isDefined('rc.fileID') and len(rc.fileID))) and isDefined('rc.contentBean')>
 	<cfset rc.rsfileAttributes=rc.contentBean.getExtendedData().getAttributesByType('File')>
 	<cfset rc.fileID=listAppend(
 				valueList(rc.rsfileAttributes.attributeValue),
