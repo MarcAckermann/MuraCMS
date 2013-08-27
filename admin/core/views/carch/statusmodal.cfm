@@ -81,7 +81,7 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 	--->
 </cfif>
 <!--- <div class="well"> --->
-<ul>
+<ul class="mura-list-grid">
 	<li>
 		<strong>Created By:</strong>  <cfif not user.getIsNew()>#HTMLEditFormat(user.getFullName())# <cfelse> #application.rbFactory.getKeyValue(session.rb,"sitemanager.content.na")# </cfif>
 	</li>

@@ -287,11 +287,12 @@
 	
 	&:first-child {
 		margin: 0 0 0 37px !important;
-		border-left: 0 solid hsla(0,0,.33,.85) !important;
+		border-left: 0;
 	}
 	
 	&:last-child {
 		float: right !important;
+		border-right: 0 !important;
 	}
 }
 
@@ -445,57 +446,35 @@
 	
 	}
 
-#frontEndTools > ul > li a:hover {
-	color: @gray !important;
-	}
+#frontEndTools > #tools-user {
 
-#frontEndTools > ul > li > a:hover > i {
-	color: @white !important;
-	text-shadow: 0 -1px 0 rgba(0,0,0,1) !important;
-	
-	}
+	border: 0 !important;
 
-#frontEndTools > ul > li#adminWelcome {
+	> li {
 	float: right !important;
-	margin-right: 10px !important;
+	margin-right: 16px !important;
 	padding: 0 !important;
 	border: 0 !important;
 	font-size: 11px !important;
 	line-height: 30px !important;
-	color: @gray !important;
-	}
-
-#frontEndTools > ul > li#adminLogOut {
-	float: right !important;
-	margin-right: 14px !important;
-	padding: 4px 0 0 0 !important;
-	text-align: center !important;
-	border: 0 !important;
-	}
-
-#frontEndTools > ul > li#adminLogOut > a {
-	display: block !important;
-	color: darken(@grayDark,10%) !important;
-	font-size: 11px !important;
-	padding: 2px 8px 2px 6px !important;
-	line-height: 14px !important;
-	height: 16px !important;
-	text-shadow: none !important;
-	.border-radius(14px) !important;
-	background: #898989 !important;
-	.box-shadow(0 0 4px rgba(0,0,0,.75) inset) !important;
-	text-shadow: 0 1px 0 rgba(255,255,255,.2) !important;
-	}
-
-#frontEndTools > ul > li#adminLogOut i {
-	font-size: 13px !important;
-	color: darken(@grayDark,10%) !important;
-	line-height: 14px !important;
-	height: 16px !important;
-	}
-
-#frontEndTools > ul li#adminLogOut a:hover {
+	color: lighten(@grayDark,20%) !important;
 	
+	a {
+		background: transparent !important;
+		font-size: 11px !important;
+		border: 0 !important;
+		line-height: 30px !important;
+		padding: 0 !important;
+		color: lighten(@grayDark,20%) !important;	
+		}	
+		
+	i {
+		font-size: 14px !important;
+		top: 1px !important;
+		margin-right: 1px !important;
+		color: @grayDark !important;
+		}
+	}
 }
 
 #frontEndTools > ul > li#adminSave {
@@ -544,6 +523,12 @@
 		border-top-color: @blueDarker !important;
 		margin: 9px 0 0 4px !important;
 		}
+	}
+
+#frontEndTools > ul > li a:hover,
+#frontEndTools > ul > li > a:hover > i {
+	color: @white !important;
+	text-shadow: 0 -1px 0 rgba(0,0,0,1) !important;
 	}
 	
 #frontEndTools > ul > li.dropdown > .dropdown-menu {

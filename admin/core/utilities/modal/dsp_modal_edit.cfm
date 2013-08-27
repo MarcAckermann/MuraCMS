@@ -363,7 +363,7 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 			<cfif $.currentUser().isLoggedIn()>
 			<ul id="tools-user">
 				<li id="adminLogOut"><a href="?doaction=logout" title="#application.rbFactory.getKeyValue(session.rb,'layout.logout')#"><i class="icon-signout"></i>#application.rbFactory.getKeyValue(session.rb,'layout.logout')#</a></li>
-				<li id="adminWelcome">#application.rbFactory.getKeyValue(session.rb,'layout.welcome')#, #HTMLEditFormat("#session.mura.fname# #session.mura.lname#")#.</li>
+				<li id="adminWelcome"><i class="icon-user"></i> #HTMLEditFormat("#session.mura.fname# #session.mura.lname#")#</li>
 				<cfif listFindNoCase('editor,author',request.r.perm) or listFind(session.mura.memberships,'S2') >
 				
 				<cfelse>
