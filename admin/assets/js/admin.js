@@ -1346,7 +1346,7 @@ var spinnerArgs2 = {
 	// Corner roundness (0..1)
 	rotate: 0,
 	// The rotation offset
-	color: '#000',
+	color: '#ccc',
 	// #rgb or #rrggbb
 	speed: 0.9,
 	// Rounds per second
@@ -1356,7 +1356,7 @@ var spinnerArgs2 = {
 	// Whether to render a shadow
 	hwaccel: false,
 	// Whether to use hardware acceleration
-	className: 'spinner',
+	className: 'spinner-alt',
 	// The CSS class to assign to the spinner
 	zIndex: 2e9,	
 	// The z-index (defaults to 2000000000)
