@@ -64,13 +64,21 @@
 	background: transparent;
 	padding: 0;
 	border: 0;
-	margin: 0;
+	margin: @baseLineHeight/2 0 0 0;
 	
 	button {
 		.btn;
-		color: @grayDarker !important;
-		.box-shadow(@globalDropShadow);
+		.btn-primary;
 		text-transform: capitalize;
+		color: @white !important;
+		text-transform: capitalize;
+		padding: 3px 20px;
+		.border-radius(28px);
+		min-width: 40px;
+		.box-shadow(inset 0 0 0);
+		border-color: @btnPrimaryBorder @btnPrimaryBorder darken(@btnPrimaryBorder, 8%) @btnPrimaryBorder !important;
+		text-shadow: 0 -1px 1px rgba(0,0,0,.35) !important;
+		outline: none !important;
 		}
 	}
 
@@ -413,6 +421,7 @@
 	
 	&.alert-notice {
 		background: @warningBackground;
+		margin-bottom: 0;
 		}
 	}
 

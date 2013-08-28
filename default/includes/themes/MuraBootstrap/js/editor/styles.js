@@ -16,10 +16,7 @@ if ( 'CKEDITOR' in window) {
 		{ name : 'Error'	, element : 'p', attributes : { 'class' : 'alert alert-error' } },
 		{ name : 'Info'		, element : 'p', attributes : { 'class' : 'alert alert-info' } },
 		
-		{ name : 'Well'	, element : 'div', attributes : { 'class' : 'well' } },
 		{ name : 'Well'	, element : 'p', attributes : { 'class' : 'well' } },
-		{ name : 'Well'	, element : 'ul', attributes : { 'class' : 'well' } },
-		{ name : 'Well'	, element : 'ol', attributes : { 'class' : 'well' } },
 		
 		{ name : 'Default Bootstrap Table'	, element : 'table', attributes : { 'class' : 'table' } },
 		{ name : 'Table Striped'	, element : 'table', attributes : { 'class' : 'table table-striped' } },

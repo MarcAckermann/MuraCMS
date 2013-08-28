@@ -609,7 +609,7 @@ function submitForm(frm, action, msg) {
 				modal: true,
 				position: getDialogPosition(),
 				buttons: {
-					'YES': function() {
+					'Yes': function() {
 						$(this).dialog('close');
 						var frmInputs = currentFrm.getElementsByTagName("input");
 						for(f = 0; f < frmInputs.length; f++) {
@@ -619,7 +619,7 @@ function submitForm(frm, action, msg) {
 						}
 						currentFrm.submit();
 					},
-					'NO': function() {
+					'No': function() {
 						$(this).dialog('close');
 					}
 				}
@@ -1127,7 +1127,7 @@ function confirmDialog(message, yesAction, noAction) {
 		modal: true,
 		position: getDialogPosition(),
 		buttons: {
-			'YES': function() {
+			'Yes': function() {
 				$(this).dialog('close');
 				if(typeof(_yesAction) == 'function') {
 					_yesAction();
@@ -1136,7 +1136,7 @@ function confirmDialog(message, yesAction, noAction) {
 				}
 
 			},
-			'NO': function() {		
+			'No': function() {		
 				if(typeof(_noAction) != 'undefined') {
 					if(typeof(_noAction) == 'function') {
 						_noAction();
