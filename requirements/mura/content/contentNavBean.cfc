@@ -250,7 +250,7 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 	<cfargument name="name" type="string" default="">
 	<cfargument name="reverse" type="boolean" default="false">
 	
-	<cfreturn variables.contentManager.getRelatedContent(variables.instance.siteID, getContentHistID(), arguments.liveOnly, arguments.today, arguments.sortBy, arguments.sortDirection, arguments.relatedContentSetID, arguments.name, arguments.reverse, getContentID()) />
+	<cfreturn variables.contentManager.getRelatedContent(getValue('siteID'), getValue('contentHistID'), arguments.liveOnly, arguments.today, arguments.sortBy, arguments.sortDirection, arguments.relatedContentSetID, arguments.name, arguments.reverse, getValue('contentID')) />
 </cffunction>
 
 <cffunction name="getRelatedContentIterator" returnType="any" output="false" access="public">
