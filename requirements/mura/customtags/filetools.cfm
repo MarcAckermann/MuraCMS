@@ -23,7 +23,7 @@
 	</cfif>
 
 	<cfif fileMetaData.hasImageFileExt()>
-		<div class="btn-group" class="imageToolsButtonGroup">
+		<div class="btn-group imageToolsButtonGroup">
 			<a class="btn" href="./index.cfm?muraAction=cArch.imagedetails&contenthistid=#attributes.bean.getContentHistID()#&siteid=#attributes.bean.getSiteID()#&fileid=#attributes.bean.getvalue(attributes.property)#&compactDisplay=#urlEncodedFormat(attributes.compactDisplay)#"><i class="icon-crop"></i></a>
 			<a class="btn" href="" onclick="return openFileMetaData('#fileMetaData.getContentHistID()#','#fileMetaData.getFileID()#','#attributes.bean.getSiteID()#','#attributes.property#');"><i class="icon-info-sign"></i></a>
 	</cfif>
