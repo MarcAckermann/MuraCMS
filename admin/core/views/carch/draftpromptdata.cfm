@@ -68,7 +68,7 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 						</tr>
 					</thead>
 					<tbody>
-						<td><a href="##" tabindex="-1" class="draft-prompt-option" data-contenthistid="#draftprompdata.publishedHistoryID#">#HTMLEditFormat(publishedVersion.getMenuTitle())#</a></td>
+						<td><a href="##" tabindex="-1" class="draft-prompt-option var-width" data-contenthistid="#draftprompdata.publishedHistoryID#">#HTMLEditFormat(publishedVersion.getMenuTitle())#</a></td>
 						<td>#LSDateFormat(publishedVersion.getlastupdate(),session.dateKeyFormat)# #LSTimeFormat(publishedVersion.getLastUpdate(),"medium")#</td>
 						<td>#HTMLEditFormat(publishedVersion.getLastUpdateBy())#</td>
 						<td><a href="##" tabindex="-1" class="draft-prompt-option" data-contenthistid="#draftprompdata.publishedHistoryID#"><i class="icon-pencil"></i></a></td>
@@ -82,12 +82,12 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 				<table class="mura-table-grid">
 					<thead>
 						<tr>
-							<th colspan="4">#HTMLEditFormat(application.rbFactory.getKeyValue(session.rb,'sitemanager.draftprompt.latest'))#</th>
+							<th colspan="4"><i class="icon-edit"></i> #HTMLEditFormat(application.rbFactory.getKeyValue(session.rb,'sitemanager.draftprompt.latest'))#</th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr>
-							<td><a href="##" tabindex="-1" class="draft-prompt-option" data-contenthistid="#draftprompdata.historyid#">#HTMLEditFormat(draftVersion.getMenuTitle())#</a></td>
+							<td class="var-width"><a href="##" tabindex="-1" class="draft-prompt-option" data-contenthistid="#draftprompdata.historyid#">#HTMLEditFormat(draftVersion.getMenuTitle())#</a></td>
 							<td>#LSDateFormat(draftVersion.getlastupdate(),session.dateKeyFormat)# #LSTimeFormat(draftVersion.getLastUpdate(),"medium")#</td>
 							<td>#HTMLEditFormat(draftVersion.getLastUpdateBy())#</td>
 							<td><a href="##" tabindex="-1" class="draft-prompt-option" data-contenthistid="#draftprompdata.historyid#"><i class="icon-pencil"></i></a></td>
@@ -100,13 +100,13 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 				<table class="mura-table-grid">	
 					<thead>
 						<tr>
-							<th colspan="4">#HTMLEditFormat(application.rbFactory.getKeyValue(session.rb,'sitemanager.draftprompt.changesets'))#</th>
+							<th colspan="4"><i class="icon-list"></i> #HTMLEditFormat(application.rbFactory.getKeyValue(session.rb,'sitemanager.draftprompt.changesets'))#</th>
 						</tr>
 					</thead>
 					<tbody>
 						<cfloop query="draftprompdata.pendingchangesets">
 						<tr>
-							<td><a href="##" tabindex="-1" class="draft-prompt-option" data-contenthistid="#draftprompdata.pendingchangesets.contenthistid#">#HTMLEditFormat(draftprompdata.pendingchangesets.changesetName)#</a></td>
+							<td class="var-width"><a href="##" tabindex="-1" class="draft-prompt-option" data-contenthistid="#draftprompdata.pendingchangesets.contenthistid#">#HTMLEditFormat(draftprompdata.pendingchangesets.changesetName)#</a></td>
 							<td>#LSDateFormat(draftprompdata.pendingchangesets.lastupdate,session.dateKeyFormat)# #LSTimeFormat(draftprompdata.pendingchangesets.lastupdate,"medium")#</td>
 							<td>#HTMLEditFormat(draftprompdata.pendingchangesets.lastupdateby)#</td>
 							<td><a href="##" tabindex="-1" class="draft-prompt-option" data-contenthistid="#draftprompdata.pendingchangesets.contenthistid#"><i class="icon-pencil"></i></a></td>
@@ -121,19 +121,19 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 				<table class="mura-table-grid">	
 					<thead>
 						<tr>
-							<th colspan="4">#HTMLEditFormat(application.rbFactory.getKeyValue(session.rb,'sitemanager.draftprompt.awaitingapproval'))#</th>
+							<th colspan="4"><i class="icon-time"></i> #HTMLEditFormat(application.rbFactory.getKeyValue(session.rb,'sitemanager.draftprompt.awaitingapproval'))#</th>
 						</tr>
 					</thead>
 					<tbody>
 						<cfloop query="draftprompdata.yourapprovals">
 							<tr>
 								<cfif listFindNoCase("author,editor",draftprompdata.verdict)>
-									<td><a href="##" data-contenthistid="#draftprompdata.yourapprovals.contenthistid#"  tabindex="-1" class="draft-prompt-option">#HTMLEditFormat(draftprompdata.yourapprovals.menutitle)#</a></td>
+									<td class="var-width"><a href="##" data-contenthistid="#draftprompdata.yourapprovals.contenthistid#"  tabindex="-1" class="draft-prompt-option">#HTMLEditFormat(draftprompdata.yourapprovals.menutitle)#</a></td>
 									<td>#LSDateFormat(draftprompdata.yourapprovals.lastupdate,session.dateKeyFormat)# #LSTimeFormat(draftprompdata.yourapprovals.lastupdate,"medium")#</td>
 									<td>#HTMLEditFormat(draftprompdata.yourapprovals.lastupdateby)#</td>
 									<td><a href="##" data-contenthistid="#draftprompdata.yourapprovals.contenthistid#" tabindex="-1" class="draft-prompt-option"><i class="icon-pencil"></i></a></td>
 								<cfelse>
-									<td><a href="#content.getURL(querystring="previewid=#draftprompdata.yourapprovals.contenthistid#")#" tabindex="-1" class="draft-prompt-approval">#HTMLEditFormat(draftprompdata.yourapprovals.menutitle)#</a></td>
+									<td class="var-width"><a href="#content.getURL(querystring="previewid=#draftprompdata.yourapprovals.contenthistid#")#" tabindex="-1" class="draft-prompt-approval">#HTMLEditFormat(draftprompdata.yourapprovals.menutitle)#</a></td>
 									<td>#LSDateFormat(draftprompdata.yourapprovals.lastupdate,session.dateKeyFormat)# #LSTimeFormat(draftprompdata.yourapprovals.lastupdate,"medium")#</td>
 									<td>#HTMLEditFormat(draftprompdata.yourapprovals.lastupdateby)#</td>
 									<td><a href="#content.getURL(querystring="previewid=#draftprompdata.yourapprovals.contenthistid#")#" tabindex="-1" class="draft-prompt-approval"><i class="icon-pencil"></i></a></td>
