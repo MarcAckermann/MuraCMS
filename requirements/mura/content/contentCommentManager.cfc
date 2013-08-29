@@ -143,7 +143,7 @@ component persistent="false" accessors="true" output="false" extends="mura.cfobj
 		// isapproved
 		if ( StructKeyExists(arguments, 'isapproved') ) {
 			local.qryStr &= ' AND isapproved = ( :isapproved ) ';
-			qComments.addParam(name='isapproved', value=arguments.isapproved, cfsqltype='cf_sql_bit');
+			qComments.addParam(name='isapproved', value=arguments.isapproved, cfsqltype='cf_sql_integer');
 		}
 
 		local.qryStr &= ' ORDER BY ' & arguments.sortby & ' ' & arguments.sortdirection;

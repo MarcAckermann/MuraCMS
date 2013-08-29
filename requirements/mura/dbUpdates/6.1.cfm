@@ -63,4 +63,8 @@
 	dbUtility.setTable("tcontentfeeds")
 	.addColumn(column="useCategoryIntersect",dataType="int");
 
+	dbUtility.setTable('tcontentcategoryassign')
+	.addIndex('contentID')
+	.addIndex('categoryID');
+
 </cfscript>
