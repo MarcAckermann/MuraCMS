@@ -60,15 +60,15 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 						<tr>
 							<th colspan="4">
 								<cfif publishedVersion.getApproved()>
-									#HTMLEditFormat(application.rbFactory.getKeyValue(session.rb,'sitemanager.draftprompt.published'))#
+									<i class="icon-check"></i> #HTMLEditFormat(application.rbFactory.getKeyValue(session.rb,'sitemanager.draftprompt.published'))#
 								<cfelse>
-									#HTMLEditFormat(application.rbFactory.getKeyValue(session.rb,'sitemanager.draftprompt.latest'))#
+									<i class="icon-edit"></i> #HTMLEditFormat(application.rbFactory.getKeyValue(session.rb,'sitemanager.draftprompt.latest'))#
 								</cfif>
 							</th>
 						</tr>
 					</thead>
 					<tbody>
-						<td><a href="##" tabindex="-1" class="draft-prompt-option var-width" data-contenthistid="#draftprompdata.publishedHistoryID#">#HTMLEditFormat(publishedVersion.getMenuTitle())#</a></td>
+						<td class="var-width"><a href="##" tabindex="-1" class="draft-prompt-option var-width" data-contenthistid="#draftprompdata.publishedHistoryID#">#HTMLEditFormat(publishedVersion.getMenuTitle())#</a></td>
 						<td>#LSDateFormat(publishedVersion.getlastupdate(),session.dateKeyFormat)# #LSTimeFormat(publishedVersion.getLastUpdate(),"medium")#</td>
 						<td>#HTMLEditFormat(publishedVersion.getLastUpdateBy())#</td>
 						<td><a href="##" tabindex="-1" class="draft-prompt-option" data-contenthistid="#draftprompdata.publishedHistoryID#"><i class="icon-pencil"></i></a></td>
