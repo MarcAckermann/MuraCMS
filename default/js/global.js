@@ -450,7 +450,7 @@ function validateForm(frm) {
 			$.ajax(
 				{
 					type: 'post',
-					url: assetpath + '/includes/display_objects/datacollection/validate.cfm',
+					url: context + '/tasks/validate/',
 					data: {
 							data: JSON.stringify(data),
 							validations: JSON.stringify(validations)
