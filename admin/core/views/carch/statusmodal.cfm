@@ -62,7 +62,7 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 </cfsilent>
 <cfoutput>
 <cfif rc.mode eq 'frontend'>
-	<h2>#application.rbFactory.getKeyValue(session.rb,'layout.status')#</h2>
+	<h1>#application.rbFactory.getKeyValue(session.rb,'layout.status')#</h1>
 <div class="well">
 	<!---
 	<cfif requiresApproval>
@@ -81,16 +81,28 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 	--->
 </cfif>
 <!--- <div class="well"> --->
-<ul class="mura-list-grid">
-	<li>
-		<strong>Created By:</strong>  <cfif not user.getIsNew()>#HTMLEditFormat(user.getFullName())# <cfelse> #application.rbFactory.getKeyValue(session.rb,"sitemanager.content.na")# </cfif>
-	</li>
-	<li>
-		<strong>Created:</strong> #LSDateFormat(parseDateTime(content.getLastUpdate()),session.dateKeyFormat)# #LSTimeFormat(parseDateTime(content.getLastUpdate()),"short")#
-	</li>
-		
-		<li><strong>Status:</strong>
-			<cfif content.getactive() gt 0 and content.getapproved() gt 0>
+<div class="mura-list-grid">
+	<dl>
+		<dt>Created By</dt> 
+		<dd>
+			<i class="icon-user"></i>
+			<p><cfif not user.getIsNew()>#HTMLEditFormat(user.getFullName())# <cfelse> #application.rbFactory.getKeyValue(session.rb,"sitemanager.content.na")# </cfif></p>
+		</dd>
+	</dl>
+	
+	<dl>
+		<dt>Created On</dt>
+		<dd>
+			<i class="icon-calendar"></i>
+			<p>#LSDateFormat(parseDateTime(content.getLastUpdate()),session.dateKeyFormat)# #LSTimeFormat(parseDateTime(content.getLastUpdate()),"short")#</p>
+		</dd>
+	</dl>
+	
+	<dl>
+		<dt>Status</dt>
+		<dd>
+			<i class="icon-ok-sign"></i>
+			<p><cfif content.getactive() gt 0 and content.getapproved() gt 0>
 				#application.rbFactory.getKeyValue(session.rb,"sitemanager.content.published")#
 			<cfelseif len(content.getApprovalStatus()) and requiresApproval >
 				#application.rbFactory.getKeyValue(session.rb,"sitemanager.content.#content.getApprovalStatus()#")#
@@ -98,38 +110,83 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 				#application.rbFactory.getKeyValue(session.rb,"sitemanager.content.draft")#
 			<cfelse>
 				#application.rbFactory.getKeyValue(session.rb,"sitemanager.content.archived")#
-			</cfif></li>
+			</cfif></p>
+		</dd>
+	</dl>
 		
+	
 		<cfif $.siteConfig('hasChangesets')>
-			<cfset changeset=$.getBean('changeset').loadBy(changesetID=content.getChangesetID())>
-			<li><strong>Change Set:</strong> <cfif changeset.getIsNew()>Not Assigned<cfelse>#HTMLEditFormat(changeset.getName())#</cfif></li>
+		<cfset changeset=$.getBean('changeset').loadBy(changesetID=content.getChangesetID())>
+		<dl class="change-set">
+			<dt>Change Set</dt>
+			<dd>
+				<i class="icon-list"></i>
+				<p><cfif changeset.getIsNew()>Not Assigned<cfelse>#HTMLEditFormat(changeset.getName())#</cfif></p>
+			</dd>
+		</dl>
 		</cfif>
+
+		<!---
+<dl class="comments">
+			<dt>Comments</dt>
+			<dd><i class="icon-comment"></i><p>Lorem ipsum dolor sit amet adspicing nonummy.</p>
+				<em>by Malcolm O'Keeffe on 8/10/13</em>
+			</dd>
+		</dl>
+		
+		<dl class="approval-action-form">
+				<dt>Action</dt>
+				<dd>
+					<label class="radio inline">
+						<input class="approval-action" id="approval-approve" name="approval-action"type="radio" value="Approve" checked/>Approve
+					</label>
+					<label class="radio inline">
+						<input class="approval-action" id="approval-reject" name="approval-action" type="radio" value="Reject" checked/>Reject
+					</label>
+					<p>Comments</p>
+					<textarea id="approval-comments" rows="4"></textarea>
+				<input type="button" class="btn btn-primary" value="Apply"/></dd>
+				</dd>
+				</dl>
+--->
+					
+		
 		<cfif requiresApproval>
 			<cfif not content.getApproved() and approvalRequest.getStatus() eq 'Pending'>
-				<li><strong>
+			<dl class="approval-status">
+				<dt>Approval Status</dt>
+				<dd>
+					<i class="icon-time"></i>
 					 <cfif group.getType() eq 1>
-						#application.rbFactory.getKeyValue(session.rb,"approvalchains.waitingforgroup")#: #HTMLEditFormat(group.getGroupName())#
+						<em>#application.rbFactory.getKeyValue(session.rb,"approvalchains.waitingforgroup")#:</em>
+						<p>#HTMLEditFormat(group.getGroupName())#</p>
 					<cfelse>
-						#application.rbFactory.getKeyValue(session.rb,"approvalchains.waitingforuser")#: #HTMLEditFormat(action.getUser().getFullName())#
+						<em>#application.rbFactory.getKeyValue(session.rb,"approvalchains.waitingforuser")#:</em>
+						<p>#HTMLEditFormat(action.getUser().getFullName())#</p>
 					</cfif>
-				</strong></li>
+				</dd>
+			</dl>
 			</cfif>
-	</ul>
+	</div>
 		
 			<cfif actions.hasNext()>
 				<cfloop condition="actions.hasNext()">
 					<cfset action=actions.next()>
-					<dl>
-						<dt>#UCase(action.getActionType())# by #HTMLEditFormat(action.getUser().getFullName())# on #LSDateFormat(parseDateTime(action.getCreated()),session.dateKeyFormat)# #LSTimeFormat(parseDateTime(action.getCreated()),"short")#</dt>
+					<dl class="comments">
+						<dt>Comments</dt>
 						<cfif len(action.getComments())>
-							<dd>#HTMLEditFormat(action.getComments())#</dd>
+							<dd>
+								<i class="icon-comment"></i>
+								<p>#HTMLEditFormat(action.getComments())#</p>
+								<em>#UCase(action.getActionType())# by #HTMLEditFormat(action.getUser().getFullName())# on #LSDateFormat(parseDateTime(action.getCreated()),session.dateKeyFormat)# at #LSTimeFormat(parseDateTime(action.getCreated()),"short")#</em>
+							</dd>
 						</cfif>
 					</dl>
 				</cfloop>
 			</cfif>
 		
 			<cfif not content.getApproved() and approvalRequest.getStatus() eq 'Pending' and (listfindNoCase(session.mura.membershipids,approvalRequest.getGroupID()) or $.currentUser().isAdminUser() or $.currentUser().isSuperUser())>
-				<dl>
+				<dl class="approval-action-form">
 				<dt>#application.rbFactory.getKeyValue(session.rb,"approvalchains.action")#</dt>
 				<dd>
 					<label class="radio inline">
@@ -138,10 +195,11 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 					<label class="radio inline">
 						<input class="approval-action" id="approval-reject" name="approval-action" type="radio" value="Reject" checked/> #application.rbFactory.getKeyValue(session.rb,"approvalchains.reject")#
 					</label>
+					
+				<p>#application.rbFactory.getKeyValue(session.rb,"approvalchains.comments")#</p>
+				<textarea id="approval-comments" rows="4"></textarea>
+				<input type="button" class="btn btn-primary" value="Apply" onclick="applyApprovalAction('#approvalRequest.getRequestID()#',$('input:radio[name=approval-action]:checked').val(),$('##approval-comments').val(),'#approvalRequest.getSiteID()#');"/>
 				</dd>
-				<dt>#application.rbFactory.getKeyValue(session.rb,"approvalchains.comments")#</dt>
-				<dd><textarea id="approval-comments" rows="4"></textarea></dd>
-				<input type="button" class="btn" value="Apply" onclick="applyApprovalAction('#approvalRequest.getRequestID()#',$('input:radio[name=approval-action]:checked').val(),$('##approval-comments').val(),'#approvalRequest.getSiteID()#');"/></dd>
 				</dl>
 			</cfif>
 		</cfif>
