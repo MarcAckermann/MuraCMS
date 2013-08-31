@@ -173,7 +173,7 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 	    <![endif]-->
 		
 		<!--[if lte IE 8]>
-		<link href="#application.configBean.getContext()#/admin/assets/css/ie/ie.min.css?coreversion=#application.coreversion#" rel="stylesheet" type="text/css" />
+		<link href="#application.configBean.getContext()#/admin/assets/css/ie.min.css?coreversion=#application.coreversion#" rel="stylesheet" type="text/css" />
 		<![endif]-->
 		
 		<!--[if lte IE 7]>

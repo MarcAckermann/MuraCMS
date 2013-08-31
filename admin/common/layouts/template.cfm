@@ -6,7 +6,7 @@
 <!--[if IE 7 ]><html class="mura ie ie7" lang="#HTMLEditFormat(session.locale)#"> <![endif]-->
 <!--[if IE 8 ]><html class="mura ie ie8" lang="#HTMLEditFormat(session.locale)#"> <![endif]-->
 <!--[if IE 9 ]><html class="mura ie ie9" lang="#HTMLEditFormat(session.locale)#"> <![endif]-->
-<!--[if (gte IE 9)|!(IE)]><!--><html lang="#HTMLEditFormat(session.locale)#" class="mura ie"><!--<![endif]-->
+<html lang="#HTMLEditFormat(session.locale)#" class="mura ie ie10">
 <cfelse>
 <html lang="#HTMLEditFormat(session.locale)#" class="mura">
 </cfif>
@@ -140,20 +140,18 @@
 	<script src="#application.configBean.getContext()#/admin/assets/js/admin.min.js?coreversion=#application.coreversion#" type="text/javascript"></script>	
 	
 	<cfif cgi.http_user_agent contains 'msie'>
+	<link href="#application.configBean.getContext()#/admin/assets/css/ie.min.css?coreversion=#application.coreversion#" rel="stylesheet" type="text/css" />
+	</cfif>
+
 	<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
       <script src="#application.configBean.getContext()#/admin/assets/js/html5.js"></script>
     <![endif]-->
 	
-	<!--[if lte IE 8]>
-	<link href="#application.configBean.getContext()#/admin/assets/css/ie/ie.min.css?coreversion=#application.coreversion#" rel="stylesheet" type="text/css" />
-	<![endif]-->
-	
 	<!--[if lte IE 7]>
 	<script src="#application.configBean.getContext()#/admin/assets/js/upgrade-notification.min.js" type="text/javascript"></script>
 	<link rel="stylesheet" href="#application.configBean.getContext()#/admin/assets/fonts/font-awesome/css/font-awesome-ie7.min.css">
 	<![endif]-->
-	</cfif>
 		
 	<!-- CK Editor/Finder -->
 	<script type="text/javascript" src="#application.configBean.getContext()#/tasks/widgets/ckeditor/ckeditor.js"></script>
@@ -202,22 +200,7 @@
 		    	top.location.replace(self.location)
 			}
 		</script>
-	</cfif>
-
-	<!--- <cfif cgi.http_user_agent contains 'msie'> --->
-	<!--[if IE]>
-		<link href="#application.configBean.getContext()#/admin/assets/css/ie/ie.min.css?coreversion=#application.coreversion#" rel="stylesheet" type="text/css" />
-	<![endif]-->
-	
-	<!--[if IE 7]>
-	<link rel="stylesheet" href="#application.configBean.getContext()#/admin/assets/css/font-awesome-ie7.css">
-	<![endif]-->
-	
-	<!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
-    <!--[if lt IE 9]>
-      <script src="#application.configBean.getContext()#/admin/assets/js/html5.js"></script>
-    <![endif]-->
-	<!--- </cfif> --->    
+	</cfif>  
     #rc.$.renderEvent('onAdminHTMLHeadRender')#
   </head>
   <body id="#rc.originalcircuit#">
