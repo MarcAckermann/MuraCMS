@@ -157,100 +157,99 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 		<cfoutput>
 		<div class="mura">
 			<img src="#application.configBean.getContext()#/admin/assets/images/logo_small_feTools.png" id="frontEndToolsHandle" onclick="if (document.getElementById('frontEndTools').style.display == 'none') { createCookie('FETDISPLAY','',5); } else { createCookie('FETDISPLAY','none',5); } toggleAdminToolbar();" />
-			<div id="frontEndTools" style="display: #Cookie.fetDisplay#">
-			
-			<cfif $.currentUser().isLoggedIn()>
-				<ul id="tools-status">
-					<li id="adminStatus">
-						<cfif $.content('active') gt 0 and  $.content('approved')  gt 0>
-							<cfif len($.content('approvalStatus'))>
-								<a href="#variables.approvalrequestlink#" data-configurator="true" #variables.targetHook# title="#application.rbFactory.getKeyValue(session.rb,"sitemanager.content.published")#">
-									<i class="icon-ok-circle status-published"></i> 
+			<div id="frontEndTools" style="display: #Cookie.fetDisplay#">	
+				<cfif $.currentUser().isLoggedIn()>
+					<ul id="tools-status">
+						<li id="adminStatus">
+							<cfif $.content('active') gt 0 and  $.content('approved')  gt 0>
+								<cfif len($.content('approvalStatus'))>
+									<a href="#variables.approvalrequestlink#" data-configurator="true" #variables.targetHook# title="#application.rbFactory.getKeyValue(session.rb,"sitemanager.content.published")#">
+										<i class="icon-ok-circle status-published"></i> 
+										<!--- #application.rbFactory.getKeyValue(session.rb,'layout.status')#: --->
+										#application.rbFactory.getKeyValue(session.rb,"sitemanager.content.published")#
+									</a>
+								<cfelse>
+									<a href="#variables.approvalrequestlink#" data-configurator="true" title="#application.rbFactory.getKeyValue(session.rb,"sitemanager.content.published")#" #variables.targetHook#>
+										<i class="icon-ok-circle status-published"></i> 
+										<!--- #application.rbFactory.getKeyValue(session.rb,'layout.status')#: --->
+										#application.rbFactory.getKeyValue(session.rb,"sitemanager.content.published")#
+									</a>
+								</cfif>
+								
+								<!--- wildcard: approved, published --->			
+							<cfelseif len($.content('approvalStatus')) and $.content().requiresApproval() >
+								<a href="#variables.approvalrequestlink#" data-configurator="true" #variables.targetHook#>
+									<i class="icon-warning-sign status-req-approval"></i> 
 									<!--- #application.rbFactory.getKeyValue(session.rb,'layout.status')#: --->
-									#application.rbFactory.getKeyValue(session.rb,"sitemanager.content.published")#
+									#application.rbFactory.getKeyValue(session.rb,"sitemanager.content.#$.content('approvalstatus')#")#
+								</a>
+							<cfelseif $.content('approved') lt 1>
+								<a href="#variables.approvalrequestlink#" data-configurator="true" #variables.targetHook#>
+									<i class="icon-file-alt status-draft"></i> 
+									<!--- #application.rbFactory.getKeyValue(session.rb,'layout.status')#: --->
+									#application.rbFactory.getKeyValue(session.rb,"sitemanager.content.draft")#
 								</a>
 							<cfelse>
-								<a href="#variables.approvalrequestlink#" data-configurator="true" title="#application.rbFactory.getKeyValue(session.rb,"sitemanager.content.published")#" #variables.targetHook#>
-									<i class="icon-ok-circle status-published"></i> 
+								<a href="#variables.approvalrequestlink#" data-configurator="true" #variables.targetHook#>
+									<i class="icon-book status-archived"></i> 
 									<!--- #application.rbFactory.getKeyValue(session.rb,'layout.status')#: --->
-									#application.rbFactory.getKeyValue(session.rb,"sitemanager.content.published")#
+									#application.rbFactory.getKeyValue(session.rb,"sitemanager.content.archived")#
 								</a>
 							</cfif>
-							
-							<!--- wildcard: approved, published --->			
-						<cfelseif len($.content('approvalStatus')) and $.content().requiresApproval() >
-							<a href="#variables.approvalrequestlink#" data-configurator="true" #variables.targetHook#>
-								<i class="icon-warning-sign status-req-approval"></i> 
-								<!--- #application.rbFactory.getKeyValue(session.rb,'layout.status')#: --->
-								#application.rbFactory.getKeyValue(session.rb,"sitemanager.content.#$.content('approvalstatus')#")#
-							</a>
-						<cfelseif $.content('approved') lt 1>
-							<a href="#variables.approvalrequestlink#" data-configurator="true" #variables.targetHook#>
-								<i class="icon-file-alt status-draft"></i> 
-								<!--- #application.rbFactory.getKeyValue(session.rb,'layout.status')#: --->
-								#application.rbFactory.getKeyValue(session.rb,"sitemanager.content.draft")#
-							</a>
-						<cfelse>
-							<a href="#variables.approvalrequestlink#" data-configurator="true" #variables.targetHook#>
-								<i class="icon-book status-archived"></i> 
-								<!--- #application.rbFactory.getKeyValue(session.rb,'layout.status')#: --->
-								#application.rbFactory.getKeyValue(session.rb,"sitemanager.content.archived")#
-							</a>
-						</cfif>
-					</li>
-					
-					<cfif listFindNoCase('editor,author',request.r.perm) or listFind(session.mura.memberships,'S2') >
-						<li id="adminSave" class="dropdown" style="display:none">
-							<a href="" class="dropdown-toggle" onclick="return false;">
-								<i class="icon-ok-sign"></i> Save</a>
-							<ul class="dropdown-menu">
-								<cfif (request.r.perm  eq 'editor' or listFind(session.mura.memberships,'S2')) and not variables.$.siteConfig('EnforceChangesets')>
-									<li>
-										<a class="mura-inline-save" data-approved="1" data-changesetid="">
-										<i class="icon-ok"></i> 
-										<cfif $.content().requiresApproval()>
-											#HTMLEditFormat(application.rbFactory.getKeyValue(session.rb,"sitemanager.content.sendforapproval"))#
-										<cfelse>
-											#HTMLEditFormat(application.rbFactory.getKeyValue(session.rb,"sitemanager.content.publish"))#
-										</cfif>
-										</a>
-									</li>
-								</cfif>
-								<cfif listFindNoCase('editor,author',request.r.perm) or listFind(session.mura.memberships,'S2') >
-									<li>
-										<a class="mura-inline-save" data-approved="0" data-changesetid="">
-											<i class="icon-ok"></i>  
-											#HTMLEditFormat(application.rbFactory.getKeyValue(session.rb,"sitemanager.content.savedraft"))#
-										</a>
-									</li>
-								</cfif>
-								<cfif variables.$.siteConfig('HasChangesets') and (request.r.perm  eq 'editor' or listFind(session.mura.memberships,'S2')) >
-									<li class="dropdown-submenu">
-										<a href=""><i class="icon-ok"></i> 
-										#HTMLEditFormat(application.rbFactory.getKeyValue(session.rb,"sitemanager.content.savetochangeset"))#</a>			
-										<cfset currentChangeset=application.changesetManager.read(variables.$.content('changesetID'))>
-										<cfset changesets=application.changesetManager.getIterator(siteID=variables.$.event('siteid'),published=0,publishdate=now(),publishDateOnly=false)>
-										<ul class="dropdown-menu">
-											<cfif changesets.hasNext()>
-											<cfloop condition="changesets.hasNext()">
-												<cfset changeset=changesets.next()>
-												<li>
-													<a class="mura-inline-save" data-approved="0" data-changesetid="#changeset.getChangesetID()#">#HTMLEditFormat(changeset.getName())#</a>
-												</li>
-											</cfloop>
-											<cfelse>
-												<li>
-													<a class="mura-inline-cancel">#HTMLEditFormat(application.rbFactory.getKeyValue(session.rb,"sitemanager.content.noneavailable"))#</a>
-												</li>
-											</cfif>
-										</ul>
-									</li>
-								</cfif>
-								<li><a class="mura-inline-cancel"><i class="icon-ban-circle"></i> #HTMLEditFormat(application.rbFactory.getKeyValue(session.rb,"sitemanager.cancel"))#</a></li>
-							</ul>
 						</li>
-					</cfif>
-				</ul>
+						
+						<cfif listFindNoCase('editor,author',request.r.perm) or listFind(session.mura.memberships,'S2') >
+							<li id="adminSave" class="dropdown" style="display:none">
+								<a href="" class="dropdown-toggle" onclick="return false;">
+									<i class="icon-ok-sign"></i> Save</a>
+								<ul class="dropdown-menu">
+									<cfif (request.r.perm  eq 'editor' or listFind(session.mura.memberships,'S2')) and not variables.$.siteConfig('EnforceChangesets')>
+										<li>
+											<a class="mura-inline-save" data-approved="1" data-changesetid="">
+											<i class="icon-ok"></i> 
+											<cfif $.content().requiresApproval()>
+												#HTMLEditFormat(application.rbFactory.getKeyValue(session.rb,"sitemanager.content.sendforapproval"))#
+											<cfelse>
+												#HTMLEditFormat(application.rbFactory.getKeyValue(session.rb,"sitemanager.content.publish"))#
+											</cfif>
+											</a>
+										</li>
+									</cfif>
+									<cfif listFindNoCase('editor,author',request.r.perm) or listFind(session.mura.memberships,'S2') >
+										<li>
+											<a class="mura-inline-save" data-approved="0" data-changesetid="">
+												<i class="icon-ok"></i>  
+												#HTMLEditFormat(application.rbFactory.getKeyValue(session.rb,"sitemanager.content.savedraft"))#
+											</a>
+										</li>
+									</cfif>
+									<cfif variables.$.siteConfig('HasChangesets') and (request.r.perm  eq 'editor' or listFind(session.mura.memberships,'S2')) >
+										<li class="dropdown-submenu">
+											<a href=""><i class="icon-ok"></i> 
+											#HTMLEditFormat(application.rbFactory.getKeyValue(session.rb,"sitemanager.content.savetochangeset"))#</a>			
+											<cfset currentChangeset=application.changesetManager.read(variables.$.content('changesetID'))>
+											<cfset changesets=application.changesetManager.getIterator(siteID=variables.$.event('siteid'),published=0,publishdate=now(),publishDateOnly=false)>
+											<ul class="dropdown-menu">
+												<cfif changesets.hasNext()>
+												<cfloop condition="changesets.hasNext()">
+													<cfset changeset=changesets.next()>
+													<li>
+														<a class="mura-inline-save" data-approved="0" data-changesetid="#changeset.getChangesetID()#">#HTMLEditFormat(changeset.getName())#</a>
+													</li>
+												</cfloop>
+												<cfelse>
+													<li>
+														<a class="mura-inline-cancel">#HTMLEditFormat(application.rbFactory.getKeyValue(session.rb,"sitemanager.content.noneavailable"))#</a>
+													</li>
+												</cfif>
+											</ul>
+										</li>
+									</cfif>
+									<li><a class="mura-inline-cancel"><i class="icon-ban-circle"></i> #HTMLEditFormat(application.rbFactory.getKeyValue(session.rb,"sitemanager.cancel"))#</a></li>
+								</ul>
+							</li>
+						</cfif>
+					</ul>
 				</cfif>
 
 				<cfif not request.contentBean.getIsNew()>
@@ -281,101 +280,93 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 						</ul>
 					</cfif>
 				
-				<!--- BEGIN CHANGESETS ---> 
-				<cfif $.siteConfig('HasChangeSets')>
-				<cfif request.muraChangesetPreview>
-					<cfset previewData=$.currentUser("ChangesetPreviewData")>
-				</cfif>
-				<cfset rsChangesets=application.changesetManager.getQuery(siteID=$.event('siteID'),published=0,sortby="PublishDate")>
-				<ul id="tools-changesets">
-					
-					<li id="cs-title" class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown"><i>CS</i><cfif request.muraChangesetPreview>#HTMLEditFormat(previewData.name)#<cfif isDate(previewData.publishDate)> (#LSDateFormat(previewData.publishDate,session.dateKeyFormat)#)</cfif><cfelse>None Selected</cfif><b class="caret"></b></a>
-						<ul class="dropdown-menu">
-							<li><a href="./?changesetid=">None</a></li>
-							<cfloop query="rsChangesets">
-							<li><a href="./?changesetid=#rschangesets.changesetid#">
-									#HTMLEditFormat(rsChangesets.name)#
-									<cfif isDate(rsChangesets.publishDate)> (#LSDateFormat(rsChangesets.publishDate,session.dateKeyFormat)#)</cfif>
-								</a>
-							</li>
-							</cfloop>
-						</ul>							
-					</li>
-
-					<cfif request.muraChangesetPreview>
-						<cfset previewData=$.currentUser("ChangesetPreviewData")>
-						<cfset changesetMembers=application.changesetManager.getAssignmentsIterator(changesetID=previewData.changesetID,moduleID='00000000000000000000000000000000000')>
-					</cfif>
-					<li class="dropdown">
-						<a class="dropdown-toggle" data-toggle="dropdown"><i class="icon-list"></i></a>
+					<!--- BEGIN CHANGESETS ---> 
+					<cfif $.siteConfig('HasChangeSets')>
 						<cfif request.muraChangesetPreview>
-							<ul class="dropdown-menu">
-							<cfif changesetMembers.hasNext()>
-								<cfloop condition="changesetMembers.hasNext()">
-								<cfset changesetMember=changesetMembers.next()>
-								<li><a href="#changesetMember.getURL()#">#HTMLEditFormat(changesetMember.getMenuTitle())#</a></li>
-								</cfloop>
-							<cfelse>
-								<li><a onclick="return false;">#application.rbFactory.getKeyValue(session.rb,'changesets.noassignedcontent')#</a></li>
-							</cfif>
+							<cfset previewData=$.currentUser("ChangesetPreviewData")>
+						</cfif>
+						<cfset rsChangesets=application.changesetManager.getQuery(siteID=$.event('siteID'),published=0,sortby="PublishDate")>
+						<ul id="tools-changesets">
 							
-							</ul>
-						</cfif>
-					</li>
-					
-					<!--- I can't figure out how to trigger the tooltip but here are the icons for each status:
-						In Selected Changeset - icon-check
-						In Earlier Changeset - icon-code-fork
-						Not in a Changeset - icon-ban-circle --->
-					<cfif request.muraChangesetPreview and structKeyExists(previewData.previewmap,$.content("contentID")) >
-						<cfif previewData.previewmap[$.content("contentID")].changesetID eq previewData.changesetID>
-							<li>
-								<a href="" data-toggle="tooltip" title="first tooltip">
-									<i class="icon-check"></i>
-									 <!---#application.rbFactory.getResourceBundle(session.rb).messageFormat(application.rbFactory.getKeyValue(session.rb,"changesets.previewnodemembership"),'<strong>"#HTMLEDitFormat(previewData.previewmap[$.content("contentID")].changesetName)#"</strong>')#--->
-								</a>
+							<li id="cs-title" class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown"><i>CS</i><cfif request.muraChangesetPreview>#HTMLEditFormat(previewData.name)#<cfif isDate(previewData.publishDate)> (#LSDateFormat(previewData.publishDate,session.dateKeyFormat)#)</cfif><cfelse>None Selected</cfif><b class="caret"></b></a>
+								<ul class="dropdown-menu">
+									<li><a href="./?changesetid=">None</a></li>
+									<cfloop query="rsChangesets">
+									<li><a href="./?changesetid=#rschangesets.changesetid#">
+											#HTMLEditFormat(rsChangesets.name)#
+											<cfif isDate(rsChangesets.publishDate)> (#LSDateFormat(rsChangesets.publishDate,session.dateKeyFormat)#)</cfif>
+										</a>
+									</li>
+									</cfloop>
+								</ul>							
 							</li>
-						<cfelse>
-							<li>
-								<a href="" data-toggle="tooltip" title="first tooltip">
-									<i class="icon-code-fork"></i>
-									<!---#application.rbFactory.getResourceBundle(session.rb).messageFormat(application.rbFactory.getKeyValue(session.rb,"changesets.previewnodemembership"),'<strong>"#HTMLEDitFormat(previewData.previewmap[$.content("contentID")].changesetName)#"</strong>')#--->
-								</a>
+
+							<cfif request.muraChangesetPreview>
+								<cfset previewData=$.currentUser("ChangesetPreviewData")>
+								<cfset changesetMembers=application.changesetManager.getAssignmentsIterator(changesetID=previewData.changesetID,moduleID='00000000000000000000000000000000000')>
+							</cfif>
+							<li class="dropdown">
+								<a class="dropdown-toggle" data-toggle="dropdown"><i class="icon-list"></i></a>
+								<cfif request.muraChangesetPreview>
+									<ul class="dropdown-menu">
+									<cfif changesetMembers.hasNext()>
+										<cfloop condition="changesetMembers.hasNext()">
+										<cfset changesetMember=changesetMembers.next()>
+										<li><a href="#changesetMember.getURL()#">#HTMLEditFormat(changesetMember.getMenuTitle())#</a></li>
+										</cfloop>
+									<cfelse>
+										<li><a onclick="return false;">#application.rbFactory.getKeyValue(session.rb,'changesets.noassignedcontent')#</a></li>
+									</cfif>
+									
+									</ul>
+								</cfif>
 							</li>
-						</cfif>
-					<cfelse>
-						<li>
-							<a href="" data-toggle="tooltip" title="first tooltip">
-								<i class="icon-ban-circle"></i>
-								<!---#application.rbFactory.getKeyValue(session.rb,"changesets.previewnodenotinchangeset")#--->
-							</a>
-						</li>
+							
+							<!--- I can't figure out how to trigger the tooltip but here are the icons for each status:
+								In Selected Changeset - icon-check
+								In Earlier Changeset - icon-code-fork
+								Not in a Changeset - icon-ban-circle --->
+							<cfif request.muraChangesetPreview and structKeyExists(previewData.previewmap,$.content("contentID")) >
+								<cfif previewData.previewmap[$.content("contentID")].changesetID eq previewData.changesetID>
+									<li>
+										<a href="" data-toggle="tooltip" title="first tooltip">
+											<i class="icon-check"></i>
+											 <!---#application.rbFactory.getResourceBundle(session.rb).messageFormat(application.rbFactory.getKeyValue(session.rb,"changesets.previewnodemembership"),'<strong>"#HTMLEDitFormat(previewData.previewmap[$.content("contentID")].changesetName)#"</strong>')#--->
+										</a>
+									</li>
+								<cfelse>
+									<li>
+										<a href="" data-toggle="tooltip" title="first tooltip">
+											<i class="icon-code-fork"></i>
+											<!---#application.rbFactory.getResourceBundle(session.rb).messageFormat(application.rbFactory.getKeyValue(session.rb,"changesets.previewnodemembership"),'<strong>"#HTMLEDitFormat(previewData.previewmap[$.content("contentID")].changesetName)#"</strong>')#--->
+										</a>
+									</li>
+								</cfif>
+							<cfelse>
+								<li>
+									<a href="" data-toggle="tooltip" title="first tooltip">
+										<i class="icon-ban-circle"></i>
+										<!---#application.rbFactory.getKeyValue(session.rb,"changesets.previewnodenotinchangeset")#--->
+									</a>
+								</li>
+							</cfif>
+						</ul>
 					</cfif>
-				</ul>
-				</cfif>
-
-				<!--- END CHANGESETS ---> 
-
-				<cfif listFind(session.mura.memberships,'S2IsPrivate')>
-				<ul id="adminSiteManager"><li><a href="#variables.adminLink#" title="#application.rbFactory.getKeyValue(session.rb,'layout.sitemanager')#" target="admin"><i class="icon-list-alt"></i> #application.rbFactory.getKeyValue(session.rb,'layout.sitemanager')#<!---  #application.rbFactory.getKeyValue(session.rb,'layout.sitemanager')# ---></a></li></ul>
 				</cfif>
 				
-			<cfif $.currentUser().isLoggedIn()>
-			<ul id="tools-user">
-				<li id="adminLogOut"><a href="?doaction=logout" title="#application.rbFactory.getKeyValue(session.rb,'layout.logout')#"><i class="icon-signout"></i>#application.rbFactory.getKeyValue(session.rb,'layout.logout')#</a></li>
-				<li id="adminWelcome"><i class="icon-user"></i> #HTMLEditFormat("#session.mura.fname# #session.mura.lname#")#</li>
-				<cfif listFindNoCase('editor,author',request.r.perm) or listFind(session.mura.memberships,'S2') >
-				
-				<cfelse>
-					<cfif listFind(session.mura.memberships,'S2IsPrivate')>
-						<li id="adminSiteManager404"><a href="#adminLink#" title="#application.rbFactory.getKeyValue(session.rb,'layout.sitemanager')#" target="admin">
-							<i class="icon-list-alt"></i> #application.rbFactory.getKeyValue(session.rb,'layout.sitemanager')#</a>
-						</li>
-					</cfif>	
+
+				<cfif listFindNoCase(session.mura.memberships,'S2IsPrivate')>
+					<ul id="adminSiteManager"><li><a href="#variables.adminLink#" title="#application.rbFactory.getKeyValue(session.rb,'layout.sitemanager')#" target="admin"><i class="icon-list-alt"></i> #application.rbFactory.getKeyValue(session.rb,'layout.sitemanager')#</a></li></ul>
 				</cfif>
-				</ul>
-			</cfif>
-		</cfif>
+				
+				<cfif $.currentUser().isLoggedIn()>
+					<ul id="tools-user">
+						<li id="adminLogOut"><a href="?doaction=logout" title="#application.rbFactory.getKeyValue(session.rb,'layout.logout')#"><i class="icon-signout"></i>#application.rbFactory.getKeyValue(session.rb,'layout.logout')#</a></li>
+						<li id="adminWelcome"><i class="icon-user"></i> #HTMLEditFormat("#session.mura.fname# #session.mura.lname#")#</li>
+					</ul>
+				</cfif>
+
+		
 				
 	</div>
 	</div>
