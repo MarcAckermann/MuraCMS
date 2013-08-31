@@ -1228,7 +1228,7 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 				<cfif structKeyExists(pluginCFC,"init")>
 					<cfset pluginCFC.init(pluginConfig)>
 					<cfif structKeyExists(pluginCFC,"toBundle")>
-						<cfset pluginCFC.toBundle(pluginConfig=pluginConfig,Bundle=this, siteID=arguments.siteID)>
+						<cfset pluginCFC.toBundle(pluginConfig=pluginConfig,Bundle=this, siteID=arguments.siteID,includeVersionHistory=arguments.includeVersionHistory)>
 					</cfif>
 				</cfif>
 			</cfif>
