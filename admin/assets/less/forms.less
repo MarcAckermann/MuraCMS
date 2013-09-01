@@ -35,8 +35,9 @@ input[type="file"] {
 	margin: 0 0 @baseLineHeight/2 0;
 	}
 	
-input[type="checkbox"] {
-	.box-shadow(0 0 0);	
+input[type="checkbox"],
+input[type="radio"] {
+	.box-shadow(0 0 0) !important;	
 }
 
 textarea,
@@ -316,7 +317,7 @@ label:last-child {
 		
 		.btn {
 			.btn-primary;
-		}
+			}
 		
 		}
 	}
@@ -372,12 +373,6 @@ label:last-child {
 #selectAssocImageResults {
 	
 	max-height: 300px;
-	/*
-	padding: 1em;
-	border: 1px solid @grayLight;
-	background: @white;
-	.border-radius(4px);
-	*/
 	margin-bottom: @baseLineHeight;
 	
 	> .nav-tabs {
@@ -698,22 +693,8 @@ select[multiple] {
 
 .icon-selector {
 	> .icon-undo { 
-		//.inline-block;
-		//.border-radius(3px);
 		background: @orange;
-		//font-family: Silkscreen;
-		//font-size: 10px;
-		//font-weight: bold;
-		//letter-spacing: -1px;
-		//text-transform: uppercase;
-		//line-height: 24px;
 		color: @white;
-		//margin: 3px;
-		//height: 29px;
 		border: 0;
-		//padding: 3px;
-		//width: 31px;
-		//text-align: center;
-		//white-space: normal;
 	}
 }
