@@ -63,7 +63,7 @@ Mura CMS.
 			* Reload the application when additions/changes are made to THIS file!
 	--->
 
-	<cffunction name="onRequestStart" access="public" output="false" returntype="any">
+	<cffunction name="onSiteRequestStart" access="public" output="false" returntype="any">
 		<cfargument name="$" hint="mura scope" />
 		<cfscript>
 			// http://dominicwatson.github.io/cfstatic/full-guide.html
@@ -77,6 +77,20 @@ Mura CMS.
 		</cfscript>
 	</cffunction>
 
+	<cffunction name="onSiteCKEditorConfigRender" access="public" output="false" returntype="any">
+		<cfargument name="$" hint="mura scope" />
+		<cfset var str = '' />
+		<cfsavecontent variable="str"><cfoutput>
+			// heading vars
+			config.format_h1 = { element : 'h2' };
+			config.format_h2 = { element : 'h3' };
+			config.format_h3 = { element : 'h4' };
+			config.format_h4 = { element : 'h5' };
+			config.format_h5 = { element : 'h6' };
+		</cfoutput></cfsavecontent>
+		<cfreturn str />
+	</cffunction>
+
 	<cffunction name="onRenderStart" access="public" output="false" returntype="any">
 		<cfargument name="$" hint="mura scope" />
 		<cfscript>
@@ -85,14 +99,6 @@ Mura CMS.
 			// general vars
 			renderer.jsLibLoaded = true;
 			renderer.generalWrapperClass = 'well';
-
-			// heading vars
-			renderer.headline = 'h1';
-			renderer.subHead1 = 'h2';
-			renderer.subHead2 = 'h3';
-			renderer.subHead3 = 'h4';
-			renderer.subHead4 = 'h5';
-			renderer.subHead5 = 'h6';
 
 			// nav and list item vars
 			renderer.navWrapperClass = 'well';
