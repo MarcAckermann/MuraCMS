@@ -146,7 +146,7 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 			</li>
 		</ol>	</cfif>
 	<div class="form-actions">
-	<input type="button" name="submit" value="Submit" class="btn" onclick="siteManager.saveQuickEdit(this);" />
+	<input type="button" value="Submit" class="btn" onclick="siteManager.saveQuickEdit(this);" />
 	</div>
 	</cfoutput>
 <cfelse>
