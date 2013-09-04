@@ -762,13 +762,7 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 		</cfif>
 
 		<cfif fileExists(file)>
-			<cftry>
-				<cfset fileDelete(file)>
-				<cfcatch>
-					<cfset createObject("java", "java.lang.Thread").sleep(JavaCast("int", 2000))>
-					<cfset fileDelete(file)>
-				</cfcatch>
-			</cftry>	
+			<cfset fileDelete(file)>	
 		</cfif>
 
 		<cfset cropper=imageRead(source)>
