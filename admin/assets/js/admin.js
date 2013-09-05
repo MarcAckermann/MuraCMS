@@ -847,7 +847,9 @@ function setTabs(target, activetab) {
 			$(target + ' li::nth-child(' + (activetab + 1) + ') a').tab('show');
 		} 
 		catch(err){
-			$(target + ' li:first a').tab('show');
+			if($(target + ' li:first a').tab){
+				$(target + ' li:first a').tab('show');
+			}
 		}
 	} else {
 		$(target + ' li:first a').tab('show');

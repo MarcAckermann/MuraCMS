@@ -60,6 +60,9 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 </span>
 
 <form class="fieldset-wrap" novalidate="novalidate" action="./?muraAction=cCategory.update&siteid=#URLEncodedFormat(rc.siteid)#" method="post" name="form1" onsubmit="return validate(this);">
+
+#$.renderEvent("onCategoryBasicTopRender")#
+
 <div class="fieldset">
 <div class="control-group">
   <label class="control-label">
@@ -206,6 +209,9 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 	</div>
 	
 </div>
+
+
+ #$.renderEvent("onCategoryBasicBottomRender")#
 
 <div class="form-actions">
   <cfif rc.categoryID eq ''>
