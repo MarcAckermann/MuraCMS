@@ -76,7 +76,7 @@ component extends="mura.bean.beanORM" versioned=true bundleable=true{
 
 		qs.addParam(cfsqltype="cf_sql_varchar",value=arguments.siteid);
 		
-		arguments.bundle.setValue("rs" * getTable(),qs.getResult());
+		arguments.bundle.setValue("rs" & getTable(),qs.getResult());
 	
 		return this;
 	}
