@@ -58,6 +58,7 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 	<script>
 		$(document).ready(function(){
 			siteManager.setupRCSortable();
+			$('ul.trimmed:not(.marked)').addClass('marked').prepend('<li>&raquo;</li>');
 		});
 	</script>
 	
@@ -84,9 +85,16 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 							<cfif rcsRS.recordCount>
 								<cfset emptyClass = emptyClass & " noShow">
 								<cfloop query="rcsRs">	
-									<cfset crumbdata = application.contentManager.getCrumbList(rcsRs.contentid, rc.siteid)/>
+									<cfset crumbdata = duplicate(application.contentManager.getCrumbList(rcsRs.contentid, rc.siteid))>
+									<cfset navZoomClass = "navZoom">
+									<cfif arrayLen(crumbdata) gte 6>
+										<cfset navZoomClass = "navZoom trimmed">
+										<cfloop condition="arrayLen(crumbdata) gte 6">
+											<cfset arrayDeleteAt(crumbdata, 6)>
+										</cfloop>
+									</cfif>
 									<li class="item" data-contentid="#rcsRs.contentID#" data-content-type="#rcsRs.type#/#rcsRs.subtype#">
-										#$.dspZoomNoLinks(crumbdata)#
+										#$.dspZoomNoLinks(crumbdata=crumbdata, class=navZoomClass)#
 										<a class="delete"></a>
 									</li>
 								</cfloop>
