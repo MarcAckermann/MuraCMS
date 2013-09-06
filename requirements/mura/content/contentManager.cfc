@@ -310,12 +310,14 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 				<cfif not isArray(bean) and not bean.getIsNew()>
 					<cfset cacheFactory.get( key, structCopy(bean.getAllValues()) ) />
 				</cfif>
+				<cfset commitTracePoint(initTracePoint(detail="DATA CACHE MISS: {class: contentBean, key: #key#}"))>
 				<cfreturn bean/>
 			<cfelse>
 				<cftry>
 					<cfif not isObject(bean)>
 						<cfset bean=getBean("content")/>
 					</cfif>
+					<cfset commitTracePoint(initTracePoint(detail="DATA CACHE HIT: {class: contentBean, key: #key#}"))>
 					<cfset bean.setAllValues( structCopy(cacheFactory.get( key )) )>
 					<cfset bean.setValue("extendAutoComplete",false)>
 					<cfreturn bean />
@@ -324,11 +326,13 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 						<cfif not isArray(bean) and not bean.getIsNew()>
 							<cfset cacheFactory.get( key, structCopy(bean.getAllValues()) ) />
 						</cfif>
+						<cfset commitTracePoint(initTracePoint(detail="DATA CACHE HIT: {class: contentBean, key: #key#}"))>
 						<cfreturn bean/>
 					</cfcatch>
 				</cftry>
 			</cfif>
 		<cfelse>
+			<cfset commitTracePoint(initTracePoint(detail="Loading contentBean"))>
 			<cfreturn variables.contentDAO.readVersion(arguments.contentHistID,arguments.siteid,arguments.use404,bean,arguments.sourceIterator) />
 		</cfif>
 	</cffunction>
@@ -375,6 +379,7 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 					<cfif not isArray(bean) and not bean.getIsNew()>
 						<cfset cacheFactory.get( key, structCopy(bean.getAllValues()) ) />
 					</cfif>
+					<cfset commitTracePoint(initTracePoint(detail="DATA CACHE MISS: {class: contentBean, key: #key#}"))>
 					<cfreturn bean/>
 				<cfelse>
 					<cftry>
@@ -383,12 +388,14 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 						</cfif>
 						<cfset bean.setAllValues( structCopy(cacheFactory.get( key )) )>
 						<cfset bean.setValue("extendAutoComplete",false)>
+						<cfset commitTracePoint(initTracePoint(detail="DATA CACHE HIT: {class: contentBean, key: #key#}"))>
 						<cfreturn bean />
 						<cfcatch>
 							<cfset bean=variables.contentDAO.readActiveByFilename(arguments.filename,arguments.siteid,arguments.use404,bean,arguments.type) />
 							<cfif not isArray(bean) and not bean.getIsNew()>
 								<cfset cacheFactory.get( key, structCopy(bean.getAllValues()) ) />
 							</cfif>
+							<cfset commitTracePoint(initTracePoint(detail="DATA CACHE HIT: {class: contentBean, key: #key#}"))>
 							<cfreturn bean/>
 						</cfcatch>
 					</cftry>
@@ -421,6 +428,7 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 				<cfif not isArray(bean) and not bean.getIsNew()>
 					<cfset cacheFactory.get( key, structCopy(bean.getAllValues()) ) />
 				</cfif>
+				<cfset commitTracePoint(initTracePoint(detail="DATA CACHE MISS: {class: contentBean, key: #key#}"))>
 				<cfreturn bean/>
 			<cfelse>
 				<cftry>
@@ -429,12 +437,14 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 					</cfif>
 					<cfset bean.setAllValues( structCopy(cacheFactory.get( key )) )>
 					<cfset bean.setValue("extendAutoComplete",false)>
+					<cfset commitTracePoint(initTracePoint(detail="DATA CACHE HIT: {class: contentBean, key: #key#}"))>
 					<cfreturn bean />
 					<cfcatch>
 						<cfset bean=variables.contentDAO.readActiveByRemoteID(arguments.remoteID,arguments.siteid,arguments.use404,bean,arguments.type)  />
 						<cfif not isArray(bean) and not bean.getIsNew()>
 							<cfset cacheFactory.get( key, structCopy(bean.getAllValues()) ) />
 						</cfif>
+						<cfset commitTracePoint(initTracePoint(detail="DATA CACHE HIT: {class: contentBean, key: #key#}"))>
 						<cfreturn bean/>
 					</cfcatch>
 				</cftry>
@@ -456,7 +466,6 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 		<cfset var cacheFactory=site.getCacheFactory(name="data")/>
 		<cfset var bean=arguments.contentBean/>
 		
-		
  		<cfif site.getCache() and not request.muraChangesetPreview>
 			<!--- check to see if it is cached. if not then pass in the context --->
 			<!--- otherwise grab it from the cache --->
@@ -465,6 +474,7 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 				<cfif not isArray(bean) and not bean.getIsNew()>
 					<cfset cacheFactory.get( key, structCopy(bean.getAllValues()) ) />
 				</cfif>
+				<cfset commitTracePoint(initTracePoint(detail="DATA CACHE MISS: {class: contentBean, key: #key#}"))>
 				<cfreturn bean/>
 			<cfelse>
 				<cftry>
@@ -473,12 +483,14 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 					</cfif>
 					<cfset bean.setAllValues( structCopy(cacheFactory.get( key )) )>
 					<cfset bean.setValue("extendAutoComplete",false)>
+					<cfset commitTracePoint(initTracePoint(detail="DATA CACHE HIT: {class: contentBean, key: #key#}"))>
 					<cfreturn bean />
 					<cfcatch>
 						<cfset bean=variables.contentDAO.readActiveByTitle(arguments.title,arguments.siteid,arguments.use404,bean,arguments.type)  />
 						<cfif not isArray(bean) and not bean.getIsNew()>
 							<cfset cacheFactory.get( key, structCopy(bean.getAllValues()) ) />
 						</cfif>
+						<cfset commitTracePoint(initTracePoint(detail="DATA CACHE HIT: {class: contentBean, key: #key#}"))>
 						<cfreturn bean/>
 					</cfcatch>
 				</cftry>
@@ -508,6 +520,7 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 				<cfif not isArray(bean) and not bean.getIsNew()>
 					<cfset cacheFactory.get( key, structCopy(bean.getAllValues()) ) />
 				</cfif>
+				<cfset commitTracePoint(initTracePoint(detail="DATA CACHE MISS: {class: contentBean, key: #key#}"))>
 				<cfreturn bean/>
 			<cfelse>
 				<cftry>
@@ -516,12 +529,14 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 					</cfif>
 					<cfset bean.setAllValues( structCopy(cacheFactory.get( key )) )>
 					<cfset bean.setValue("extendAutoComplete",false)>
+					<cfset commitTracePoint(initTracePoint(detail="DATA CACHE HIT: {class: contentBean, key: #key#}"))>
 					<cfreturn bean />
 					<cfcatch>
 						<cfset bean=variables.contentDAO.readActiveByURLTitle(arguments.URLTitle,arguments.siteid,arguments.use404,bean,arguments.type)  />
 						<cfif not isArray(bean) and not bean.getIsNew()>
 							<cfset cacheFactory.get( key, structCopy(bean.getAllValues()) ) />
 						</cfif>
+						<cfset commitTracePoint(initTracePoint(detail="DATA CACHE HIT: {class: contentBean, key: #key#}"))>
 						<cfreturn bean/>
 					</cfcatch>
 				</cftry>
@@ -551,6 +566,7 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 				<cfif not isArray(bean) and not bean.getIsNew()>
 					<cfset cacheFactory.get( key, structCopy(bean.getAllValues()) ) />
 				</cfif>
+				<cfset commitTracePoint(initTracePoint(detail="DATA CACHE MISS: {class: contentBean, key: #key#}"))>
 				<cfreturn bean/>
 			<cfelse>
 				<cftry>
@@ -559,12 +575,14 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 					</cfif>
 					<cfset bean.setAllValues( structCopy(cacheFactory.get( key )) )>
 					<cfset bean.setValue("extendAutoComplete",false)>
+					<cfset commitTracePoint(initTracePoint(detail="DATA CACHE HIT: {class: contentBean, key: #key#}"))>
 					<cfreturn bean />
 					<cfcatch>
 						<cfset bean=variables.contentDAO.readActive(arguments.contentID,arguments.siteid,arguments.use404,bean,arguments.sourceIterator)  />
 						<cfif not isArray(bean) and not bean.getIsNew()>
 							<cfset cacheFactory.get( key, structCopy(bean.getAllValues()) ) />
 						</cfif>
+						<cfset commitTracePoint(initTracePoint(detail="DATA CACHE HIT: {class: contentBean, key: #key#}"))>
 						<cfreturn bean/>
 					</cfcatch>
 				</cftry>
