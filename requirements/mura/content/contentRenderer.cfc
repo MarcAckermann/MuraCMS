@@ -404,7 +404,7 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 		<cfif arguments.charLimit>
 			<!--- change crumbLen --->
 			<cfloop from="1" to="#arrayLen(arguments.crumbdata)#" index="i">
-				<cfset charCount = charCount + len(arguments.crumbdata[i].menutitle)>
+				<cfset charCount = charCount + len(arguments.crumbdata[i].menutitle) + 3> <!--- add 3 to offset the icon width--->
 				<cfif charCount gte arguments.charLimit>
 					<cfset crumbLen = i - 1>
 					<cfset limited = true>
@@ -472,7 +472,7 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 		<cfif arguments.charLimit>
 			<!--- change crumbLen --->
 			<cfloop from="1" to="#arrayLen(arguments.crumbdata)#" index="i">
-				<cfset charCount = charCount + len(arguments.crumbdata[i].menutitle)>
+				<cfset charCount = charCount + len(arguments.crumbdata[i].menutitle) + 3> <!--- add 3 to offset the icon width--->
 				<cfif charCount gte arguments.charLimit>
 					<cfset crumbLen = i - 1>
 					<cfset limited = true>
