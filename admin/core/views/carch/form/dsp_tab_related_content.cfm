@@ -84,9 +84,9 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 							<cfif rcsRS.recordCount>
 								<cfset emptyClass = emptyClass & " noShow">
 								<cfloop query="rcsRs">	
-									<cfset crumbdata = application.contentManager.getCrumbList(rcsRs.contentid, rc.siteid)/>
+									<cfset crumbdata = application.contentManager.getCrumbList(rcsRs.contentid, rc.siteid)>
 									<li class="item" data-contentid="#rcsRs.contentID#" data-content-type="#rcsRs.type#/#rcsRs.subtype#">
-										#$.dspZoomNoLinks(crumbdata)#
+										#$.dspZoomNoLinks(crumbdata=crumbdata, charLimit=90, minLevels=2)#
 										<a class="delete"></a>
 									</li>
 								</cfloop>

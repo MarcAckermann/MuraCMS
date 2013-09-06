@@ -213,10 +213,10 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 				<div class="list-table-content-set">Search Results</label></div>
 				<ul class="rcDraggable list-table-items">
 					<cfoutput query="rc.rslist" startrow="1" maxrows="100">	
-						<cfset crumbdata=application.contentManager.getCrumbList(rc.rslist.contentid, rc.siteid)/>
+						<cfset crumbdata = application.contentManager.getCrumbList(rc.rslist.contentid, rc.siteid)/>
 						<cfif arrayLen(crumbdata) and structKeyExists(crumbdata[1],"parentArray") and not listFind(arraytolist(crumbdata[1].parentArray),rc.contentid)>
 							<li class="item" data-content-type="#rc.rslist.type#/#rc.rslist.subtype#" data-contentid="#rc.rslist.contentID#">
-								#$.dspZoomNoLinks(crumbdata)#
+								#$.dspZoomNoLinks(crumbdata=crumbdata, charLimit=90, minLevels=2)#
 							</li>
 						</cfif>
 					</cfoutput>
@@ -233,27 +233,26 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 <div class="control-group mura-related-external" style="display:none;">
 	<div class="span6">
 		<label class="control-label">Title</label>
-		<div  class="controls">
+		<div class="controls">
 			<input type="text" id="mura-related-title" value="" class="span12">	
 		</div>
 	</div>
 	<div class="span6">
 		<label class="control-label">URL</label>
 		<div class="controls input-append">
-				<input type="text" id="mura-related-url" value="" placeholder="http://www.example.com" class="span12">
-				<button type="button" name="btnCreateLink" id="rcBtnCreateLink" class="btn" onclick="createExternalLink();"><i class="icon-plus"></i></button>		
+			<input type="text" id="mura-related-url" value="" placeholder="http://www.example.com" class="span12">
+			<button type="button" name="btnCreateLink" id="rcBtnCreateLink" class="btn" onclick="createExternalLink();"><i class="icon-plus"></i></button>		
 		</div>
 	</div>
 </div>	
 
 <div class="mura-related-external" style="display:none;">
-<div id="draggableContainmentExternal" class="control-group" style="display:none;">
-	<div class="list-table search-results">
-		<div class="list-table-content-set">Available URLs</label></div>
-		<ul class="rcDraggable list-table-items">
-		</ul>
-	</div>	
-</div>
+	<div id="draggableContainmentExternal" class="control-group" style="display:none;">
+		<div class="list-table search-results">
+			<div class="list-table-content-set">Available URLs</label></div>
+			<ul class="rcDraggable list-table-items"></ul>
+		</div>	
+	</div>
 </div>
 
 
