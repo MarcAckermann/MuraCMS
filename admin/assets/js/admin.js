@@ -1243,7 +1243,7 @@ function openPreviewDialog(previewURL) {
 
 	var position=["top",20];
 
-	var $dialog = $('<div></div>').html('<iframe id="preview-dialog" style="border: 0; " src="' + $previewURL + '&mobileFormat=false" width="1075" height="600" allowfullscreen></iframe>').dialog({
+	var $dialog = $('<div id="mura-preview-container"></div>').html('<iframe id="preview-dialog" style="border: 0; " src="' + $previewURL + '&mobileFormat=false" width="1075" height="600" allowfullscreen></iframe>').dialog({
 		width: 1105,
 		height: 600,
 		modal: true,
@@ -1254,6 +1254,8 @@ function openPreviewDialog(previewURL) {
 		},
 		close: function(){
 			$($dialog).dialog( "destroy" );
+			$('#mura-preview-container').remove();
+			$('#mura-preview-device-selector').remove();
 		},
 		open: function(){
 
