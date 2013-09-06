@@ -878,8 +878,7 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 			
 			<cfif not newBean.getApprovalChainOverride() and (newBean.getApproved() or len(newBean.getChangesetID())) and requiresApproval>		
 				<cfset newBean.setChainID(chainID)>
-				<cfset var approvalRequest=newBean.getApprovalRequest()>
-				<cfset pluginEvent.setValue('approvalRequest',approvalRequest)>
+				<cfset pluginEvent.setValue('approvalRequest',newBean.getApprovalRequest())>
 			</cfif>
 			
 			<cfset newBean.setcontentHistID(createUUID()) />
@@ -925,7 +924,8 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 
 				<cflock type="exclusive" name="editingContent#arguments.data.siteid##application.instanceID#" timeout="600">
 	
-				<cfif isDefined('approvalRequest')>
+				<cfif isObject(pluginEvent.getValue('approvalRequest'))>
+					<cfset var approvalRequest=newBean.getApprovalRequest()>
 					<!---If it does not have a currently pending aproval request create one --->
 					<cfif approvalRequest.getIsNew() or (not newBean.getIsNew() and currentBean.getActive() and currentBean.getApproved())>			
 						<cfif isDefined("session.mura") and session.mura.isLoggedIn>
