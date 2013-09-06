@@ -109,9 +109,6 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 			siteManager.bindMouse();
 
 		}		
-		$(document).ready(function(){
-			$('ul.trimmed:not(.marked)').addClass('marked').prepend('<li>&raquo;</li>');
-		});
 	</script>
 	<div class="control-group">
 		<label class="control-label"><a href="##" rel="tooltip" title="You can add related content from either this site or another site entirely. Use the controls below to specify where the related content you'd like to add lives.">Where is the Related Content? <i class="icon-question-sign"></i></a></label>
@@ -216,18 +213,10 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 				<div class="list-table-content-set">Search Results</label></div>
 				<ul class="rcDraggable list-table-items">
 					<cfoutput query="rc.rslist" startrow="1" maxrows="100">	
-						<cfset fullCrumbdata = application.contentManager.getCrumbList(rc.rslist.contentid, rc.siteid)/>
-						<cfif arrayLen(fullCrumbdata) and structKeyExists(fullCrumbdata[1],"parentArray") and not listFind(arraytolist(fullCrumbdata[1].parentArray),rc.contentid)>
-							<cfset crumbdata = duplicate(fullCrumbdata)>
-							<cfset navZoomClass = "navZoom">
-							<cfif arrayLen(crumbdata) gte 6>
-								<cfset navZoomClass = "navZoom trimmed">
-								<cfloop condition="arrayLen(crumbdata) gte 6">
-									<cfset arrayDeleteAt(crumbdata, 6)>
-								</cfloop>
-							</cfif>
+						<cfset crumbdata = application.contentManager.getCrumbList(rc.rslist.contentid, rc.siteid)/>
+						<cfif arrayLen(crumbdata) and structKeyExists(crumbdata[1],"parentArray") and not listFind(arraytolist(crumbdata[1].parentArray),rc.contentid)>
 							<li class="item" data-content-type="#rc.rslist.type#/#rc.rslist.subtype#" data-contentid="#rc.rslist.contentID#">
-								#$.dspZoomNoLinks(crumbdata=crumbdata, class=navZoomClass)#
+								#$.dspZoomNoLinks(crumbdata=crumbdata, charLimit=80, minLevels=2)#
 							</li>
 						</cfif>
 					</cfoutput>
