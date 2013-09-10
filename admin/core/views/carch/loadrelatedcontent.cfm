@@ -183,6 +183,8 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 		feed.setSortBy("lastupdate");
 		feed.setSortBy("desc");
 		
+		feed.addParam(field="tcontent.approved", criteria=1, condition="eq");
+
 		if (len($.event("searchTypeSelector"))) {
 			feed.addParam(field="tcontent.type",criteria=listFirst($.event("searchTypeSelector"), "^"),condition="eq");	
 			feed.addParam(field="tcontent.subtype",criteria=listLast($.event("searchTypeSelector"), "^"),condition="eq");	
