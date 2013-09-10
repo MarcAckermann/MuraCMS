@@ -48,6 +48,8 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 <cfparam name="application.setupComplete" default="false">
 <cfparam name="application.appInitialized" default="false">
 <cfprocessingdirective pageencoding="utf-8"/>
+<cfset setEncoding("url", "utf-8")>
+<cfset setEncoding("form", "utf-8")> 
 	
 <!--- Double check that the application has started properly.
 If it has not set application.appInitialized=false. --->

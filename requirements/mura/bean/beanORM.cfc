@@ -624,6 +624,74 @@ component extends="mura.bean.bean" versioned=false {
 		return this;
 	}
 
+	function updateMappings(){
+		var props=getProperties();
+		var loadArgs={};
+		var i=0;
+		var subitem='';
+		var subPrimaryKey='';
+		var deleteID="";
+		var saveID='';
+		var subEntity='';
+		var subItems='';
+		var primaryLoadArgs={};
+		var isMappingEntity=false;
+
+		for(var prop in props){
+			if(structKeyExists(props[prop],'cfc') 
+				&& props[prop].fieldtype eq 'one-to-many' 
+				&& structKeyExists(props[prop],'keycolumn') ){
+
+				if( valueExist(props[prop].keycolumn) ){
+					if(props[prop].fkcolumn eq 'primaryKey'){
+						primaryLoadArgs={'#getPrimaryKey()#'=getValue(translatePropKey(props[prop].fkcolumn))};
+					} else {
+						primaryLoadArgs={'#props[prop].fkcolumn#'=getValue(translatePropKey(props[prop].fkcolumn))};
+					}
+
+					subItems=evaluate('getBean(variables.entityName).loadBy(argumentCollection=primaryLoadArgs).get#prop#Iterator()');
+					saveID=getValue(props[prop].keycolumn);
+					deleteID="";
+
+					while(subItems.hasNext()){
+						subitem=subitems.next();
+						if(not listFindNoCase(saveID,subItem.getValue(props[prop].keycolumn)) ){
+		                    deleteID=listAppend(deleteID,subItem.getValue(props[prop].keycolumn));
+		                }
+					}
+
+	            	if(len(deleteID)){
+		                for(i=1; i lte listLen(deleteID); i=i+1){
+		                	loadArgs=structAppend({'#props[prop].keycolumn#'=listGetAt(deleteID,i)},primaryLoadArgs);
+		                	subItem=getBean(props[prop].cfc).loadBy(argumentCollection=loadArgs);
+
+		                	if(!subItem.getIsNew()){
+			                	if( props[prop].cascade eq 'delete'){
+			                    	subItem.delete();
+			                    } else {
+			                    	if(props[prop].fkcolumn eq 'primaryKey'){
+										 subItem.setValue(getPrimaryKey(),'');
+									} else {
+										 subItem.setValue(props[prop].fkcolumn,'');
+									}
+			                    }
+		                	}
+		                }
+            		}
+
+					for( i=1; i lte listLen(saveID); i=i+1){
+							loadArgs=structAppend({'#props[prop].keycolumn#'=listGetAt(saveID,i)},primaryLoadArgs);
+
+		               		getBean(props[prop].cfc)
+		                    .loadBy(argumentCollection=loadArgs)
+		                    .setOrderNo(i)
+		                    .save();
+	            	}
+            	}
+			}
+		}
+	}
+
 	/*
 	function save(){
 		if(request.muraORMtransaction){
