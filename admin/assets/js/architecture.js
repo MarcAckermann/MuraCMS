@@ -1266,15 +1266,25 @@ buttons: {
 
 				icon.removeClass('hasChildren closed');
 				icon.addClass('hasChildren open');
-				$('body').prepend('<div id="mura-section-loading" class="spinner-wrap"></div>');
-				$('.mura-grid').prepend('<div id="mura-grid-loader"></div>');
-				$("#mura-section-loading").spin(spinnerArgs3);
+				
+				var thisLoading=true;
+
+				setTimeout(
+					function(){
+						if(thisLoading){
+							$('body').prepend('<div id="mura-section-loading" class="spinner-wrap"></div>');
+							$('.mura-grid').prepend('<div id="mura-grid-loader"></div>');
+							$("#mura-section-loading").spin(spinnerArgs3);
+						}
+					},
+					2000
+				);
 
 				//d.find(".loadProgress").show();
 				$.get(url + "?" + pars, function(data) {
 					try {
 						var r = eval("(" + data + ")");
-
+						thisLoading=false;
 						$("#mura-section-loading").spin(false);
 						$("#mura-section-loading").remove();
 						$('#mura-grid-loader').remove();
