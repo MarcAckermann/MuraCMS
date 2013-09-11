@@ -281,7 +281,7 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 </cffunction>
 
 <cffunction name="getDbType" output="false">
-	<cfif structKeyExists(application.objectMappings[variables.instance.entityName],'dbtype')>
+	<cfif structKeyExists(application.objectMappings,variables.instance.entityName) and structKeyExists(application.objectMappings[variables.instance.entityName],'dbtype')>
 		<cfreturn application.objectMappings[variables.instance.entityName].dbtype>
 	<cfelse>
 		<cfreturn variables.configBean.getDbType()>
@@ -289,7 +289,7 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 </cffunction>
 
 <cffunction name="hasCustomDatasource" output="false">
-	<cfreturn structKeyExists(application.objectMappings[variables.instance.entityName],'datasource')>
+	<cfreturn structKeyExists(application.objectMappings,variables.instance.entityName) and structKeyExists(application.objectMappings[variables.instance.entityName],'datasource')>
 </cffunction>
 
 <cffunction name="getCustomDatasource" output="false">
