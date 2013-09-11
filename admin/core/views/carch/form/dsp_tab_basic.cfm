@@ -81,7 +81,7 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 							e.preventDefault();
 							$('##menuTitle,##urlTitle,##htmlTitle').val('');
 							$('##editAdditionalTitles').hide();
-							$('##alertTitleSuccess').show('slow');
+							$('##alertTitleSuccess').fadeIn();
 							return true;
 						});
 					});
