@@ -1254,6 +1254,10 @@ buttons: {
 
 	loadSiteSection: function(node, startrow) {
 
+		$("#mura-section-loading").spin(false);
+		$("#mura-section-loading").remove();
+		$('#mura-grid-loader').remove();
+
 		if(!this.sectionLoading) {
 			this.sectionLoading = true;
 			var url = 'index.cfm';
@@ -1266,12 +1270,10 @@ buttons: {
 
 				icon.removeClass('hasChildren closed');
 				icon.addClass('hasChildren open');
-				
-				var thisLoading=true;
 
 				setTimeout(
 					function(){
-						if(thisLoading){
+						if(siteManager.sectionLoading){
 							$('body').prepend('<div id="mura-section-loading" class="spinner-wrap"></div>');
 							$('.mura-grid').prepend('<div id="mura-grid-loader"></div>');
 							$("#mura-section-loading").spin(spinnerArgs3);
@@ -1284,10 +1286,7 @@ buttons: {
 				$.get(url + "?" + pars, function(data) {
 					try {
 						var r = eval("(" + data + ")");
-						thisLoading=false;
-						$("#mura-section-loading").spin(false);
-						$("#mura-section-loading").remove();
-						$('#mura-grid-loader').remove();
+					
 						node.find('.section:first').remove();
 						
 						node.append(r.html);
@@ -1305,12 +1304,14 @@ buttons: {
 						if(data.indexOf('mura-primary-login-token') != -1) {
 							location.href = './';
 						}
-						$("#mura-section-loading").spin(false);
-						$("#mura-section-loading").remove();
+						
 						node.append(data);
 					}
 
 					siteManager.sectionLoading = false;
+					$("#mura-section-loading").spin(false);
+					$("#mura-section-loading").remove();
+					$('#mura-grid-loader').remove();
 				});
 			} else {
 
@@ -1325,6 +1326,10 @@ buttons: {
 					$('#newContentMenu').addClass('hide');
 					siteManager.sectionLoading = false;
 				});
+
+				$("#mura-section-loading").spin(false);
+				$("#mura-section-loading").remove();
+				$('#mura-grid-loader').remove();
 
 			}
 		}
