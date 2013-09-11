@@ -1267,15 +1267,17 @@ buttons: {
 				icon.removeClass('hasChildren closed');
 				icon.addClass('hasChildren open');
 				$('body').prepend('<div id="mura-section-loading" class="spinner-wrap"></div>');
-				$("#mura-section-loading").spin(spinnerArgs2);
+				$('.mura-grid').prepend('<div id="mura-grid-loader"></div>');
+				$("#mura-section-loading").spin(spinnerArgs3);
 
 				//d.find(".loadProgress").show();
 				$.get(url + "?" + pars, function(data) {
 					try {
 						var r = eval("(" + data + ")");
 
-						//$("#mura-section-loading").spin(false);
-						//$("#mura-section-loading").remove();
+						$("#mura-section-loading").spin(false);
+						$("#mura-section-loading").remove();
+						$('#mura-grid-loader').remove();
 						node.find('.section:first').remove();
 						
 						node.append(r.html);

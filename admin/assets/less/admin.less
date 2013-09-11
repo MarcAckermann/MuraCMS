@@ -305,16 +305,26 @@ img.fmImage {
 
 .spinner-wrap {
 		background: @grayDark;
-		background: rgba(0,0,0,.85);
+		background: rgba(0,0,0,.55);
 		color: #fff;
 		width: 70px;
 		height: 70px;
-		//margin: 0 20px 20px 0;
+		margin: -35px 0 0 -35px;
 		.border-radius(8px);
 		z-index: 50000;
-		position: absolute;
-		
+		position: fixed;
+		top: 50%;
+		left: 50%;
 	}
+
+#mura-grid-loader {
+	height: 100%;
+	width: 100%;
+	position: absolute;
+	margin: 0 -1px;
+	background: rgba(255,255,255,.53);
+	z-index: 49999;
+}
 	
 	
 .mura-list-grid {
