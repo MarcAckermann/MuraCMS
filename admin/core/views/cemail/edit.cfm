@@ -99,7 +99,8 @@ version 2 without this exception.  You may, if you choose, apply this exception 
       </cfif>
     </ul>
   </cfif>
-<form class="" novalidate="novalidate" action="./?muraAction=cEmail.update&siteid=#URLEncodedFormat(rc.siteid)#" method="post" name="form1" onSubmit="return false;">
+
+<form novalidate="novalidate" action="./?muraAction=cEmail.update&siteid=#URLEncodedFormat(rc.siteid)#" method="post" name="form1" onSubmit="return false;">
     
 <div class="load-inline tab-preloader"></div>
 <script>$('.tab-preloader').spin(spinnerArgs2);</script>
@@ -311,10 +312,13 @@ version 2 without this exception.  You may, if you choose, apply this exception 
     </div>
 	</div>
 
- <!--- End Tab Container --->
+<!--- End Tab Container --->
+<!---
 <div class="form-actions" style="display:none;">
-<img src="./images/progress_bar.gif">
+	<img src="./images/progress_bar.gif">
 </div>
+--->
+
 <div class="form-actions"> 
 <!---Delivery Options--->
 	<cfsilent>
