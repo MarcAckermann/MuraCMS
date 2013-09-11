@@ -412,10 +412,10 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 				</cfif>
 			</cfloop>
 		</cfif>
-		<cfif arguments.minLevels and crumbLen lt arguments.minLevels>
+		<cfif arguments.minLevels and crumbLen lt arguments.minLevels and arguments.minLevels lte arrayLen(arguments.crumbdata)>
 			<cfset crumbLen = arguments.minLevels>
 		</cfif>
-		<cfif arguments.maxLevels and crumbLen gt arguments.maxLevels>
+		<cfif arguments.maxLevels and crumbLen gt arguments.maxLevels and arguments.maxLevels lte arrayLen(arguments.crumbdata)>
 			<cfset crumbLen = arguments.maxLevels>
 		</cfif>
 		<cfsavecontent variable="content"><cfoutput><ul class="#arguments.class#">
@@ -480,10 +480,10 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 				</cfif>
 			</cfloop>
 		</cfif>
-		<cfif arguments.minLevels and crumbLen lt arguments.minLevels>
+		<cfif arguments.minLevels and crumbLen lt arguments.minLevels and arguments.minLevels lte arrayLen(arguments.crumbdata)>
 			<cfset crumbLen = arguments.minLevels>
 		</cfif>
-		<cfif arguments.maxLevels and crumbLen gt arguments.maxLevels>
+		<cfif arguments.maxLevels and crumbLen gt arguments.maxLevels and arguments.maxLevels lte arrayLen(arguments.crumbdata)>
 			<cfset crumbLen = arguments.maxLevels>
 		</cfif>
 		<cfsavecontent variable="content"><cfoutput><ul class="#arguments.class#">

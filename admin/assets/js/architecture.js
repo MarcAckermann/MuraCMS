@@ -1254,7 +1254,18 @@ buttons: {
 
 	loadSiteSection: function(node, startrow) {
 
+		var clearTimer=function(){
+			$("#mura-section-loading").spin(false);
+			$("#mura-section-loading").remove();
+			$('#mura-grid-loader').remove();
+			clearTimeout(startTimer);
+		};
+
+
+		clearTimer();
+
 		if(!this.sectionLoading) {
+
 			this.sectionLoading = true;
 			var url = 'index.cfm';
 			var pars = 'muraAction=cArch.loadSiteSection&siteid=' + node.attr("data-siteid") + '&contentID=' + node.attr("data-contentid") + '&moduleid=' + node.attr("data-moduleid") + '&sortby=' + node.attr("data-sortby") + '&sortdirection=' + node.attr("data-sortdirection") + '&ptype=' + node.attr("data-type") + '&startrow=' + startrow + '&cacheid=' + Math.random();
@@ -1264,20 +1275,28 @@ buttons: {
 
 			if(icon.hasClass('hasChildren closed')) {
 
+				var startTimer=setTimeout(
+					function(){
+					//if(siteManager.sectionLoading){
+						$('body').prepend('<div id="mura-section-loading" class="spinner-wrap"></div>');
+						$('.mura-grid').prepend('<div id="mura-grid-loader"></div>');
+						$("#mura-section-loading").spin(spinnerArgs3);
+						//}
+					},
+					1000
+				);
+
+				
+		
+
 				icon.removeClass('hasChildren closed');
 				icon.addClass('hasChildren open');
-				$('body').prepend('<div id="mura-section-loading" class="spinner-wrap"></div>');
-				$('.mura-grid').prepend('<div id="mura-grid-loader"></div>');
-				$("#mura-section-loading").spin(spinnerArgs3);
 
 				//d.find(".loadProgress").show();
 				$.get(url + "?" + pars, function(data) {
 					try {
 						var r = eval("(" + data + ")");
-
-						$("#mura-section-loading").spin(false);
-						$("#mura-section-loading").remove();
-						$('#mura-grid-loader').remove();
+					
 						node.find('.section:first').remove();
 						
 						node.append(r.html);
@@ -1295,12 +1314,13 @@ buttons: {
 						if(data.indexOf('mura-primary-login-token') != -1) {
 							location.href = './';
 						}
-						$("#mura-section-loading").spin(false);
-						$("#mura-section-loading").remove();
+						
 						node.append(data);
 					}
 
+					clearTimer();
 					siteManager.sectionLoading = false;
+					
 				});
 			} else {
 
@@ -1315,6 +1335,8 @@ buttons: {
 					$('#newContentMenu').addClass('hide');
 					siteManager.sectionLoading = false;
 				});
+
+				
 
 			}
 		}
