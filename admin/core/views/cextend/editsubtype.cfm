@@ -52,6 +52,9 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 <cfoutput>
 <div id="nav-module-specific" class="btn-group">
 <a class="btn" href="./?muraAction=cExtend.listSubTypes&siteid=#URLEncodedFormat(rc.siteid)#"><i class="icon-circle-arrow-left"></i> Back to Class Extensions</a>
+<cfif not subType.getIsNew()>
+	<a class="btn" href="./?muraAction=cExtend.listSets&subTypeID=#URLEncodedFormat(rc.subTypeID)#&siteid=#URLEncodedFormat(rc.siteid)#"><i class="icon-circle-arrow-left"></i> Back to Extension Overview</a>
+</cfif>
 </div>
 
 <form class="fieldset-wrap" novalidate="novalidate" name="subTypeFrm" method="post" action="index.cfm" onsubit="return validateForm(this);">
@@ -80,22 +83,36 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 			<label class="control-label">Icon</label>
 			<div class="btn-toolbar">
               <div class="btn-group">
-                <button class="btn" type="button"><i id="iconcurrent" class="#subtype.getIconClass()# icon-large"></i></button>
+              	<cfset currentIcon=subtype.getIconClass(includeDefault=true)>
+              	<cfset defaultIcon=subtype.getDefaultIconClass()>
+                <button class="btn" type="button"><i id="iconcurrent" class="#currentIcon# icon-large"></i></button>
                 <button class="btn dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
 				    <ul class="dropdown-menu">
 				      <cfloop list="#subtype.getIconClasses()#" index="i">
-				      	  <li class="icon-selector"><i class="#i#"></i></li>
+				      	  <li class="icon-selector" data-icon="#i#"><i class="#i#<cfif i eq currentIcon> icon-current</cfif><cfif i eq defaultIcon> icon-default</cfif>"></i></li>
 				      </cfloop>      
 				    </ul>
               </div>
-              <button class="btn"><i class="icon-undo"></i> Reset</button>
+              <button type="button" class="btn" id="iconreset"><i class="icon-undo"></i> Reset</button>
 			 </div>
               <input name="iconclass" type="hidden" value="#HTMLEditFormat(subtype.getIconClass())#" id="iconclass"/>
               <script>
               	$(function(){
+              		var defaultIcon='#defaultIcon#';
+              		var currentIcon='#currentIcon#';
+
               		$('.icon-selector').click(function(){
-              			$('##iconclass').val($(this).find('i:first').attr('class'));
-              			$('##iconcurrent').attr('class',$('##iconclass').val() + ' icon-large');
+              			var selectedClass=$(this).attr('data-icon');
+              			$('##iconclass').val(selectedClass);
+              			$('##iconcurrent').attr('class',selectedClass + ' icon-large');
+              			$('.icon-current').removeClass('icon-current');
+              			$('.' + selectedClass).addClass('icon-current');
+              		});
+
+              		$('##iconreset').click(function(){
+              			$('##iconclass').val('');
+              			$('##iconcurrent').attr('class',defaultIcon + ' icon-large');
+              			$('.icon-current').removeClass('icon-current');
               		});
               	});
               </script>

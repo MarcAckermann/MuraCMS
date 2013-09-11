@@ -287,9 +287,16 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 		 					<li class="dropdown-submenu">
 		 					<a href="./?muraAction=cExtend.listSubTypes&siteid=#URLEncodedFormat(rc.siteid)#"><i class="icon-wrench"></i> Class Extension Manager</a>
 			 					<ul class="dropdown-menu">
+			 						<!--- This is here solely for autoupdates--->
+			 						<cfif structKeyExists(application.classExtensionManager,'getIconClass')>
+			 							<cfset exp="application.classExtensionManager.getIconClass(rsExts.type,rsExts.subtype,rsExts.siteid)">
+			 						<cfelse>
+			 							<cfset exp="application.classExtensionManager.getCustomIconClass(rsExts.type,rsExts.subtype,rsExts.siteid)">
+			 						</cfif>
+			 						<!--- --->
 				 					<cfloop query="rsExts">
 				 						<li><a href="#application.configBean.getContext()#/admin/?muraAction=cExtend.listSets&subTypeID=#rsExts.subtypeID#&siteid=#URLEncodedFormat(rc.siteid)#">
-				 							<i class="icon-cog"></i> 
+				 							<i class="#evaluate(exp)#"></i> 
 				 							<cfif rsExts.type eq 1>Group<cfelseif rsExts.type eq 2>User<cfelse>#HTMLEditFormat(rsExts.type)#</cfif>/#HTMLEditFormat(rsExts.subtype)#	
 				 						</a></li>
 				 					</cfloop>

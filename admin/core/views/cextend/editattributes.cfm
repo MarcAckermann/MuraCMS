@@ -50,7 +50,7 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 <cfset extendSet=subType.loadSet(rc.extendSetID)/>
 <cfset attributesArray=extendSet.getAttributes() />
 
-<h1>Manage Attributes Set</h1>
+<h1>Manage Related Content Set</h1>
 
 <cfoutput>
 <div id="nav-module-specific" class="btn-toolbar">
@@ -59,13 +59,14 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 	<a class="btn" href="./?muraAction=cExtend.editSubType&subTypeID=#URLEncodedFormat(rc.subTypeID)#&siteid=#URLEncodedFormat(rc.siteid)#"><i class="icon-pencil"></i> Edit Class Extension</a>
 	</div>
 	<div class="btn-group">
-	<a class="btn" href="./?muraAction=cExtend.listSets&subTypeID=#URLEncodedFormat(rc.subTypeID)#&siteid=#URLEncodedFormat(rc.siteid)#"><i class="icon-circle-arrow-left"></i> Back to Attribute Sets</a>
+	<a class="btn" href="./?muraAction=cExtend.listSets&subTypeID=#URLEncodedFormat(rc.subTypeID)#&siteid=#URLEncodedFormat(rc.siteid)#"><i class="icon-circle-arrow-left"></i> Back to Extension Overview</a>
 	<a class="btn" href="./?muraAction=cExtend.editSet&subTypeID=#URLEncodedFormat(rc.subTypeID)#&extendSetID=#URLEncodedFormat(rc.extendSetID)#&siteid=#URLEncodedFormat(rc.siteid)#"><i class="icon-pencil"></i> Edit Attribute Set</a>
 	</div>
 </div>
 
+<h2><i class="#subtype.getIconClass(includeDefault=true)# icon-large"></i> #application.classExtensionManager.getTypeAsString(subType.getType())# / #subType.getSubType()#</h2>
+
 <ul class="metadata">
-	<li><strong>Class Extension:</strong> #application.classExtensionManager.getTypeAsString(subType.getType())#/#subType.getSubType()#</li>
 	<li><strong>Attributes Set:</strong> #extendSet.getName()#</li>
 </ul>
 

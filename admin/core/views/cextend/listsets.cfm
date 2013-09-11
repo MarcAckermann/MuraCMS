@@ -55,7 +55,7 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 	<cfset relatedContentsets = subType.getRelatedContentSets(includeInheritedSets=false)>
 </cfif>
 
-<h1>Class Extension Attribute Sets</h1>
+<h1>Class Extension Overview</h1>
 <cfoutput>
 	<div id="nav-module-specific" class="btn-group">
 		<a class="btn" href="./?muraAction=cExtend.listSubTypes&siteid=#URLEncodedFormat(rc.siteid)#"><i class="icon-circle-arrow-left"></i> Back to Class Extensions</a>
@@ -65,7 +65,7 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 			<a class="btn" href="./?muraAction=cExtend.editRelatedContentSet&subTypeID=#rc.subTypeID#&siteid=#URLEncodedFormat(rc.siteid)#&relatedContentSetID="><i class="icon-plus-sign"></i> Add Related Content Set</a>
 		</cfif>
 	</div>
-	<h2><i class="#application.settingsManager.getSite(rc.siteID).getContentRenderer().iconClassByContentType(type=subType.getType(),subtype=subType.getSubType())#"></i> #application.classExtensionManager.getTypeAsString(subType.getType())#/#subType.getSubType()#</h2>
+	<h2><i class="#subtype.getIconClass(includeDefault=true)# icon-large"></i> #application.classExtensionManager.getTypeAsString(subType.getType())# / #subType.getSubType()#</h2>
 </cfoutput>
 
 <h3>Extended Attribute Sets</h3>

@@ -294,28 +294,43 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 	<cfset var returnVar = variables.instance.iconclass>
 	
 	<cfif not len(returnVar) and includeDefault>
-		<cfswitch expression="#getType()#">
-			<cfcase value="page">
-				<cfset returnVar = "icon-file">
-			</cfcase>
-			<cfcase value="folder">
-				<cfset returnVar = "icon-folder-open-alt">
-			</cfcase>
-			<cfcase value="file">
-				<cfset returnVar = "icon-file-text-alt">
-			</cfcase>
-			<cfcase value="link">
-				<cfset returnVar = "icon-link">
-			</cfcase>
-			<cfcase value="calendar">
-				<cfset returnVar = "icon-calendar">
-			</cfcase>
-			<cfcase value="gallery">
-				<cfset returnVar = "icon-th">
-			</cfcase>
-		</cfswitch> 
+		<cfset returnVar=getDefaultIconClass()>
 	</cfif>
 	
+	<cfreturn returnVar>
+</cffunction>
+
+<cffunction name="getDefaultIconClass" returntype="String" access="public" output="false">
+	<cfswitch expression="#getType()#">
+		<cfcase value="page">
+			<cfset returnVar = "icon-file">
+		</cfcase>
+		<cfcase value="folder">
+			<cfset returnVar = "icon-folder-open-alt">
+		</cfcase>
+		<cfcase value="file">
+			<cfset returnVar = "icon-file-text-alt">
+		</cfcase>
+		<cfcase value="link">
+			<cfset returnVar = "icon-link">
+		</cfcase>
+		<cfcase value="calendar">
+			<cfset returnVar = "icon-calendar">
+		</cfcase>
+		<cfcase value="gallery">
+			<cfset returnVar = "icon-th">
+		</cfcase>
+		<cfcase value="1">
+			<cfset returnVar = "icon-group">
+		</cfcase>
+		<cfcase value="2">
+			<cfset returnVar = "icon-user">
+		</cfcase>
+		<cfdefaultcase>
+			<cfset returnVar = "icon-cog">
+		</cfdefaultcase>
+	</cfswitch> 
+
 	<cfreturn returnVar>
 </cffunction>
 
