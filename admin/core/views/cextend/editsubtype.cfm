@@ -82,9 +82,9 @@ version 2 without this exception.  You may, if you choose, apply this exception 
               <div class="btn-group">
                 <button class="btn" type="button"><i id="iconcurrent" class="#subtype.getIconClass()# icon-large"></i></button>
                 <button class="btn dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
-				    <ul class="dropdown-menu">
+				    <ul id="icon-selector" class="dropdown-menu">
 				      <cfloop list="#subtype.getIconClasses()#" index="i">
-				      	  <li class="icon-selector"><i class="#i#"></i></li>
+				      	  <li><i class="#i#"></i></li>
 				      </cfloop>      
 				    </ul>
               </div>

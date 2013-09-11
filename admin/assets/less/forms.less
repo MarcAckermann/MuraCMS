@@ -240,7 +240,11 @@ fieldset, .fieldset { // Using an actual fieldset causes ck editor to grow crazy
 		&:first-of-type {
 			border-top: 0 !important;
 			padding-top: 0 !important;
-			}		
+			}
+			
+		label + .btn-toolbar {
+				margin-top: 0;
+				}	
 			
 		.well {
 				background-color: @grayLight;
@@ -691,8 +695,8 @@ select[multiple] {
 	
 }
 
-.icon-selector {
-	> .icon-undo { 
+#icon-selector {
+	> li > .icon-selector-undo { 
 		background: @orange;
 		color: @white;
 		border: 0;
