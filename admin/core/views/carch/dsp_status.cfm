@@ -29,7 +29,9 @@ function viewStatusInfo(contenthistid,siteid){
 		
 		$("##approvalModalContainer").dialog({
 			resizable: false,
-			modal: true
+			modal: true,
+			width: 600,
+			position:["top",20]
 		});
 	
 	
