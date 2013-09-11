@@ -129,9 +129,22 @@ component extends="mura.bean.bean" versioned=false {
 	function getDbUtility(){
 		if(not isObject(variables.dbUtility)){
 			variables.dbUtility=getBean('dbUtility');
-			variables.dbUtility.setTable(getTable());	
+			variables.dbUtility.setTable(getTable());
+			if(structKeyExists(application.objectMappings[variables.entityName],'datasource') ){
+				variables.dbUtility.setDatasource(application.objectMappings[variables.entityName].datasource);
+				variables.dbUtility.setDbUsername('');
+				variables.dbUtility.setDbPassword('');
+
+				if(structKeyExists(application.objectMappings[variables.entityName],'dbtype') ){
+					variables.dbUtility.setDbType(application.objectMappings[variables.entityName].dbtype);
+				}
+			}	
 		}
 		return variables.dbUtility;
+	}
+
+	function getDbType(){
+		return getDbUtility().getDbType();
 	}
 
 	function setDbUtility(dbUtility){
@@ -179,8 +192,6 @@ component extends="mura.bean.bean" versioned=false {
 
 		if(hasTable()){
 			for(var prop in props){
-				
-
 				if(props[prop].persistent){
 					getDbUtility().addColumn(argumentCollection=props[prop]);
 
@@ -199,6 +210,31 @@ component extends="mura.bean.bean" versioned=false {
 		application.objectMappings[variables.entityName].columns=getColumns();
 
 		return this;
+	}
+
+	function hasCustomDatasource(){
+		return structKeyExists(application.objectMappings[variables.entityName],'datasource');
+	}
+
+	function getsCustomDatasource(){
+		return application.objectMappings[variables.entityName].datasource;
+	}
+
+	function getQueryAttrs(){
+		if( hasCustomDatasource() ){
+			structAppend(arguments,
+				{datasource=getsCustomDatasource(),
+				username='',
+				password=''},
+				false);
+			return arguments;
+		} else {
+			return getBean('configBean').getReadOnlyQRYAttrs(argumentCollection=arguments);
+		}
+	}
+
+	function getQueryService(){
+		return new Query(argumentCollection=getQueryAttrs(argumentCollection=arguments));
 	}
 
 	function getProperties(){
@@ -241,6 +277,14 @@ component extends="mura.bean.bean" versioned=false {
 
 			if(structKeyExists(md,'orderby')){
 				application.objectMappings[variables.entityName].orderby=md.orderby;
+			}
+
+			if(structKeyExists(md,'datasource') && md.datasource != application.configBean.getDatasource()){
+				application.objectMappings[variables.entityName].datasource=md.datasource;
+
+				if(structKeyExists(md,'dbtype')){
+					application.objectMappings[variables.entityName].dbtype=md.dbtype;
+				}
 			}
 
 			if(structKeyExists(md,'table')){
@@ -498,7 +542,7 @@ component extends="mura.bean.bean" versioned=false {
 			var prop={};
 			var started=false;
 			var sql='';
-			var qs=new query();
+			var qs=getQueryService();
 
 			for (prop in props){
 				if(props[prop].persistent){
@@ -763,7 +807,7 @@ component extends="mura.bean.bean" versioned=false {
 			}
 		}
 
-		var qs=new Query();
+		var qs=getQueryService();
 		qs.addParam(name='primarykey',value=variables.instance[getPrimaryKey()],cfsqltype='cf_sql_varchar');
 		qs.execute(sql='delete from #getTable()# where #getPrimaryKey()# = :primarykey');
 
@@ -775,7 +819,7 @@ component extends="mura.bean.bean" versioned=false {
 	}
 
 	function loadBy(returnFormat="self"){
-		var qs=new Query();
+		var qs=getQueryService();
 		var sql="";
 		var props=getProperties();
 		var prop="";
@@ -865,7 +909,7 @@ component extends="mura.bean.bean" versioned=false {
 	}
 
 	function toBundle(bundle,siteid){
-		var qs=new Query();
+		var qs=getQueryService();
 		
 		if(!hasProperty('siteid') && structKeyExists(arguments,'siteid')){
 			arguments.bundle.setValue("rs" * getTable(),qs.execute(sql="select * from #getTable()#").getResult());

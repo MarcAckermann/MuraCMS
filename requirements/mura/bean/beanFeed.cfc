@@ -280,6 +280,40 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 	<cfreturn returnVar>
 </cffunction>
 
+<cffunction name="getDbType" output="false">
+	<cfif structKeyExists(application.objectMappings[variables.instance.entityName],'dbtype')>
+		<cfreturn application.objectMappings[variables.instance.entityName].dbtype>
+	<cfelse>
+		<cfreturn variables.configBean.getDbType()>
+	</cfif>
+</cffunction>
+
+<cffunction name="hasCustomDatasource" output="false">
+	<cfreturn structKeyExists(application.objectMappings[variables.instance.entityName],'datasource')>
+</cffunction>
+
+<cffunction name="getCustomDatasource" output="false">
+	<cfreturn application.objectMappings[variables.instance.entityName].datasource>
+</cffunction>
+
+<cffunction name="getQueryAttrs" output="false">
+	<cfif hasCustomDatasource()>
+		<cfset structAppend(arguments,
+			{datasource=getCustomDatasource(),
+			username='',
+			password=''},
+			false)>
+		<cfreturn arguments>
+	<cfelse>
+		<cfreturn variables.configBean.getReadOnlyQRYAttrs(argumentCollection=arguments)>
+	</cfif>
+</cffunction>
+
+<cffunction name="getQueryService" output="false">
+	<cfreturn new Query(argumentCollection=getQueryAttrs(argumentCollection=arguments))>
+</cffunction>
+
+
 <cffunction name="getQuery" returntype="query" output="false">
 	<cfargument name="countOnly" default="false">
 
@@ -290,8 +324,8 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 	<cfset var openGrouping=false>
 	<cfset var jointable="">
 	<cfset var jointableS="">
-	<cfset var dbType=variables.configBean.getDBType()>
-
+	<cfset var dbType=getDbType()>
+ 
 	<cfloop query="variables.instance.params">
 		<cfif listLen(variables.instance.params.field,".") eq 2>
 			<cfset jointable=listFirst(variables.instance.params.field,".") >
@@ -301,7 +335,7 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 		</cfif>
 	</cfloop>
 
-	<cfquery name="rs" datasource="#variables.configBean.getDatasource()#" username="#variables.configBean.getDbUsername()#" password="#variables.configBean.getDbPassword()#">
+	<cfquery attributeCollection="#getQueryAttrs(name='rs')#">
 		<cfif not arguments.countOnly and dbType eq "oracle" and variables.instance.maxItems>select * from (</cfif>
 		select <cfif not arguments.countOnly and dbtype eq "mssql" and variables.instance.maxItems>top #val(variables.instance.maxItems)#</cfif>
 		

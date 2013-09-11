@@ -66,7 +66,7 @@ component extends="mura.bean.beanORM" versioned=true bundleable=true{
 	}
 
 	function toBundle(bundle,siteid,includeVersionHistory){
-		var qs=new Query();
+		var qs=getQueryService();
 
 		if(arguments.includeVersionHistory){
 			qs.setSQL("select * from #getTable()# where siteid = :siteid");

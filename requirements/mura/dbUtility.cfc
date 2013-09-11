@@ -6,6 +6,16 @@
 	<cfset variables.tableIndexLookUp=structNew()>
 
 <cffunction name="init" output="false">
+		<cfargument name="configBean">
+		<cfargument name="utility">
+		<cfset variables.utility=arguments.utility>
+		<cfset variables.configBean=arguments.configBean>
+
+		<cfset variables.datasource=variables.configBean.getDatasource()>
+		<cfset variables.dbpassword=variables.configBean.getDbPassword()>
+		<cfset variables.dbusername=variables.configBean.getDbUsername()>
+		<cfset variables.dbtype=variables.configBean.getDbType()>
+
 		<cfset purgeCache()>
 		<cfreturn this>
 </cffunction>
@@ -16,26 +26,14 @@
 	<cfset variables.tableIndexLookUp=structNew()>
 </cffunction>
 
-<cffunction name="setConfigBean" output="false">
-	<cfargument name="configBean">
-		<cfset variables.configBean=arguments.configBean>
-		<cfreturn this>
-</cffunction>
-
-<cffunction name="setUtility" output="false">
-	<cfargument name="utility">
-		<cfset variables.utility=arguments.utility>
-		<cfreturn this>
-</cffunction>
-
 <cffunction name="version" output="false">
 	<cfset var rscheck="">
 
 	<cfdbinfo 
 		name="rsCheck"
-		datasource="#variables.configBean.getDatasource()#"
-		username="#variables.configBean.getDbUsername()#"
-		password="#variables.configBean.getDbPassword()#"
+		datasource="#variables.datasource#"
+		username="#variables.dbusername#"
+		password="#variables.dbpassword#"
 		type="version">
 
 	<cfreturn variables.utility.queryRowToStruct(rscheck,1)>
@@ -52,7 +50,7 @@
 	<cfargument name="table" default="#variables.table#">
 	
 	<cfif tableExists(arguments.table)>
-		<cfquery datasource="#variables.configBean.getDatasource()#" username="#variables.configBean.getDbUsername()#" password="#variables.configBean.getDbPassword()#">
+		<cfquery datasource="#variables.datasource#" username="#variables.dbusername#" password="#variables.dbpassword#">
 			DROP TABLE #arguments.table#
 		</cfquery>
 		<cfset structDelete(variables.tableLookUp,arguments.table)>
@@ -76,16 +74,16 @@
 	<cfset var rscheck="">
 	<cfset var tableStruct={}>
 
-	<cfif variables.configBean.getDbType() neq 'oracle'>
+	<cfif variables.dbtype neq 'oracle'>
 		<cfdbinfo 
 			name="rsCheck"
-			datasource="#variables.configBean.getDatasource()#"
-			username="#variables.configBean.getDbUsername()#"
-			password="#variables.configBean.getDbPassword()#"
+			datasource="#variables.datasource#"
+			username="#variables.dbusername#"
+			password="#variables.dbpassword#"
 			type="tables">
 
 			<!---
-			<cfif variables.configBean.getDbType() eq "nuodb">
+			<cfif variables.dbtype eq "nuodb">
 				<cfquery name="rscheck" dbtype="query">
 					select tablename as table_name from rscheck
 				</cfquery>
@@ -93,9 +91,9 @@
 			--->
 
 	<cfelse>
-		<cfquery name="rscheck" datasource="#variables.configBean.getDatasource()#"
-			username="#variables.configBean.getDbUsername()#"
-			password="#variables.configBean.getDbPassword()#">
+		<cfquery name="rscheck" datasource="#variables.datasource#"
+			username="#variables.dbusername#"
+			password="#variables.dbpassword#">
 			select TABLE_NAME from user_tables
 		</cfquery>
 	</cfif>
@@ -115,13 +113,13 @@
 	<cfset var rs ="">
 	
 	<cfif not structKeyExists(variables.tableMetaDataLookUp,arguments.table)>
-		<cfswitch expression="#variables.configBean.getDbType()#">
+		<cfswitch expression="#variables.dbtype#">
 			<cfcase value="oracle">
 				<cfquery
 				name="rs" 
-				datasource="#variables.configBean.getDatasource()#"
-				username="#variables.configBean.getDbUsername()#"
-				password="#variables.configBean.getDbPassword()#">
+				datasource="#variables.datasource#"
+				username="#variables.dbusername#"
+				password="#variables.dbpassword#">
 					SELECT column_name, 
 					data_length column_size, 
 					data_type type_name, 
@@ -136,9 +134,9 @@
 			<cfcase value="nuodb">
 				<cfquery
 				name="rs" 
-				datasource="#variables.configBean.getDatasource()#"
-				username="#variables.configBean.getDbUsername()#"
-				password="#variables.configBean.getDbPassword()#">
+				datasource="#variables.datasource#"
+				username="#variables.dbusername#"
+				password="#variables.dbpassword#">
 					SELECT field , 
 					length, 
 					datatype , 
@@ -164,9 +162,9 @@
 			<cfcase value="mssql">
 			<cfquery
 				name="rs" 
-				datasource="#variables.configBean.getDatasource()#"
-				username="#variables.configBean.getDbUsername()#"
-				password="#variables.configBean.getDbPassword()#">
+				datasource="#variables.datasource#"
+				username="#variables.dbusername#"
+				password="#variables.dbpassword#">
 					select column_name,
 					character_maximum_length column_size,
 					data_type type_name,
@@ -180,9 +178,9 @@
 			<cfdefaultcase>
 				<cfdbinfo 
 				name="rs"
-				datasource="#variables.configBean.getDatasource()#"
-				username="#variables.configBean.getDbUsername()#"
-				password="#variables.configBean.getDbPassword()#"
+				datasource="#variables.datasource#"
+				username="#variables.dbusername#"
+				password="#variables.dbpassword#"
 				table="#arguments.table#"
 				type="columns">	
 			</cfdefaultcase>
@@ -199,24 +197,24 @@
 	<cfargument name="table" default="#variables.table#">
 	
 	<cfif columnExists(arguments.column,arguments.table)>
-	<cfswitch expression="#variables.configBean.getDbType()#">
+	<cfswitch expression="#variables.dbtype#">
 		<cfcase value="mssql">
-			<cfquery datasource="#variables.configBean.getDatasource()#" username="#variables.configBean.getDbUsername()#" password="#variables.configBean.getDbPassword()#">
+			<cfquery datasource="#variables.datasource#" username="#variables.dbusername#" password="#variables.dbpassword#">
 			ALTER TABLE #arguments.table# DROP COLUMN #arguments.column#
 			</cfquery>
 		</cfcase>
 		<cfcase value="mysql,nuodb">
-			<cfquery datasource="#variables.configBean.getDatasource()#" username="#variables.configBean.getDbUsername()#" password="#variables.configBean.getDbPassword()#">
+			<cfquery datasource="#variables.datasource#" username="#variables.dbusername#" password="#variables.dbpassword#">
 			ALTER TABLE #arguments.table# DROP COLUMN #arguments.column#
 			</cfquery>
 		</cfcase>
 		<cfcase value="postgresql">
-			<cfquery datasource="#variables.configBean.getDatasource()#" username="#variables.configBean.getDbUsername()#" password="#variables.configBean.getDbPassword()#">
+			<cfquery datasource="#variables.datasource#" username="#variables.dbusername#" password="#variables.dbpassword#">
 			ALTER TABLE #arguments.table# DROP COLUMN #arguments.column#
 			</cfquery>
 		</cfcase>
 		<cfcase value="oracle">
-			<cfquery datasource="#variables.configBean.getDatasource()#" username="#variables.configBean.getDbUsername()#" password="#variables.configBean.getDbPassword()#">
+			<cfquery datasource="#variables.datasource#" username="#variables.dbusername#" password="#variables.dbpassword#">
 			ALTER TABLE #arguments.table# DROP COLUMN #arguments.column#
 			</cfquery>
 		</cfcase>
@@ -285,9 +283,9 @@
 
 	<cfelseif not hasTable or not len(existing.column)>
 		
-		<cfswitch expression="#variables.configBean.getDbType()#">
+		<cfswitch expression="#variables.dbtype#">
 		<cfcase value="mssql">
-			<cfquery datasource="#variables.configBean.getDatasource()#" username="#variables.configBean.getDbUsername()#" password="#variables.configBean.getDbPassword()#">
+			<cfquery datasource="#variables.datasource#" username="#variables.dbusername#" password="#variables.dbpassword#">
 				<cfif not hasTable>
 					CREATE TABLE #arguments.table# (
 				<cfelse>
@@ -300,7 +298,7 @@
 			</cfquery>
 		</cfcase>
 		<cfcase value="mysql">
-			<cfquery datasource="#variables.configBean.getDatasource()#" username="#variables.configBean.getDbUsername()#" password="#variables.configBean.getDbPassword()#">
+			<cfquery datasource="#variables.datasource#" username="#variables.dbusername#" password="#variables.dbpassword#">
 				<cfif not hasTable>
 					CREATE TABLE #arguments.table# (
 				<cfelse>
@@ -325,7 +323,7 @@
 			</cfquery>
 		</cfcase>
 		<cfcase value="postgresql">
-			<cfquery datasource="#variables.configBean.getDatasource()#" username="#variables.configBean.getDbUsername()#" password="#variables.configBean.getDbPassword()#">
+			<cfquery datasource="#variables.datasource#" username="#variables.dbusername#" password="#variables.dbpassword#">
 				<cfif not hasTable>
 					CREATE TABLE #arguments.table# (
 						#arguments.column# <cfif arguments.autoincrement>SERIAL<cfelse>#transformDataType(arguments.datatype,arguments.length)#</cfif> <cfif not arguments.nullable>NOT NULL</cfif> <cfif not arguments.autoincrement> DEFAULT <cfif arguments.default eq 'null' or listFindNoCase('int,smallint',arguments.datatype)>#arguments.default#<cfelse>'#arguments.default#'</cfif></cfif>
@@ -342,7 +340,7 @@
 			</cfquery>
 		</cfcase>
 		<cfcase value="nuodb">
-			<cfquery datasource="#variables.configBean.getDatasource()#" username="#variables.configBean.getDbUsername()#" password="#variables.configBean.getDbPassword()#">
+			<cfquery datasource="#variables.datasource#" username="#variables.dbusername#" password="#variables.dbpassword#">
 				<cfif not hasTable>
 					CREATE TABLE #arguments.table# (
 				<cfelse>
@@ -360,16 +358,16 @@
 			</cfquery>
 		</cfcase>
 		<cfcase value="oracle">
-			<cfquery datasource="#variables.configBean.getDatasource()#" username="#variables.configBean.getDbUsername()#" password="#variables.configBean.getDbPassword()#">
+			<cfquery datasource="#variables.datasource#" username="#variables.dbusername#" password="#variables.dbpassword#">
 				<cfif not hasTable>
 					CREATE TABLE #arguments.table# (
 				<cfelse>
-					ALTER TABLE #arguments.table# ADD <cfif variables.configBean.getDbType() eq "ORACLE">(</cfif>
+					ALTER TABLE #arguments.table# ADD <cfif variables.dbtype eq "ORACLE">(</cfif>
 				</cfif>
 				
 				#arguments.column# #transformDataType(arguments.datatype,arguments.length)#  default <cfif arguments.default eq 'null' or listFindNoCase('int,tinyint',arguments.datatype)>#arguments.default#<cfelse>'#arguments.default#'</cfif>
 				
-				<cfif not hasTable or variables.configBean.getDbType() eq "ORACLE">)</cfif>
+				<cfif not hasTable or variables.dbtype eq "ORACLE">)</cfif>
 				
 				<cfif arguments.datatype eq "longtext">
 					lob (#arguments.column#) STORE AS (
@@ -383,11 +381,11 @@
 
 			<cftry>
 				<cfif not arguments.nullable> 
-					<cfquery datasource="#variables.configBean.getDatasource()#" username="#variables.configBean.getDbUsername()#" password="#variables.configBean.getDbPassword()#">
+					<cfquery datasource="#variables.datasource#" username="#variables.dbusername#" password="#variables.dbpassword#">
 						ALTER TABLE #arguments.table# MODIFY (#arguments.column# NOT NULL ENABLE)
 					</cfquery>
 				<cfelse>
-					<cfquery datasource="#variables.configBean.getDatasource()#" username="#variables.configBean.getDbUsername()#" password="#variables.configBean.getDbPassword()#">
+					<cfquery datasource="#variables.datasource#" username="#variables.dbusername#" password="#variables.dbpassword#">
 						ALTER TABLE #arguments.table# MODIFY (#arguments.column# NOT NULL DISABLE)
 					</cfquery>
 				</cfif>
@@ -399,27 +397,27 @@
 				<cfset var trg_name=left('trg_#arguments.table#_#arguments.column#',30)>
 				
 				<cftry>
-				 <cfquery datasource="#variables.configBean.getDatasource()#" username="#variables.configBean.getDbUsername()#" password="#variables.configBean.getDbPassword()#">
+				 <cfquery datasource="#variables.datasource#" username="#variables.dbusername#" password="#variables.dbpassword#">
 					DROP SEQUENCE #seq_name#
 				</cfquery>
 				<cfcatch></cfcatch>
 				</cftry>
 				
-				<cfquery datasource="#variables.configBean.getDatasource()#" username="#variables.configBean.getDbUsername()#" password="#variables.configBean.getDbPassword()#">
+				<cfquery datasource="#variables.datasource#" username="#variables.dbusername#" password="#variables.dbpassword#">
 					CREATE SEQUENCE #seq_name#
 					MINVALUE 1
 					START WITH 1
 					INCREMENT BY 1
 					CACHE 10
 				</cfquery>
-				<cfquery datasource="#variables.configBean.getDatasource()#" username="#variables.configBean.getDbUsername()#" password="#variables.configBean.getDbPassword()#">
+				<cfquery datasource="#variables.datasource#" username="#variables.dbusername#" password="#variables.dbpassword#">
 					create or replace TRIGGER #trg_name# BEFORE INSERT ON #arguments.table#
 					FOR EACH ROW
 					BEGIN
 					    SELECT  #seq_name#.NEXTVAL INTO :new.#arguments.column# FROM DUAL;
 					END;
 				</cfquery>
-				<cfquery datasource="#variables.configBean.getDatasource()#" username="#variables.configBean.getDbUsername()#" password="#variables.configBean.getDbPassword()#">
+				<cfquery datasource="#variables.datasource#" username="#variables.dbusername#" password="#variables.dbpassword#">
 					ALTER TRIGGER #trg_name# ENABLE
 				</cfquery>
 				<cfset addPrimaryKey(argumentCollection=arguments)>
@@ -453,14 +451,14 @@
 	</cfif>
 
 	<cfif tableExists(arguments.table) and columnExists(arguments.column,arguments.table)>
-		<cfswitch expression="#variables.configBean.getDbType()#">
+		<cfswitch expression="#variables.dbtype#">
 			<cfcase value="mssql">
-				<cfquery datasource="#variables.configBean.getDatasource()#" username="#variables.configBean.getDbUsername()#" password="#variables.configBean.getDbPassword()#">
+				<cfquery datasource="#variables.datasource#" username="#variables.dbusername#" password="#variables.dbpassword#">
 					ALTER TABLE #arguments.table# ALTER COLUMN #arguments.column# #transformDataType(arguments.datatype,arguments.length)# <cfif not arguments.nullable> not null <cfelse> null </cfif>
 				</cfquery>
 			</cfcase>
 			<cfcase value="mysql">
-				<cfquery datasource="#variables.configBean.getDatasource()#" username="#variables.configBean.getDbUsername()#" password="#variables.configBean.getDbPassword()#">
+				<cfquery datasource="#variables.datasource#" username="#variables.dbusername#" password="#variables.dbpassword#">
 					ALTER TABLE #arguments.table# 
 					<cfif version().database_productname eq 'H2'>
 						ALTER
@@ -472,7 +470,7 @@
 				</cfquery>
 			</cfcase>
 			<cfcase value="postgresql">
-				<cfquery datasource="#variables.configBean.getDatasource()#" username="#variables.configBean.getDbUsername()#" password="#variables.configBean.getDbPassword()#">
+				<cfquery datasource="#variables.datasource#" username="#variables.dbusername#" password="#variables.dbpassword#">
 					ALTER TABLE #arguments.table# ALTER COLUMN #arguments.column# TYPE <cfif arguments.autoincrement>SERIAL<cfelse>#transformDataType(arguments.datatype,arguments.length)#</cfif>;
 					<cfif not arguments.nullable>
 					ALTER TABLE #arguments.table# ALTER COLUMN #arguments.column# SET NOT NULL;
@@ -488,22 +486,22 @@
 					<cfif columnExists(table=arguments.table,column=tempName)>
 						<cfset dropColumn(table=arguments.table,column=tempName)>
 					</cfif>
-					<cfquery datasource="#variables.configBean.getDatasource()#" username="#variables.configBean.getDbUsername()#" password="#variables.configBean.getDbPassword()#">
+					<cfquery datasource="#variables.datasource#" username="#variables.dbusername#" password="#variables.dbpassword#">
 						ALTER TABLE #arguments.table# ADD COLUMN #tempName# #transformDataType(arguments.datatype,arguments.length)# <cfif arguments.autoincrement>integer generated always as identity (seq_#arguments.table#)<cfelse><cfif not arguments.nullable> not null </cfif> default <cfif arguments.default eq 'null' or listFindNoCase('int,tinyint',arguments.datatype)>#arguments.default#<cfelse>'#arguments.default#'</cfif></cfif>
 					</cfquery>
-					<cfquery datasource="#variables.configBean.getDatasource()#" username="#variables.configBean.getDbUsername()#" password="#variables.configBean.getDbPassword()#">
+					<cfquery datasource="#variables.datasource#" username="#variables.dbusername#" password="#variables.dbpassword#">
 						UPDATE #arguments.table# set #tempName#=#arguments.column# 
 					</cfquery>
-					<cfquery datasource="#variables.configBean.getDatasource()#" username="#variables.configBean.getDbUsername()#" password="#variables.configBean.getDbPassword()#">
+					<cfquery datasource="#variables.datasource#" username="#variables.dbusername#" password="#variables.dbpassword#">
 						ALTER TABLE #arguments.table# DROP COLUMN #arguments.column# 
 					</cfquery>
-					<cfquery datasource="#variables.configBean.getDatasource()#" username="#variables.configBean.getDbUsername()#" password="#variables.configBean.getDbPassword()#">
+					<cfquery datasource="#variables.datasource#" username="#variables.dbusername#" password="#variables.dbpassword#">
 						ALTER TABLE #arguments.table# ADD COLUMN #arguments.column# #transformDataType(arguments.datatype,arguments.length)# <cfif arguments.autoincrement>integer generated always as identity (seq_#arguments.table#)<cfelse><cfif not arguments.nullable> not null </cfif> default <cfif arguments.default eq 'null' or listFindNoCase('int,tinyint',arguments.datatype)>#arguments.default#<cfelse>'#arguments.default#'</cfif></cfif>
 					</cfquery>
-					<cfquery datasource="#variables.configBean.getDatasource()#" username="#variables.configBean.getDbUsername()#" password="#variables.configBean.getDbPassword()#">
+					<cfquery datasource="#variables.datasource#" username="#variables.dbusername#" password="#variables.dbpassword#">
 						UPDATE #arguments.table# set #arguments.column#=#tempName#
 					</cfquery>
-					<cfquery datasource="#variables.configBean.getDatasource()#" username="#variables.configBean.getDbUsername()#" password="#variables.configBean.getDbPassword()#">
+					<cfquery datasource="#variables.datasource#" username="#variables.dbusername#" password="#variables.dbpassword#">
 						ALTER TABLE #arguments.table# DROP COLUMN #tempName#
 					</cfquery>
 				</cftransaction>
@@ -514,30 +512,30 @@
 					<cfif columnExists(table=arguments.table,column=tempName)>
 						<cfset dropColumn(table=arguments.table,column=tempName)>
 					</cfif>
-					<cfquery datasource="#variables.configBean.getDatasource()#" username="#variables.configBean.getDbUsername()#" password="#variables.configBean.getDbPassword()#">
+					<cfquery datasource="#variables.datasource#" username="#variables.dbusername#" password="#variables.dbpassword#">
 						ALTER TABLE #arguments.table# RENAME COLUMN #arguments.column# to #tempName#
 					</cfquery>
-					<cfquery datasource="#variables.configBean.getDatasource()#" username="#variables.configBean.getDbUsername()#" password="#variables.configBean.getDbPassword()#">
+					<cfquery datasource="#variables.datasource#" username="#variables.dbusername#" password="#variables.dbpassword#">
 						ALTER TABLE #arguments.table# ADD #arguments.column# #transformDataType(arguments.datatype,arguments.length)# default <cfif arguments.default eq 'null' or listFindNoCase('int,tinyint',arguments.datatype)>#arguments.default#<cfelse>'#arguments.default#'</cfif>
 					</cfquery>
 
 					<cftry>
 						<cfif not arguments.nullable> 
-							<cfquery datasource="#variables.configBean.getDatasource()#" username="#variables.configBean.getDbUsername()#" password="#variables.configBean.getDbPassword()#">
+							<cfquery datasource="#variables.datasource#" username="#variables.dbusername#" password="#variables.dbpassword#">
 								ALTER TABLE #arguments.table# MODIFY (#arguments.column# NOT NULL ENABLE)
 							</cfquery>
 						<cfelse>
-							<cfquery datasource="#variables.configBean.getDatasource()#" username="#variables.configBean.getDbUsername()#" password="#variables.configBean.getDbPassword()#">
+							<cfquery datasource="#variables.datasource#" username="#variables.dbusername#" password="#variables.dbpassword#">
 								ALTER TABLE #arguments.table# MODIFY (#arguments.column# NOT NULL DISABLE)
 							</cfquery>
 						</cfif>
 						<cfcatch></cfcatch>
 					</cftry>
 
-					<cfquery datasource="#variables.configBean.getDatasource()#" username="#variables.configBean.getDbUsername()#" password="#variables.configBean.getDbPassword()#">
+					<cfquery datasource="#variables.datasource#" username="#variables.dbusername#" password="#variables.dbpassword#">
 						UPDATE #arguments.table# SET #arguments.column#=#tempName#
 					</cfquery>
-					<cfquery datasource="#variables.configBean.getDatasource()#" username="#variables.configBean.getDbUsername()#" password="#variables.configBean.getDbPassword()#">
+					<cfquery datasource="#variables.datasource#" username="#variables.dbusername#" password="#variables.dbpassword#">
 						ALTER TABLE #arguments.table# DROP COLUMN #tempName#
 					</cfquery>
 				</cftransaction>
@@ -560,20 +558,20 @@
 	<cfset var columnDataAdjusted={}>
 
 	<cfif tableExists(arguments.table) and columnExists(arguments.column,arguments.table)>
-		<cfswitch expression="#variables.configBean.getDbType()#">
+		<cfswitch expression="#variables.dbtype#">
 			<cfcase value="mssql">
-				<cfquery datasource="#variables.configBean.getDatasource()#" username="#variables.configBean.getDbUsername()#" password="#variables.configBean.getDbPassword()#">
+				<cfquery datasource="#variables.datasource#" username="#variables.dbusername#" password="#variables.dbpassword#">
 					EXEC sp_rename '#arguments.table#.[#arguments.column#]', '#arguments.newcolumn#', 'COLUMN'
 				</cfquery>
 			</cfcase>
 			<cfcase value="mysql">
 				<cfset columnData=columnMetaData(argumentCollection=arguments)>
-				<cfquery datasource="#variables.configBean.getDatasource()#" username="#variables.configBean.getDbUsername()#" password="#variables.configBean.getDbPassword()#">
+				<cfquery datasource="#variables.datasource#" username="#variables.dbusername#" password="#variables.dbpassword#">
 					ALTER TABLE #arguments.table# change #arguments.column# #arguments.newcolumn# <cfif columnData.autoincrement>INT(10) NOT NULL AUTO_INCREMENT<cfelse>#transformDataType(columnData.datatype,columnData.length)# <cfif not columnData.nullable> not null </cfif> default <cfif columnData.default eq 'null' or listFindNoCase('int,tinyint',columnData.datatype)>#columnData.default#<cfelse>'#columnData.default#'</cfif></cfif>
 				</cfquery>
 			</cfcase>
 			<cfcase value="postgresql">
-				<cfquery datasource="#variables.configBean.getDatasource()#" username="#variables.configBean.getDbUsername()#" password="#variables.configBean.getDbPassword()#">
+				<cfquery datasource="#variables.datasource#" username="#variables.dbusername#" password="#variables.dbpassword#">
 					ALTER TABLE #arguments.table# RENAME COLUMN #arguments.column# TO #arguments.newcolumn#
 				</cfquery>
 			</cfcase>
@@ -584,16 +582,16 @@
 				<cfset columnDataAdjusted.table=arguments.table >
 				<cfset addColumn(argumentCollection=columnDataAdjusted)>
 
-				<cfquery datasource="#variables.configBean.getDatasource()#" username="#variables.configBean.getDbUsername()#" password="#variables.configBean.getDbPassword()#">
+				<cfquery datasource="#variables.datasource#" username="#variables.dbusername#" password="#variables.dbpassword#">
 					update #arguments.table# set #arguments.column# = #arguments.newColumn#
 				</cfquery>
 
-				<cfquery datasource="#variables.configBean.getDatasource()#" username="#variables.configBean.getDbUsername()#" password="#variables.configBean.getDbPassword()#">
+				<cfquery datasource="#variables.datasource#" username="#variables.dbusername#" password="#variables.dbpassword#">
 					alter table drop column #arguments.column#
 				</cfquery>
 			</cfcase>
 			<cfcase value="oracle">
-				<cfquery datasource="#variables.configBean.getDatasource()#" username="#variables.configBean.getDbUsername()#" password="#variables.configBean.getDbPassword()#">
+				<cfquery datasource="#variables.datasource#" username="#variables.dbusername#" password="#variables.dbpassword#">
 					ALTER TABLE #arguments.table# RENAME COLUMN #arguments.column# to #arguments.newColumn#
 				</cfquery>
 			</cfcase>
@@ -608,7 +606,7 @@
 	<cfargument name="length" default="50">
 	<cfset var MSSQLversion=0>
 	
-	<cfswitch expression="#variables.configBean.getDbType()#">
+	<cfswitch expression="#variables.dbtype#">
 		<cfcase value="mssql">
 			<cfswitch expression="#arguments.datatype#">
 				<cfcase value="varchar,string">
@@ -629,9 +627,9 @@
 				<cfcase value="text,longtext">
 					<cftry>
 						<cfquery name="MSSQLversion"  
-							datasource="#variables.configBean.getDatasource()#"
-							username="#variables.configBean.getDbUsername()#"
-							password="#variables.configBean.getDbPassword()#">
+							datasource="#variables.datasource#"
+							username="#variables.dbusername#"
+							password="#variables.dbpassword#">
 							SELECT CONVERT(varchar(100), SERVERPROPERTY('ProductVersion')) as version
 						</cfquery>
 						<cfset MSSQLversion=listFirst(MSSQLversion.version,".")>
@@ -640,9 +638,9 @@
 
 					<cfif not MSSQLversion>
 						<cfquery name="MSSQLversion"
-							datasource="#variables.configBean.getDatasource()#"
-							username="#variables.configBean.getDbUsername()#"
-							password="#variables.configBean.getDbPassword()#">
+							datasource="#variables.datasource#"
+							username="#variables.dbusername#"
+							password="#variables.dbpassword#">
 							EXEC sp_MSgetversion
 						</cfquery>
 					
@@ -924,24 +922,24 @@
 	
 	<cfif not indexExists(arguments.column,arguments.table)>
 		<cftry>
-			<cfswitch expression="#variables.configBean.getDbType()#">
+			<cfswitch expression="#variables.dbtype#">
 			<cfcase value="mssql,nuodb">
-				<cfquery datasource="#variables.configBean.getDatasource()#" username="#variables.configBean.getDbUsername()#" password="#variables.configBean.getDbPassword()#">
+				<cfquery datasource="#variables.datasource#" username="#variables.dbusername#" password="#variables.dbpassword#">
 				CREATE INDEX #transformIndexName(argumentCollection=arguments)# ON #arguments.table# (#arguments.column#)
 				</cfquery>
 			</cfcase>
 			<cfcase value="mysql">
-				<cfquery datasource="#variables.configBean.getDatasource()#" username="#variables.configBean.getDbUsername()#" password="#variables.configBean.getDbPassword()#">
+				<cfquery datasource="#variables.datasource#" username="#variables.dbusername#" password="#variables.dbpassword#">
 				CREATE INDEX #transformIndexName(argumentCollection=arguments)# ON #arguments.table# (#arguments.column#)
 				</cfquery>
 			</cfcase>
 			<cfcase value="postgresql">
-				<cfquery datasource="#variables.configBean.getDatasource()#" username="#variables.configBean.getDbUsername()#" password="#variables.configBean.getDbPassword()#">
+				<cfquery datasource="#variables.datasource#" username="#variables.dbusername#" password="#variables.dbpassword#">
 				CREATE INDEX #transformIndexName(argumentCollection=arguments)# ON #arguments.table# (#arguments.column#)
 				</cfquery>
 			</cfcase>
 			<cfcase value="oracle">
-				<cfquery datasource="#variables.configBean.getDatasource()#" username="#variables.configBean.getDbUsername()#" password="#variables.configBean.getDbPassword()#">
+				<cfquery datasource="#variables.datasource#" username="#variables.dbusername#" password="#variables.dbpassword#">
 				CREATE INDEX #transformIndexName(argumentCollection=arguments)# ON #arguments.table# (#arguments.column#)
 				</cfquery>
 			</cfcase>
@@ -959,24 +957,24 @@
 	<cfargument name="table" default="#variables.table#">
 
 	<cfif indexExists(arguments.column,arguments.table)>
-		<cfswitch expression="#variables.configBean.getDbType()#">
+		<cfswitch expression="#variables.dbtype#">
 			<cfcase value="mssql">
-				<cfquery datasource="#variables.configBean.getDatasource()#" username="#variables.configBean.getDbUsername()#" password="#variables.configBean.getDbPassword()#">
+				<cfquery datasource="#variables.datasource#" username="#variables.dbusername#" password="#variables.dbpassword#">
 				DROP INDEX #transformIndexName(argumentCollection=arguments)# on #arguments.table#
 				</cfquery>
 			</cfcase>
 			<cfcase value="mysql">
-				<cfquery datasource="#variables.configBean.getDatasource()#" username="#variables.configBean.getDbUsername()#" password="#variables.configBean.getDbPassword()#">
+				<cfquery datasource="#variables.datasource#" username="#variables.dbusername#" password="#variables.dbpassword#">
 				DROP INDEX #transformIndexName(argumentCollection=arguments)# on #arguments.table#
 				</cfquery>
 			</cfcase>
 			<cfcase value="postgresql">
-				<cfquery datasource="#variables.configBean.getDatasource()#" username="#variables.configBean.getDbUsername()#" password="#variables.configBean.getDbPassword()#">
+				<cfquery datasource="#variables.datasource#" username="#variables.dbusername#" password="#variables.dbpassword#">
 				DROP INDEX #transformIndexName(argumentCollection=arguments)# on #arguments.table#
 				</cfquery>
 			</cfcase>
 			<cfcase value="oracle,nuodb">
-				<cfquery datasource="#variables.configBean.getDatasource()#" username="#variables.configBean.getDbUsername()#" password="#variables.configBean.getDbPassword()#">
+				<cfquery datasource="#variables.datasource#" username="#variables.dbusername#" password="#variables.dbpassword#">
 				DROP INDEX #transformIndexName(argumentCollection=arguments)#
 				</cfquery>
 			</cfcase>
@@ -990,7 +988,7 @@
 <cffunction name="transformIndexName" access="private">
 	<cfargument name="column">
 	<cfargument name="table" default="#variables.table#">
-	<cfswitch expression="#variables.configBean.getDbType()#">
+	<cfswitch expression="#variables.dbtype#">
 			<cfcase value="mssql,mysql,postgresql">
 				<cfreturn rereplace(replace("IX_#arguments.table#_#arguments.column#",",","ALL"),"[[:space:]]","","All")>
 			</cfcase>
@@ -1007,9 +1005,9 @@
 	<cfif not structKeyExists(variables.tableIndexLookUp,arguments.table)>
 	<cfdbinfo 
 		name="rs"
-		datasource="#variables.configBean.getDatasource()#"
-		username="#variables.configBean.getDbUsername()#"
-		password="#variables.configBean.getDbPassword()#"
+		datasource="#variables.datasource#"
+		username="#variables.dbusername#"
+		password="#variables.dbpassword#"
 		table="#arguments.table#"
 		type="index">
 	<cfset variables.tableIndexLookUp[arguments.table]= buildIndexMetaData(rs,arguments.table)>
@@ -1081,9 +1079,9 @@
 
 	<cfdbinfo 
 		name="rsCheck"
-		datasource="#variables.configBean.getDatasource()#"
-		username="#variables.configBean.getDbUsername()#"
-		password="#variables.configBean.getDbPassword()#"
+		datasource="#variables.datasource#"
+		username="#variables.dbusername#"
+		password="#variables.dbpassword#"
 		table="#arguments.table#"
 		type="index">
 	
@@ -1102,9 +1100,9 @@
 
 	<cfdbinfo 
 		name="rsCheck"
-		datasource="#variables.configBean.getDatasource()#"
-		username="#variables.configBean.getDbUsername()#"
-		password="#variables.configBean.getDbPassword()#"
+		datasource="#variables.datasource#"
+		username="#variables.dbusername#"
+		password="#variables.dbpassword#"
 		table="#arguments.table#"
 		type="index">
 	
@@ -1121,27 +1119,27 @@
 	<cfargument name="table" default="#variables.table#">
 	
 	<cfif not primaryKeyExists(arguments.table)>
-		<cfswitch expression="#variables.configBean.getDbType()#">
+		<cfswitch expression="#variables.dbtype#">
 			<cfcase value="mssql">
-				<cfquery datasource="#variables.configBean.getDatasource()#" username="#variables.configBean.getDbUsername()#" password="#variables.configBean.getDbPassword()#">
+				<cfquery datasource="#variables.datasource#" username="#variables.dbusername#" password="#variables.dbpassword#">
 					ALTER TABLE #arguments.table#
 						ADD CONSTRAINT pk_#arguments.table# PRIMARY KEY (#arguments.column#)
 				</cfquery>
 			</cfcase>
 			<cfcase value="mysql">
-				<cfquery datasource="#variables.configBean.getDatasource()#" username="#variables.configBean.getDbUsername()#" password="#variables.configBean.getDbPassword()#">
+				<cfquery datasource="#variables.datasource#" username="#variables.dbusername#" password="#variables.dbpassword#">
 					ALTER TABLE #arguments.table#
 	    			ADD PRIMARY KEY (#arguments.column#)
 				</cfquery>
 			</cfcase>
 			<cfcase value="postgresql">
-				<cfquery datasource="#variables.configBean.getDatasource()#" username="#variables.configBean.getDbUsername()#" password="#variables.configBean.getDbPassword()#">
+				<cfquery datasource="#variables.datasource#" username="#variables.dbusername#" password="#variables.dbpassword#">
 					ALTER TABLE #arguments.table#
 	    			ADD PRIMARY KEY (#arguments.column#)
 				</cfquery>
 			</cfcase>
 			<cfcase value="oracle">
-				<cfquery datasource="#variables.configBean.getDatasource()#" username="#variables.configBean.getDbUsername()#" password="#variables.configBean.getDbPassword()#">
+				<cfquery datasource="#variables.datasource#" username="#variables.dbusername#" password="#variables.dbpassword#">
 					ALTER TABLE #arguments.table#
 					ADD CONSTRAINT pk_#arguments.table# PRIMARY KEY (#arguments.column#)
 				</cfquery>
@@ -1156,21 +1154,21 @@
 	<cfargument name="table" default="#variables.table#">
 	
 	<cfif primaryKeyExists(arguments.table)>
-		<cfswitch expression="#variables.configBean.getDbType()#">
+		<cfswitch expression="#variables.dbtype#">
 			<cfcase value="mssql">
-				<cfquery datasource="#variables.configBean.getDatasource()#" username="#variables.configBean.getDbUsername()#" password="#variables.configBean.getDbPassword()#">
+				<cfquery datasource="#variables.datasource#" username="#variables.dbusername#" password="#variables.dbpassword#">
 					ALTER TABLE #arguments.table#
 					DROP CONSTRAINT pk_#arguments.table#
 				</cfquery>
 			</cfcase>
 			<cfcase value="mysql">
-				<cfquery datasource="#variables.configBean.getDatasource()#" username="#variables.configBean.getDbUsername()#" password="#variables.configBean.getDbPassword()#">
+				<cfquery datasource="#variables.datasource#" username="#variables.dbusername#" password="#variables.dbpassword#">
 					ALTER TABLE #arguments.table#
 	    			DROP PRIMARY KEY
 				</cfquery>
 			</cfcase>
 			<cfcase value="oracle">
-				<cfquery datasource="#variables.configBean.getDatasource()#" username="#variables.configBean.getDbUsername()#" password="#variables.configBean.getDbPassword()#">
+				<cfquery datasource="#variables.datasource#" username="#variables.dbusername#" password="#variables.dbpassword#">
 					ALTER TABLE #arguments.table#
 					DROP CONSTRAINT pk_#arguments.table#
 				</cfquery>
@@ -1239,7 +1237,7 @@
 							fkColumn=arguments.column
 						)>	
 		<cfset addIndex(arguments.column,arguments.table)>
-		<cfquery datasource="#variables.configBean.getDatasource()#" username="#variables.configBean.getDbUsername()#" password="#variables.configBean.getDbPassword()#">
+		<cfquery datasource="#variables.datasource#" username="#variables.dbusername#" password="#variables.dbpassword#">
 			ALTER TABLE #arguments.table#
 			ADD CONSTRAINT fk_#arguments.fktable#_#arguments.fkcolumn#
 			FOREIGN KEY (#arguments.column#)
@@ -1269,9 +1267,9 @@
 							fkTable=arguments.table,
 							fkColumn=arguments.column
 						)>
-		<cfquery datasource="#variables.configBean.getDatasource()#" username="#variables.configBean.getDbUsername()#" password="#variables.configBean.getDbPassword()#">
+		<cfquery datasource="#variables.datasource#" username="#variables.dbusername#" password="#variables.dbpassword#">
 			ALTER TABLE #arguments.table#
-			DROP <cfif variables.configBean.getDbType() eq 'MySQL'>FOREIGN KEY<cfelse>CONSTRAINT</cfif> fk_#arguments.fktable#_#arguments.fkcolumn#
+			DROP <cfif variables.dbtype eq 'MySQL'>FOREIGN KEY<cfelse>CONSTRAINT</cfif> fk_#arguments.fktable#_#arguments.fkcolumn#
 		</cfquery>
 	</cfif>
 
@@ -1304,9 +1302,9 @@
 
 	<cfdbinfo 
 		name="rsCheck"
-		datasource="#variables.configBean.getDatasource()#"
-		username="#variables.configBean.getDbUsername()#"
-		password="#variables.configBean.getDbPassword()#"
+		datasource="#variables.datasource#"
+		username="#variables.dbusername#"
+		password="#variables.dbpassword#"
 		table="#arguments.table#"
 		type="foreignKeys">
 

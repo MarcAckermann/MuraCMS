@@ -82,25 +82,8 @@
 	      	</label>
 	      	<div class="controls">
 	      		<cf_datetimeselector name="releaseDate" datetime="#rc.contentBean.getReleaseDate()#">
-
-				<!---
-				<input type="text" class="datepicker span3" name="releaseDate" value="#LSDateFormat(rc.contentBean.getreleasedate(),session.dateKeyFormat)#"  maxlength="12" >
-				<cf_timeselector name="release" time="#rc.contentBean.getReleaseDate()#">
-				
-				<cfif session.localeHasDayParts>
-					<select name="releasehour" class="time"><cfloop from="1" to="12" index="h"><option value="#h#" <cfif not LSisDate(rc.contentBean.getReleaseDate())  and h eq 12 or (LSisDate(rc.contentBean.getReleaseDate()) and (hour(rc.contentBean.getReleaseDate()) eq h or (hour(rc.contentBean.getReleaseDate()) - 12) eq h or hour(rc.contentBean.getReleaseDate()) eq 0 and h eq 12))>selected</cfif>>#h#</option></cfloop></select>
-				<cfelse>
-					<select name="releasehour" class="time"><cfloop from="0" to="23" index="h"><option value="#h#" <cfif lsIsDate(rc.contentBean.getReleaseDate()) and hour(rc.contentBean.getReleaseDate()) eq h>selected</cfif>>#h#</option></cfloop></select>
-				</cfif>
-				
-				<select name="releaseMinute" class="time"><cfloop from="0" to="59" index="m"><option value="#m#" <cfif LSisDate(rc.contentBean.getReleaseDate()) and minute(rc.contentBean.getReleaseDate()) eq m>selected</cfif>>#iif(len(m) eq 1,de('0#m#'),de('#m#'))#</option></cfloop></select>
-
-				<cfif session.localeHasDayParts>
-					<select name="releaseDayPart" class="time"><option value="AM">AM</option><option value="PM" <cfif LSisDate(rc.contentBean.getReleaseDate()) and hour(rc.contentBean.getReleaseDate()) gte 12>selected</cfif>>PM</option></select>
-				</cfif>
-				--->
-					</div>
-				</div> <!--- /end control-group --->
+			</div>
+		</div> <!--- /end control-group --->
 	</cfif>	
 		
 	<cfif ((rc.parentid neq '00000000000000000000000000000000001' and application.settingsManager.getSite(rc.siteid).getlocking() neq 'all') or (rc.parentid eq '00000000000000000000000000000000001' and application.settingsManager.getSite(rc.siteid).getlocking() eq 'none')) and rc.contentid neq '00000000000000000000000000000000001'>
