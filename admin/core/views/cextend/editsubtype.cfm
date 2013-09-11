@@ -87,10 +87,10 @@ version 2 without this exception.  You may, if you choose, apply this exception 
               	<cfset defaultIcon=subtype.getDefaultIconClass()>
                 <button class="btn" type="button"><i id="iconcurrent" class="#currentIcon# icon-large"></i></button>
                 <button class="btn dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
-				    <ul class="dropdown-menu">
+				    <ul id="icon-selector" class="dropdown-menu">
 				      <cfloop list="#subtype.getIconClasses()#" index="i">
 				      	  <li class="icon-selector" data-icon="#i#"><i class="#i#<cfif i eq currentIcon> icon-current</cfif><cfif i eq defaultIcon> icon-default</cfif>"></i></li>
-				      </cfloop>      
+		     		 </cfloop>      
 				    </ul>
               </div>
               <button type="button" class="btn" id="iconreset"><i class="icon-undo"></i> Reset</button>

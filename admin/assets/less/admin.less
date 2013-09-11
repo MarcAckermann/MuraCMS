@@ -35,6 +35,7 @@
 	@import "add-content-ui.less";
 	@import "multi-file-upload.less";
 	@import "related-content.less";
+	@import "status-modal.less";
 	
 	
 // Layout
@@ -326,7 +327,7 @@ img.fmImage {
 	z-index: 49999;
 }
 	
-	
+// Used in Status Modal (Approval Chains)
 .mura-list-grid {
 
 	vertical-align: top;
@@ -343,6 +344,22 @@ img.fmImage {
 		&:nth-child(even) {
 			margin-right: 0;
 		}
+		
+		&.ac-comments > dl > dd > p {
+			font-size: 12px;
+			line-height: 1.2;
+			font-weight: normal;
+			padding: 0;
+			margin: 0;
+			
+			+ em {
+				font-size: 12px;
+				line-height: 1.2;
+				padding: 0;
+				font-weight: normal;
+				}
+			
+			}
 		
 		dt {
 			background: lighten(@grayDarker,25%);
@@ -392,22 +409,6 @@ img.fmImage {
 				.box-sizing(border-box);
 				width: 100%;
 				margin-bottom: @baseLineHeight/2;
-				}
-			
-			}
-			
-		&.comments > dd > p {
-			font-size: 12px;
-			line-height: 1.2;
-			font-weight: normal;
-			padding: 0;
-			margin: 0;
-			
-			+ em {
-				font-size: 12px;
-				line-height: 1.2;
-				padding: 0;
-				font-weight: normal;
 				}
 			
 			}

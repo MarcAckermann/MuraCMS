@@ -63,7 +63,7 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 <cfoutput>
 <cfif rc.mode eq 'frontend'>
 	<h1>#application.rbFactory.getKeyValue(session.rb,'layout.status')#</h1>
-<div class="well">
+<div id="status-modal" class="well">
 	<!---
 	<cfif requiresApproval>
 		<h2>#HTMLEditFormat(application.rbFactory.getKeyValue(session.rb,"sitemanager.content.#content.getApprovalStatus()#"))#</h2>
@@ -170,9 +170,10 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 	</div>
 		
 			<cfif actions.hasNext()>
+			<div class="ac-comments">
 				<cfloop condition="actions.hasNext()">
 					<cfset action=actions.next()>
-					<dl class="comments">
+					<dl>
 						<dt>Comments</dt>
 						<cfif len(action.getComments())>
 							<dd>
@@ -183,6 +184,7 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 						</cfif>
 					</dl>
 				</cfloop>
+				</div>
 			</cfif>
 		
 			<cfif not content.getApproved() and approvalRequest.getStatus() eq 'Pending' and (listfindNoCase(session.mura.membershipids,approvalRequest.getGroupID()) or $.currentUser().isAdminUser() or $.currentUser().isSuperUser())>

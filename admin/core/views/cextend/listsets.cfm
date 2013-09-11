@@ -68,12 +68,14 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 	<h2><i class="#subtype.getIconClass(includeDefault=true)# icon-large"></i> #application.classExtensionManager.getTypeAsString(subType.getType())# / #subType.getSubType()#</h2>
 </cfoutput>
 
-<h3>Extended Attribute Sets</h3>
+<h3>Extended Attribute Sets <cfif arrayLen(extendSets)>(<a href="javascript:;" style="display:none;" id="saveSort" onclick="extendManager.saveExtendSetSort('attr-set');return false;"><i class="icon-check"></i>Save Order</a><a href="javascript:;"  id="showSort" onclick="extendManager.showSaveSort('attr-set');return false;"><i class="icon-move"></i>Reorder</a>)</cfif></h3>
 <cfif arrayLen(extendSets)>
-	<ul class="nav nav-pills">
+	<!---
+<ul class="nav nav-pills">
 		<li><a href="javascript:;" style="display:none;" id="saveSort" onclick="extendManager.saveExtendSetSort('attr-set');return false;"><i class="icon-check"></i> Save Order</a></li>
 		<li><a href="javascript:;"  id="showSort" onclick="extendManager.showSaveSort('attr-set');return false;"><i class="icon-move"></i> Reorder</a></li>
 	</ul>
+--->
 
 	<ul id="attr-set" class="attr-list">
 		<cfloop from="1" to="#arrayLen(extendSets)#" index="s">	
