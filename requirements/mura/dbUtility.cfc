@@ -298,12 +298,12 @@
 				<cfelse>
 					#transformDataType(arguments.datatype,arguments.length)# 
 					<cfif not arguments.nullable> not null </cfif>
-						<cfif not arguments.nullable> not null </cfif> 
+					<cfif not(not arguments.nullable and arguments.default eq 'null')>
 						default 
 						<cfif arguments.default eq 'null' or listFindNoCase('int,tinyint',arguments.datatype)>
 							#arguments.default#
 						<cfelse>
-							'#arguments.default#'
+								'#arguments.default#'
 						</cfif>
 					</cfif>
 				</cfif>
@@ -541,6 +541,7 @@
 								'#arguments.default#'
 							</cfif>
 						</cfif>
+					</cfif>
 				</cfquery>
 			</cfcase>
 			<cfcase value="postgresql">
