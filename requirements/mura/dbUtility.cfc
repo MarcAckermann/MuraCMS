@@ -510,7 +510,7 @@
 	<cfif arguments.autoincrement>
 		<cfset arguments.datatype="int">
 	</cfif>
-
+	
 	<cfif tableExists(arguments.table) and columnExists(arguments.column,arguments.table)>
 		<cfswitch expression="#variables.dbtype#">
 			<cfcase value="mssql">
