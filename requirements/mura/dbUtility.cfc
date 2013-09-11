@@ -292,7 +292,21 @@
 					ALTER TABLE #arguments.table# ADD
 				</cfif>
 				
-				#arguments.column#  <cfif arguments.autoincrement>INT PRIMARY KEY IDENTITY<cfelse>#transformDataType(arguments.datatype,arguments.length)# <cfif not arguments.nullable> not null </cfif> default <cfif arguments.default eq 'null' or listFindNoCase('int,tinyint',arguments.datatype)>#arguments.default#<cfelse>'#arguments.default#'</cfif></cfif>
+				#arguments.column#  
+				<cfif arguments.autoincrement>
+					INT PRIMARY KEY IDENTITY
+				<cfelse>
+					#transformDataType(arguments.datatype,arguments.length)# 
+					<cfif not arguments.nullable> not null </cfif>
+					<cfif not(not arguments.nullable and arguments.default eq 'null')>
+						default 
+						<cfif arguments.default eq 'null' or listFindNoCase('int,tinyint',arguments.datatype)>
+							#arguments.default#
+						<cfelse>
+								'#arguments.default#'
+						</cfif>
+					</cfif>
+				</cfif>
 				
 				<cfif not hasTable>) ON [PRIMARY]</cfif>
 			</cfquery>
@@ -341,7 +355,18 @@
 			<cfquery datasource="#variables.datasource#" username="#variables.dbusername#" password="#variables.dbpassword#">
 				<cfif not hasTable>
 					CREATE TABLE #arguments.table# (
-						#arguments.column# <cfif arguments.autoincrement>SERIAL<cfelse>#transformDataType(arguments.datatype,arguments.length)#</cfif> <cfif not arguments.nullable>NOT NULL</cfif> <cfif not arguments.autoincrement> DEFAULT <cfif arguments.default eq 'null' or listFindNoCase('int,smallint',arguments.datatype)>#arguments.default#<cfelse>'#arguments.default#'</cfif></cfif>
+						#arguments.column# 
+						<cfif arguments.autoincrement>SERIAL<cfelse>#transformDataType(arguments.datatype,arguments.length)#</cfif> <cfif not arguments.nullable>NOT NULL</cfif> 
+						<cfif not arguments.autoincrement> 
+							<cfif not(not arguments.nullable and arguments.default eq 'null')>
+								DEFAULT 
+								<cfif arguments.default eq 'null' or listFindNoCase('int,smallint',arguments.datatype)>
+									#arguments.default#
+								<cfelse>
+									'#arguments.default#'
+								</cfif>
+							</cfif>
+						</cfif>
 					)
 				<cfelse>
 					ALTER TABLE #arguments.table# ADD COLUMN #arguments.column# <cfif arguments.autoincrement>SERIAL<cfelse>#transformDataType(arguments.datatype,arguments.length)#</cfif>;
@@ -362,8 +387,21 @@
 					ALTER TABLE #arguments.table# ADD COLUMN
 				</cfif>
 				
-				#arguments.column#  <cfif arguments.autoincrement>integer generated always as identity (seq_#arguments.table#)<cfelse>#transformDataType(arguments.datatype,arguments.length)# <cfif not arguments.nullable> not null </cfif> default <cfif arguments.default eq 'null' or listFindNoCase('int,tinyint',arguments.datatype)>#arguments.default#<cfelse>'#arguments.default#'</cfif></cfif>
-				
+				#arguments.column#  
+				<cfif arguments.autoincrement>
+					integer generated always as identity (seq_#arguments.table#)
+				<cfelse>
+					#transformDataType(arguments.datatype,arguments.length)# 
+					<cfif not arguments.nullable> not null </cfif> 
+					<cfif not(not arguments.nullable and arguments.default eq 'null')>
+						default 
+						<cfif arguments.default eq 'null' or listFindNoCase('int,tinyint',arguments.datatype)>
+							#arguments.default#
+						<cfelse>
+							'#arguments.default#'
+						</cfif>
+					</cfif>
+				</cfif>
 				<cfif not hasTable>
 					<cfif arguments.autoincrement>
 						,PRIMARY KEY(#arguments.column#)
@@ -380,7 +418,15 @@
 					ALTER TABLE #arguments.table# ADD <cfif variables.dbtype eq "ORACLE">(</cfif>
 				</cfif>
 				
-				#arguments.column# #transformDataType(arguments.datatype,arguments.length)#  default <cfif arguments.default eq 'null' or listFindNoCase('int,tinyint',arguments.datatype)>#arguments.default#<cfelse>'#arguments.default#'</cfif>
+				#arguments.column# #transformDataType(arguments.datatype,arguments.length)#  
+				<cfif not(not arguments.nullable and arguments.default eq 'null')>
+					default 
+					<cfif arguments.default eq 'null' or listFindNoCase('int,tinyint',arguments.datatype)>
+						#arguments.default#
+					<cfelse>
+						'#arguments.default#'
+					</cfif>
+				</cfif>
 				
 				<cfif not hasTable or variables.dbtype eq "ORACLE">)</cfif>
 				
@@ -464,7 +510,7 @@
 	<cfif arguments.autoincrement>
 		<cfset arguments.datatype="int">
 	</cfif>
-
+	
 	<cfif tableExists(arguments.table) and columnExists(arguments.column,arguments.table)>
 		<cfswitch expression="#variables.dbtype#">
 			<cfcase value="mssql">
@@ -481,7 +527,21 @@
 						MODIFY
 					</cfif>
 					 
-					COLUMN #arguments.column# <cfif arguments.autoincrement>INT(10) NOT NULL AUTO_INCREMENT<cfelse>#transformDataType(arguments.datatype,arguments.length)# <cfif not arguments.nullable> not null </cfif> default <cfif arguments.default eq 'null' or listFindNoCase('int,tinyint',arguments.datatype)>#arguments.default#<cfelse>'#arguments.default#'</cfif></cfif>
+					COLUMN #arguments.column# 
+					<cfif arguments.autoincrement>
+						INT(10) NOT NULL AUTO_INCREMENT
+					<cfelse>
+						#transformDataType(arguments.datatype,arguments.length)# 
+						<cfif not arguments.nullable> not null </cfif> 
+						<cfif not(not arguments.nullable and arguments.default eq 'null')>
+							default 
+							<cfif arguments.default eq 'null' or listFindNoCase('int,tinyint',arguments.datatype)>
+								#arguments.default#
+							<cfelse>
+								'#arguments.default#'
+							</cfif>
+						</cfif>
+					</cfif>
 				</cfquery>
 			</cfcase>
 			<cfcase value="postgresql">
@@ -490,7 +550,7 @@
 					<cfif not arguments.nullable>
 					ALTER TABLE #arguments.table# ALTER COLUMN #arguments.column# SET NOT NULL;
 					</cfif>
-					<cfif not arguments.autoincrement>
+					<cfif not arguments.autoincrement and not(not arguments.nullable and arguments.default eq 'null')>
 					ALTER TABLE #arguments.table# ALTER COLUMN #arguments.column# SET DEFAULT <cfif arguments.default eq 'null' or listFindNoCase('int,smallint',arguments.datatype)>#arguments.default#<cfelse>'#arguments.default#'</cfif>;
 					</cfif>
 				</cfquery>
@@ -502,7 +562,10 @@
 						<cfset dropColumn(table=arguments.table,column=tempName)>
 					</cfif>
 					<cfquery datasource="#variables.datasource#" username="#variables.dbusername#" password="#variables.dbpassword#">
-						ALTER TABLE #arguments.table# ADD COLUMN #tempName# #transformDataType(arguments.datatype,arguments.length)# <cfif arguments.autoincrement>integer generated always as identity (seq_#arguments.table#)<cfelse><cfif not arguments.nullable> not null </cfif> default <cfif arguments.default eq 'null' or listFindNoCase('int,tinyint',arguments.datatype)>#arguments.default#<cfelse>'#arguments.default#'</cfif></cfif>
+						ALTER TABLE #arguments.table# ADD COLUMN #tempName# #transformDataType(arguments.datatype,arguments.length)# <cfif arguments.autoincrement>integer generated always as identity (seq_#arguments.table#)<cfelse><cfif not arguments.nullable> not null </cfif> 
+						<cfif not(not arguments.nullable and arguments.default eq 'null')>
+							default <cfif arguments.default eq 'null' or listFindNoCase('int,tinyint',arguments.datatype)>#arguments.default#<cfelse>'#arguments.default#'</cfif></cfif>
+						</cfif>
 					</cfquery>
 					<cfquery datasource="#variables.datasource#" username="#variables.dbusername#" password="#variables.dbpassword#">
 						UPDATE #arguments.table# set #tempName#=#arguments.column# 
@@ -511,7 +574,10 @@
 						ALTER TABLE #arguments.table# DROP COLUMN #arguments.column# 
 					</cfquery>
 					<cfquery datasource="#variables.datasource#" username="#variables.dbusername#" password="#variables.dbpassword#">
-						ALTER TABLE #arguments.table# ADD COLUMN #arguments.column# #transformDataType(arguments.datatype,arguments.length)# <cfif arguments.autoincrement>integer generated always as identity (seq_#arguments.table#)<cfelse><cfif not arguments.nullable> not null </cfif> default <cfif arguments.default eq 'null' or listFindNoCase('int,tinyint',arguments.datatype)>#arguments.default#<cfelse>'#arguments.default#'</cfif></cfif>
+						ALTER TABLE #arguments.table# ADD COLUMN #arguments.column# #transformDataType(arguments.datatype,arguments.length)# <cfif arguments.autoincrement>integer generated always as identity (seq_#arguments.table#)<cfelse><cfif not arguments.nullable> not null </cfif> 
+						<cfif not(not arguments.nullable and arguments.default eq 'null')>
+							default <cfif arguments.default eq 'null' or listFindNoCase('int,tinyint',arguments.datatype)>#arguments.default#<cfelse>'#arguments.default#'</cfif></cfif>
+						</cfif>
 					</cfquery>
 					<cfquery datasource="#variables.datasource#" username="#variables.dbusername#" password="#variables.dbpassword#">
 						UPDATE #arguments.table# set #arguments.column#=#tempName#
@@ -531,7 +597,10 @@
 						ALTER TABLE #arguments.table# RENAME COLUMN #arguments.column# to #tempName#
 					</cfquery>
 					<cfquery datasource="#variables.datasource#" username="#variables.dbusername#" password="#variables.dbpassword#">
-						ALTER TABLE #arguments.table# ADD #arguments.column# #transformDataType(arguments.datatype,arguments.length)# default <cfif arguments.default eq 'null' or listFindNoCase('int,tinyint',arguments.datatype)>#arguments.default#<cfelse>'#arguments.default#'</cfif>
+						ALTER TABLE #arguments.table# ADD #arguments.column# #transformDataType(arguments.datatype,arguments.length)# 
+						<cfif not(not arguments.nullable and arguments.default eq 'null')>
+							default <cfif arguments.default eq 'null' or listFindNoCase('int,tinyint',arguments.datatype)>#arguments.default#<cfelse>'#arguments.default#'</cfif>
+						</cfif>
 					</cfquery>
 
 					<cftry>
