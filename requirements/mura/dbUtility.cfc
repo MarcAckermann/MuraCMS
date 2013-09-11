@@ -305,7 +305,22 @@
 					ALTER TABLE #arguments.table# ADD COLUMN
 				</cfif>
 				
-				#arguments.column#  <cfif arguments.autoincrement>INT(10) NOT NULL AUTO_INCREMENT<cfelse>#transformDataType(arguments.datatype,arguments.length)# <cfif not arguments.nullable> not null </cfif> default <cfif arguments.default eq 'null' or listFindNoCase('int,tinyint',arguments.datatype)>#arguments.default#<cfelse>'#arguments.default#'</cfif></cfif>
+				#arguments.column#  
+
+				<cfif arguments.autoincrement>
+					INT(10) NOT NULL AUTO_INCREMENT
+				<cfelse>
+					#transformDataType(arguments.datatype,arguments.length)# 
+					<cfif not arguments.nullable> not null </cfif> 
+					<cfif not(not arguments.nullable and arguments.default eq 'null')>
+						default 
+						<cfif arguments.default eq 'null' or listFindNoCase('int,tinyint',arguments.datatype)>
+							#arguments.default#
+						<cfelse>
+							'#arguments.default#'
+						</cfif>
+					</cfif>
+				</cfif>
 				
 				<cfif not hasTable>
 					<cfif arguments.autoincrement>

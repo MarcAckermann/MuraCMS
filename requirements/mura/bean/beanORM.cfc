@@ -130,10 +130,10 @@ component extends="mura.bean.bean" versioned=false {
 		if(not isObject(variables.dbUtility)){
 			variables.dbUtility=getBean('dbUtility');
 			variables.dbUtility.setTable(getTable());
-			if(structKeyExists(application.objectMappings[variables.entityName],'datasource') ){
-				variables.dbUtility.setDatasource(application.objectMappings[variables.entityName].datasource);
-				variables.dbUtility.setDbUsername('');
-				variables.dbUtility.setDbPassword('');
+			if(hasCustomDatasource() ){
+				variables.dbUtility.setValue('datasource',getsCustomDatasource());
+				variables.dbUtility.setValue('DbUsername','');
+				variables.dbUtility.setValue('DbPassword','');
 
 				if(structKeyExists(application.objectMappings[variables.entityName],'dbtype') ){
 					variables.dbUtility.setDbType(application.objectMappings[variables.entityName].dbtype);
@@ -327,6 +327,7 @@ component extends="mura.bean.bean" versioned=false {
 			       	 	if(prop.fieldtype eq 'id'){
 			       	 		application.objectMappings[variables.entityName].primaryKey=prop.name;
 			       	 		setPropAsIDColumn(prop);
+			       	 		//writeDump(var=prop,abort=true);
 			       	 	}
 
 			       	 	if(!structKeyExists(prop,"dataType")){
