@@ -1500,7 +1500,7 @@ and tclassextendattributes.type='File'
 	<cfif arrayLen(relatedSets)>
 		<cfloop from="1" to="#arrayLen(relatedSets)#" index="s">
 			<cfset sourceRelatedSet=relatedSets[s]>
-			<cfset destRelatedSet=getBean('extendRelatedContentSetBean').loadBy(subTypeID=destSubType.getSubTypeID(), siteID=destSubType.getSiteID(),name=sourceRelatedSet.getName())>
+			<cfset destRelatedSet=getBean('extendRelatedContentSetBean').loadBy(subTypeID=destSubType.getSubTypeID(),name=sourceRelatedSet.getName())>
 			<cfset destRelatedSet.setAvailableSubTypes(sourceRelatedSet.getAvailableSubTypes())>
 			<cfset destRelatedSet.setOrderNo(sourceRelatedSet.getOrderNo())>
 			<cfset destRelatedSet.save()>
@@ -1646,7 +1646,7 @@ and tclassextendattributes.type='File'
 					}
 				} else if(extendSetXML.xmlName == 'relatedcontentset' && isDefined("extendSetXML.xmlAttributes.name")){
 					relsetorder=relsetorder+1;
-					relset=getBean('extendRelatedContentSetBean').loadBy(subTypeID=subType.getSubTypeID(), subType=subType.getSiteID(),name=extendSetXML.xmlAttributes.name);
+					relset=getBean('extendRelatedContentSetBean').loadBy(subTypeID=subType.getSubTypeID(),name=extendSetXML.xmlAttributes.name);
 					if(isDefined("extendSetXML.xmlAttributes.AvailableSubTypes")){
 						relset.setAvailableSubTypes(extendSetXML.xmlAttributes.AvailableSubTypes);
 					}
