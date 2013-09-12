@@ -276,7 +276,7 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 		 					</li>
 		 					<li <cfif rc.originalcircuit eq 'cChain'>class='active'</cfif>>
 		 					   	<a href="#application.configBean.getContext()#/admin/?muraAction=cChain.list&siteid=#session.siteid#">
-		 					   		<i class="icon-group"></i> #application.rbFactory.getKeyValue(session.rb,"layout.approvalchains")#
+		 					   		<i class="icon-ok"></i> #application.rbFactory.getKeyValue(session.rb,"layout.approvalchains")#
 		 					   	</a>
 		 					</li>
 		 				 

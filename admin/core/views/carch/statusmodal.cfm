@@ -101,16 +101,20 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 	<dl>
 		<dt>Status</dt>
 		<dd>
-			<i class="icon-ok-sign"></i>
-			<p><cfif content.getactive() gt 0 and content.getapproved() gt 0>
-				#application.rbFactory.getKeyValue(session.rb,"sitemanager.content.published")#
+			
+			<cfif content.getactive() gt 0 and content.getapproved() gt 0>
+				<i class="icon-ok-sign"></i>
+				<p>#application.rbFactory.getKeyValue(session.rb,"sitemanager.content.published")#</p>
 			<cfelseif len(content.getApprovalStatus()) and requiresApproval >
-				#application.rbFactory.getKeyValue(session.rb,"sitemanager.content.#content.getApprovalStatus()#")#
+				<i class="icon-ban-circle"></i>
+				<p>#application.rbFactory.getKeyValue(session.rb,"sitemanager.content.#content.getApprovalStatus()#")#</p>
 			<cfelseif content.getapproved() lt 1>
-				#application.rbFactory.getKeyValue(session.rb,"sitemanager.content.draft")#
+				<i class="icon-edit"></i>
+				<p>#application.rbFactory.getKeyValue(session.rb,"sitemanager.content.draft")#</p>
 			<cfelse>
-				#application.rbFactory.getKeyValue(session.rb,"sitemanager.content.archived")#
-			</cfif></p>
+				<i class="icon-book"></i>
+				<p>#application.rbFactory.getKeyValue(session.rb,"sitemanager.content.archived")#</p>
+			</cfif>
 		</dd>
 	</dl>
 		
@@ -121,34 +125,10 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 			<dt>Change Set</dt>
 			<dd>
 				<i class="icon-list"></i>
-				<p><cfif changeset.getIsNew()>Not Assigned<cfelse>#HTMLEditFormat(changeset.getName())#</cfif></p>
+				<p><cfif changeset.getIsNew()>Unassigned<cfelse>#HTMLEditFormat(changeset.getName())#</cfif></p>
 			</dd>
 		</dl>
 		</cfif>
-
-		<!---
-<dl class="comments">
-			<dt>Comments</dt>
-			<dd><i class="icon-comment"></i><p>Lorem ipsum dolor sit amet adspicing nonummy.</p>
-				<em>by Malcolm O'Keeffe on 8/10/13</em>
-			</dd>
-		</dl>
-		
-		<dl class="approval-action-form">
-				<dt>Action</dt>
-				<dd>
-					<label class="radio inline">
-						<input class="approval-action" id="approval-approve" name="approval-action"type="radio" value="Approve" checked/>Approve
-					</label>
-					<label class="radio inline">
-						<input class="approval-action" id="approval-reject" name="approval-action" type="radio" value="Reject" checked/>Reject
-					</label>
-					<p>Comments</p>
-					<textarea id="approval-comments" rows="4"></textarea>
-				<input type="button" class="btn btn-primary" value="Apply"/></dd>
-				</dd>
-				</dl>
---->
 					
 		
 		<cfif requiresApproval>
@@ -167,25 +147,23 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 				</dd>
 			</dl>
 			</cfif>
-	</div>
-		
-			<cfif actions.hasNext()>
-			<div class="ac-comments">
+			
+			<dl class="approval-chain-comments">
+				<dt>Comments</dt>
+				<cfif actions.hasNext()>
 				<cfloop condition="actions.hasNext()">
-					<cfset action=actions.next()>
-					<dl>
-						<dt>Comments</dt>
-						<cfif len(action.getComments())>
-							<dd>
-								<i class="icon-comment"></i>
-								<p>#HTMLEditFormat(action.getComments())#</p>
-								<em>#UCase(action.getActionType())# by #HTMLEditFormat(action.getUser().getFullName())# on #LSDateFormat(parseDateTime(action.getCreated()),session.dateKeyFormat)# at #LSTimeFormat(parseDateTime(action.getCreated()),"short")#</em>
-							</dd>
-						</cfif>
-					</dl>
-				</cfloop>
-				</div>
-			</cfif>
+				<cfset action=actions.next()>
+				<cfif len(action.getComments())>
+					<dd>
+						<strong<cfif not content.getApproved()> class="rejected"<cfelse> class="approved"</cfif>>
+						<cfif not content.getApproved()><i class="icon-ban-circle"></i><cfelse><i class="icon-ok"></i></cfif> #UCase(action.getActionType())#</strong>
+						<p><i class="icon-comment"></i> #HTMLEditFormat(action.getComments())#</p>
+						<em>#HTMLEditFormat(action.getUser().getFullName())# on #LSDateFormat(parseDateTime(action.getCreated()),session.dateKeyFormat)# at #LSTimeFormat(parseDateTime(action.getCreated()),"short")#</em>
+					</dd>
+				</cfif>
+			</cfloop>
+		</cfif>
+			</dl>
 		
 			<cfif not content.getApproved() and approvalRequest.getStatus() eq 'Pending' and (listfindNoCase(session.mura.membershipids,approvalRequest.getGroupID()) or $.currentUser().isAdminUser() or $.currentUser().isSuperUser())>
 				<dl class="approval-action-form">
@@ -205,8 +183,7 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 				</dl>
 			</cfif>
 		</cfif>
-<!--- </div> --->
-
+</div>
 
 <cfif rc.mode eq 'frontend'>
 </div>
