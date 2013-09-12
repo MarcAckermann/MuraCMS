@@ -1430,6 +1430,9 @@ and tclassextendattributes.type='File'
 <cfset var s="">
 <cfset var a="">
 <cfset var attributes="">
+<cfset var relatedSets="">
+<cfset var sourceRelatedSet="">
+<cfset var destRelatedSet="">
 
 <cfif len(arguments.type)>
 	<cfquery name="rsSubTypes" dbtype="query">	
@@ -1492,6 +1495,17 @@ and tclassextendattributes.type='File'
 			
 		</cfloop>
 	</cfif>
+
+	<cfset relatedSets=sourceSubType.getRelatedContentSets(includeInheritedSets=false)>
+	<cfif arrayLen(relatedSets)>
+		<cfloop from="1" to="#arrayLen(relatedSets)#" index="s">
+			<cfset sourceRelatedSet=relatedSets[s]>
+			<cfset destRelatedSet=getBean('extendRelatedContentSetBean').loadBy(subTypeID=destSubType.getSubTypeID(), siteID=destSubType.getSiteID(),name=sourceRelatedSet.getName())>
+			<cfset destRelatedSet.setAvailableSubTypes(sourceRelatedSet.getAvailableSubTypes())>
+			<cfset destRelatedSet.setOrderNo(sourceRelatedSet.getOrderNo())>
+			<cfset destRelatedSet.save()>
+		</cfloop>
+	</cfif>
 </cfloop>
 </cffunction>
 
@@ -1502,6 +1516,7 @@ and tclassextendattributes.type='File'
 	<cfset var ext="">
 	<cfset var subtype="">
 	<cfset var extset="">
+	<cfset var relset="">
 	<cfset var at="">
 	<cfset var attributesXML="">
 	<cfset var attribute="">
@@ -1513,13 +1528,15 @@ and tclassextendattributes.type='File'
 	<cfset var site=getBean('settingsManager').getSite(arguments.siteid)>
 	<cfset var dirty=false>
 	<cfset var extendset="">
+	<cfset var extsetorder=0>
+	<cfset var relsetorder=0>
 
 	<cfif isDefined("arguments.configXML.plugin")>
 		<cfset baseElement="plugin">
 	<cfelseif isDefined("arguments.configXML.theme")>
 		<cfset baseElement="theme">
 	</cfif>
-	
+
 	<cfif len(baseElement) 
 		and (
 			isDefined("arguments.configXML.#baseElement#.extensions") 
@@ -1588,41 +1605,53 @@ and tclassextendattributes.type='File'
 				      	
 				extendSetXML=extXML.xmlChildren[extset];
 
-				 extendset= subType.getExtendSetByName(  extendSetXML.xmlAttributes.name );
+				if(extendSetXML.xmlName == 'attributeset' && isdefined(' extendSetXML.xmlAttributes.name')){
+					extsetorder=extsetorder+1;
 
-				if(isDefined("extendSetXML.xmlAttributes.container")){
-					extendset.setContainer( extendSetXML.xmlAttributes.container );
-				}
-							
-				if(extendSet.getIsNew()){
-					extendSet.setOrderNo(extset);
-					extendSet.save();
-				}
+					extendset= subType.getExtendSetByName(  extendSetXML.xmlAttributes.name );
 
-				for(at=1;at lte arraylen(extendSetXML.xmlChildren); at=at+1){
-					      		
-					attributeXML=extendSetXML.xmlChildren[at];
-
-					if(structKeyExists(attributeXML,"name")){
-						attribute = extendSet.getAttributeByName(attributeXML.name.xmlText);
-					} else {
-						attribute = extendSet.getAttributeByName(attributeXML.xmlAttributes.name);
+					if(isDefined("extendSetXML.xmlAttributes.container")){
+						extendset.setContainer( extendSetXML.xmlAttributes.container );
 					}
-					if(attribute.getIsNew()){
-						attributeKeyList="label,type,optionlist,optionlabellist,defaultvalue,hint,required,validation,message,regex";
-						
-						for (ak=1;ak LTE listLen(attributeKeyList);ak=ak+1) {
-						      			attrbuteKeyName=listGetAt(attributeKeyList,ak);
-						    if(structKeyExists(attributeXML,attrbuteKeyName)){
-								evaluate("attribute.set#attrbuteKeyName#(attributeXML[attrbuteKeyName].xmlText)");
-							}else if(structKeyExists(attributeXML.xmlAttributes,attrbuteKeyName)) {
-								evaluate("attribute.set#attrbuteKeyName#(attributeXML.xmlAttributes[attrbuteKeyName])");
-							}
-						}
+								
+					if(extendSet.getIsNew()){
+						extendSet.setOrderNo(extsetorder);
+						extendSet.save();
+					}
 
-						attribute.setOrderNo(at);
-						attribute.save();
-					}			
+					for(at=1;at lte arraylen(extendSetXML.xmlChildren); at=at+1){
+						      		
+						attributeXML=extendSetXML.xmlChildren[at];
+
+						if(structKeyExists(attributeXML,"name")){
+							attribute = extendSet.getAttributeByName(attributeXML.name.xmlText);
+						} else {
+							attribute = extendSet.getAttributeByName(attributeXML.xmlAttributes.name);
+						}
+						if(attribute.getIsNew()){
+							attributeKeyList="label,type,optionlist,optionlabellist,defaultvalue,hint,required,validation,message,regex";
+							
+							for (ak=1;ak LTE listLen(attributeKeyList);ak=ak+1) {
+							      			attrbuteKeyName=listGetAt(attributeKeyList,ak);
+							    if(structKeyExists(attributeXML,attrbuteKeyName)){
+									evaluate("attribute.set#attrbuteKeyName#(attributeXML[attrbuteKeyName].xmlText)");
+								}else if(structKeyExists(attributeXML.xmlAttributes,attrbuteKeyName)) {
+									evaluate("attribute.set#attrbuteKeyName#(attributeXML.xmlAttributes[attrbuteKeyName])");
+								}
+							}
+
+							attribute.setOrderNo(at);
+							attribute.save();
+						}			
+					}
+				} else if(extendSetXML.xmlName == 'relatedcontentset' && isDefined("extendSetXML.xmlAttributes.name")){
+					relsetorder=relsetorder+1;
+					relset=getBean('extendRelatedContentSetBean').loadBy(subTypeID=subType.getSubTypeID(), subType=subType.getSiteID(),name=extendSetXML.xmlAttributes.name);
+					if(isDefined("extendSetXML.xmlAttributes.AvailableSubTypes")){
+						relset.setAvailableSubTypes(extendSetXML.xmlAttributes.AvailableSubTypes);
+					}
+					relset.setOrderNo(relsetorder);
+					relset.save();
 				}
 			}
 		}
