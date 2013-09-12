@@ -63,7 +63,7 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 <cfoutput>
 <cfif rc.mode eq 'frontend'>
 	<h1>#application.rbFactory.getKeyValue(session.rb,'layout.status')#</h1>
-<div id="status-modal" class="well">
+<div class="well">
 	<!---
 	<cfif requiresApproval>
 		<h2>#HTMLEditFormat(application.rbFactory.getKeyValue(session.rb,"sitemanager.content.#content.getApprovalStatus()#"))#</h2>
@@ -81,7 +81,7 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 	--->
 </cfif>
 <!--- <div class="well"> --->
-<div class="mura-list-grid">
+<div id="status-modal" class="mura-list-grid">
 	<dl>
 		<dt>Created By</dt> 
 		<dd>
@@ -106,7 +106,7 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 				<i class="icon-ok-sign"></i>
 				<p>#application.rbFactory.getKeyValue(session.rb,"sitemanager.content.published")#</p>
 			<cfelseif len(content.getApprovalStatus()) and requiresApproval >
-				<i class="icon-ban-circle"></i>
+				<i class="icon-time"></i>
 				<p>#application.rbFactory.getKeyValue(session.rb,"sitemanager.content.#content.getApprovalStatus()#")#</p>
 			<cfelseif content.getapproved() lt 1>
 				<i class="icon-edit"></i>
@@ -148,9 +148,10 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 			</dl>
 			</cfif>
 			
+			<p style="clear:both;">Comments box shouldn't show up if there are no comments?</p>
+			<cfif actions.hasNext()>
 			<dl class="approval-chain-comments">
 				<dt>Comments</dt>
-				<cfif actions.hasNext()>
 				<cfloop condition="actions.hasNext()">
 				<cfset action=actions.next()>
 				<cfif len(action.getComments())>
@@ -162,8 +163,8 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 					</dd>
 				</cfif>
 			</cfloop>
-		</cfif>
 			</dl>
+			</cfif>
 		
 			<cfif not content.getApproved() and approvalRequest.getStatus() eq 'Pending' and (listfindNoCase(session.mura.membershipids,approvalRequest.getGroupID()) or $.currentUser().isAdminUser() or $.currentUser().isSuperUser())>
 				<dl class="approval-action-form">
