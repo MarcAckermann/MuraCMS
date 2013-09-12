@@ -156,9 +156,9 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 			
 				<dd>
 					<strong<cfif not content.getApproved()> class="rejected"<cfelse> class="approved"</cfif>>
-					<cfif not content.getApproved()><i class="icon-ban-circle"></i><cfelse><i class="icon-ok"></i></cfif> #UCase(action.getActionType())#</strong>
+					<cfif not content.getApproved()><i class="icon-ban-circle"></i><cfelse><i class="icon-ok"></i></cfif> #UCase(action.getActionType())#</strong> <em>by #HTMLEditFormat(action.getUser().getFullName())# on #LSDateFormat(parseDateTime(action.getCreated()),session.dateKeyFormat)# at #LSTimeFormat(parseDateTime(action.getCreated()),"short")#</em>
 					<cfif len(action.getComments())><p><!--- <i class="icon-comment"></i>  --->#HTMLEditFormat(action.getComments())#</p></cfif>
-					<em>#HTMLEditFormat(action.getUser().getFullName())# on #LSDateFormat(parseDateTime(action.getCreated()),session.dateKeyFormat)# at #LSTimeFormat(parseDateTime(action.getCreated()),"short")#</em>
+					
 				</dd>
 			
 			</cfloop>
