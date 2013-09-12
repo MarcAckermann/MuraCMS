@@ -147,21 +147,20 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 				</dd>
 			</dl>
 			</cfif>
-			
-			<p style="clear:both;">Comments box shouldn't show up if there are no comments?</p>
+		
 			<cfif actions.hasNext()>
 			<dl class="approval-chain-comments">
-				<dt>Comments</dt>
+				<dt>Actions</dt>
 				<cfloop condition="actions.hasNext()">
 				<cfset action=actions.next()>
-				<cfif len(action.getComments())>
-					<dd>
-						<strong<cfif not content.getApproved()> class="rejected"<cfelse> class="approved"</cfif>>
-						<cfif not content.getApproved()><i class="icon-ban-circle"></i><cfelse><i class="icon-ok"></i></cfif> #UCase(action.getActionType())#</strong>
-						<p><!--- <i class="icon-comment"></i>  --->#HTMLEditFormat(action.getComments())#</p>
-						<em>#HTMLEditFormat(action.getUser().getFullName())# on #LSDateFormat(parseDateTime(action.getCreated()),session.dateKeyFormat)# at #LSTimeFormat(parseDateTime(action.getCreated()),"short")#</em>
-					</dd>
-				</cfif>
+			
+				<dd>
+					<strong<cfif not content.getApproved()> class="rejected"<cfelse> class="approved"</cfif>>
+					<cfif not content.getApproved()><i class="icon-ban-circle"></i><cfelse><i class="icon-ok"></i></cfif> #UCase(action.getActionType())#</strong>
+					<cfif len(action.getComments())><p><!--- <i class="icon-comment"></i>  --->#HTMLEditFormat(action.getComments())#</p></cfif>
+					<em>#HTMLEditFormat(action.getUser().getFullName())# on #LSDateFormat(parseDateTime(action.getCreated()),session.dateKeyFormat)# at #LSTimeFormat(parseDateTime(action.getCreated()),"short")#</em>
+				</dd>
+			
 			</cfloop>
 			</dl>
 			</cfif>
