@@ -90,11 +90,12 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 		</dd>
 	</dl>
 	
-	<dl>
+	<dl class="created-on">
 		<dt>Created On</dt>
 		<dd>
 			<i class="icon-calendar"></i>
-			<p>#LSDateFormat(parseDateTime(content.getLastUpdate()),session.dateKeyFormat)# #LSTimeFormat(parseDateTime(content.getLastUpdate()),"short")#</p>
+			<p>#LSDateFormat(parseDateTime(content.getLastUpdate()),session.dateKeyFormat)#<br />
+			#LSTimeFormat(parseDateTime(content.getLastUpdate()),"short")#</p>
 		</dd>
 	</dl>
 	
@@ -155,10 +156,10 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 				<cfset action=actions.next()>
 			
 				<dd>
-					<strong<cfif not content.getApproved()> class="rejected"<cfelse> class="approved"</cfif>>
-					<cfif not content.getApproved()><i class="icon-ban-circle"></i><cfelse><i class="icon-ok"></i></cfif> #UCase(action.getActionType())#</strong> <em>by #HTMLEditFormat(action.getUser().getFullName())# on #LSDateFormat(parseDateTime(action.getCreated()),session.dateKeyFormat)# at #LSTimeFormat(parseDateTime(action.getCreated()),"short")#</em>
+					<strong class="<cfif action.getActionType() eq 'rejection'>rejected<cfelseif action.getActionType() eq 'cancelation'>canceled<cfelse>approved</cfif>">
+					<cfif action.getActionType() eq 'rejection'><i class="icon-warning-sign"></i> Rejected<cfelseif action.getActionType() eq 'cancelation'><i class="icon-ban-circle"></i> Canceled<cfelse><i class="icon-ok-sign"></i> Approved</cfif></strong> 
 					<cfif len(action.getComments())><p><!--- <i class="icon-comment"></i>  --->#HTMLEditFormat(action.getComments())#</p></cfif>
-					
+					<em>by #HTMLEditFormat(action.getUser().getFullName())# on #LSDateFormat(parseDateTime(action.getCreated()),session.dateKeyFormat)# at #LSTimeFormat(parseDateTime(action.getCreated()),"short")#</em>		
 				</dd>
 			
 			</cfloop>

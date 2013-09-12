@@ -7,14 +7,22 @@
 		.inline-block();
 		background: @gray;
 		width: 46%;
-		min-height: 110px;
+		min-height: 100px;
 		.box-sizing(border-box);
 		margin: @baseLineHeight/2 2%;
 		.border-radius(6px);
+		vertical-align: top;
 		
 		&:nth-child(even) {
 			margin-right: 0;
-		}
+			}
+			
+		&.created-on {
+			p { 
+				padding: 6px 0 0;
+				line-height: 18px;
+				}
+			}
 		
 		&.ac-comments > dl > dd > p {
 			font-size: 12px;
@@ -28,8 +36,7 @@
 				line-height: 1.2;
 				padding: 0;
 				font-weight: normal;
-				}
-			
+				}		
 			}
 		
 		dt {
@@ -58,6 +65,7 @@
 				font-size: 45px;
 				float: left;
 				margin: 0 @baseFontSize 0 0;
+				vertical-align: middle;
 				
 				&.icon-calendar,
 				&.icon-list {
@@ -67,12 +75,12 @@
 				
 			p {
 				padding: 14px 0;
-				line-height: 1;	
+				line-height: 1;
+				margin: 0;
 				}
 			
 			label + p {
 				font-size: 12px;
-				margin-bottom: 0;
 				padding: 10px 0;
 				}
 				
@@ -128,7 +136,7 @@
 			border-top: 1px solid @grayLight;
 		
 			&:first-of-type {
-				padding-top: 0;
+				//padding-top: 0;
 				margin-top: 0;
 				border: 0;
 				}
@@ -138,24 +146,37 @@
 				padding: 4px 8px;
 				margin: 9px 0 0 0;
 				font-size: 11px;
-				letter-spacing: 1px;
+				//letter-spacing: 1px;
 				line-height: 14px;
 				font-weight: normal;
 				color: @white;
 				text-shadow: none;
 				.inline-block();
 				.border-radius(12px);
+				text-transform: uppercase;
 				
 				> i {
 					font-size: 14px;
 					margin-right: .2em;
+					}
+					
+				&.approved {
+					background: green;
+					}
+				
+				&.rejected {
+					background: red;
+					}
+					
+				&.canceled {
+					background: @gray;
 					}
 				
 				}
 					
 			> em {
 				font-size: 12px;
-				font-weight: normal;
+				font-weight: bold;
 				.inline-block();
 				}
 		
@@ -172,13 +193,7 @@
 				margin-bottom: 0;
 				}
 				
-			&.approved {
-				background: green;
-				}
-				
-			&.rejected {
-				background: red;
-				}
+			
 			}
 		}
 	
