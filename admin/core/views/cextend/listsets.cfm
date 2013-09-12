@@ -121,7 +121,7 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 			</cfloop>
 		</ul>
 	<cfelse>
-		<p class="alert">There are currently no available related sets.</p>
+		<p class="alert">There are currently no Related Content sets.</p>
 	</cfif>
 </cfif>
 

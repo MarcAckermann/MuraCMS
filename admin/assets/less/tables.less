@@ -3,8 +3,7 @@
 	.table;
 	.table-bordered;
 	.table-condensed;
-	.table-striped;
-	
+	.table-striped;	
 	.border-radius(0) !important;
 
 	td, th {
@@ -12,6 +11,10 @@
 		.border-radius(0) !important;
 		text-align: center;
 		color: @grayDarker;
+		
+		&.title {
+			text-align: left;
+			}
 		}
 
 	th {
@@ -20,7 +23,6 @@
 		text-transform: none;
 		font-weight: bold;
 		white-space: nowrap;
-		//border-right: 1px solid @grayLight;
 		}
 		
 	td {
@@ -60,7 +62,6 @@
 	.mura-table-grid {
 		
 		th,td {
-			text-align: left;
 			padding: .5em 1em;
 			}
 			
@@ -80,9 +81,6 @@
 	
 	}
 
-.tab-pane th, .tab-pane td {
-	text-align: left;
-}
 
 table.cke_editor {
 	border: 0;
@@ -94,11 +92,4 @@ table.cke_editor {
 
 .fieldset > .mura-table-grid {
 		.box-sizing(border-box);
-		/* margin: 0 @gridGutterWidth @baseLineHeight; */
-}
-
-#mura-select-link {
-	td, th {
-		text-align: left;
-	}
 }
