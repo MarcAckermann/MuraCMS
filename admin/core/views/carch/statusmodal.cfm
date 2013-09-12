@@ -125,7 +125,7 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 			<dt>Change Set</dt>
 			<dd>
 				<i class="icon-list"></i>
-				<p><cfif changeset.getIsNew()>Not Assigned<cfelse>#HTMLEditFormat(changeset.getName())#</cfif></p>
+				<p><cfif changeset.getIsNew()>Unassigned<cfelse>#HTMLEditFormat(changeset.getName())#</cfif></p>
 			</dd>
 		</dl>
 		</cfif>
@@ -147,25 +147,23 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 				</dd>
 			</dl>
 			</cfif>
-
-		
 			
-					<dl class="approval-chain-comments">
-						<dt>Comments</dt>
-						<cfif actions.hasNext()>
-						<cfloop condition="actions.hasNext()">
-						<cfset action=actions.next()>
-						<cfif len(action.getComments())>
-							<dd>
-								<strong<cfif not content.getApproved()> class="rejected"<cfelse> class="approved"</cfif>>
-								<cfif not content.getApproved()><i class="icon-ban-circle"></i><cfelse><i class="icon-ok"></i></cfif> #UCase(action.getActionType())#</strong>
-								<p><i class="icon-comment"></i> #HTMLEditFormat(action.getComments())#</p>
-								<em>#HTMLEditFormat(action.getUser().getFullName())# on #LSDateFormat(parseDateTime(action.getCreated()),session.dateKeyFormat)# at #LSTimeFormat(parseDateTime(action.getCreated()),"short")#</em>
-							</dd>
-						</cfif>
-					</cfloop>
+			<dl class="approval-chain-comments">
+				<dt>Comments</dt>
+				<cfif actions.hasNext()>
+				<cfloop condition="actions.hasNext()">
+				<cfset action=actions.next()>
+				<cfif len(action.getComments())>
+					<dd>
+						<strong<cfif not content.getApproved()> class="rejected"<cfelse> class="approved"</cfif>>
+						<cfif not content.getApproved()><i class="icon-ban-circle"></i><cfelse><i class="icon-ok"></i></cfif> #UCase(action.getActionType())#</strong>
+						<p><i class="icon-comment"></i> #HTMLEditFormat(action.getComments())#</p>
+						<em>#HTMLEditFormat(action.getUser().getFullName())# on #LSDateFormat(parseDateTime(action.getCreated()),session.dateKeyFormat)# at #LSTimeFormat(parseDateTime(action.getCreated()),"short")#</em>
+					</dd>
 				</cfif>
-					</dl>
+			</cfloop>
+		</cfif>
+			</dl>
 		
 			<cfif not content.getApproved() and approvalRequest.getStatus() eq 'Pending' and (listfindNoCase(session.mura.membershipids,approvalRequest.getGroupID()) or $.currentUser().isAdminUser() or $.currentUser().isSuperUser())>
 				<dl class="approval-action-form">
@@ -186,8 +184,6 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 			</cfif>
 		</cfif>
 </div>
-<!--- </div> --->
-
 
 <cfif rc.mode eq 'frontend'>
 </div>

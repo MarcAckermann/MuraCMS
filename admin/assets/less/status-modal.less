@@ -137,12 +137,18 @@
 				margin: 9px 0 0 0;
 				font-size: 11px;
 				letter-spacing: 1px;
-				line-height: 1;
+				line-height: 14px;
 				font-weight: normal;
 				color: @white;
 				text-shadow: none;
 				.inline-block();
 				.border-radius(12px);
+				
+				> i {
+					font-size: 14px;
+					margin-right: .2em;
+					}
+				
 				}
 		
 			> i {
@@ -159,6 +165,14 @@
 				
 			> em {
 				font-size: 12px;
+				}
+				
+			&.approved {
+				background: green;
+				}
+				
+			&.rejected {
+				background: red;
 				}
 			}
 		}
