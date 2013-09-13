@@ -185,7 +185,7 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 								</a>
 							<cfelseif $.content('approved') lt 1>
 								<a href="#variables.approvalrequestlink#" data-configurator="true" #variables.targetHook#>
-									<i class="icon-file-alt status-draft"></i> 
+									<i class="icon-edit status-draft"></i> 
 									<!--- #application.rbFactory.getKeyValue(session.rb,'layout.status')#: --->
 									#application.rbFactory.getKeyValue(session.rb,"sitemanager.content.draft")#
 								</a>

@@ -66,5 +66,6 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 				</cfif>
 			</cfcase>
 		</cfswitch>
+		<a class="btn" href="##" onclick="return preview('#JSStringFormat(rc.previewLink)#','');"><i class="icon-globe"></i> Preview Change Set</a>
 	</div>
 </cfoutput>
