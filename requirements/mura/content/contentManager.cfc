@@ -1057,10 +1057,10 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 				<!--- Begin Changeset --->
 				<cfif not newBean.getIsNew() and isBoolean(newBean.getValue("removePreviousChangeset")) and newBean.getValue("removePreviousChangeset") and isValid("uuid",previousChangesetID)>
 					<!--- If removePreviousChangeset cancel any approval requests previous version --->
-					<cfquery name="local.rsApprovalsDelete">
+					<cfquery name="local.rsApprovalsCancel">
 						select tcontent.contenthistid, tapprovalrequests.requestID
 						from tcontent 
-						left join tapprovalrequests on (tcontent.contenthistid=tapprovalrequests.contenthistid)
+						inner join tapprovalrequests on (tcontent.contenthistid=tapprovalrequests.contenthistid)
 						where tcontent.contentID=<cfqueryparam cfsqltype="cf_sql_varchar" value="#newBean.getContentID()#">
 						and changesetID=<cfqueryparam cfsqltype="cf_sql_varchar" value="#previousChangesetID#">
 						and tcontent.siteID=<cfqueryparam cfsqltype="cf_sql_varchar" value="#newBean.getSiteID()#">
@@ -1075,10 +1075,10 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 				</cfif>
 				<cfif len(newBean.getChangesetID())>
 					<!--- If the version has been assigned to a change set cancel any approval request for previous version--->
-					<cfquery name="local.rsApprovalsDelete">
+					<cfquery name="local.rsApprovalsCancel">
 						select tcontent.contenthistid, tapprovalrequests.requestID
 						from tcontent 
-						left join tapprovalrequests on (tcontent.contenthistid=tapprovalrequests.contenthistid)
+						inner join tapprovalrequests on (tcontent.contenthistid=tapprovalrequests.contenthistid)
 						where tcontent.contentID=<cfqueryparam cfsqltype="cf_sql_varchar" value="#newBean.getContentID()#">
 						and tcontent.changesetID=<cfqueryparam cfsqltype="cf_sql_varchar" value="#newBean.getChangesetID()#">
 						and tcontent.siteID=<cfqueryparam cfsqltype="cf_sql_varchar" value="#newBean.getSiteID()#">
@@ -1399,9 +1399,9 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 					<cfset getBean('changeset').loadBy(changesetID=newBean.getChangesetID(),siteid=newBean.getSiteID()).save()>
 				</cfif>
 
-				<cfif isDefined('local.rsApprovalsDelete')>
-					<cfloop query="local.rsApprovalsDelete">
-						<cfset getBean('approvalRequest').loadBy(requestID=local.rsApprovalsDelete.requestID).delete()>
+				<cfif isDefined('local.rsApprovalsCancel')>
+					<cfloop query="local.rsApprovalsCancel">
+						<cfset getBean('approvalRequest').loadBy(requestID=local.rsApprovalsCancel.requestID).cancel()>
 					</cfloop>
 				</cfif>
 

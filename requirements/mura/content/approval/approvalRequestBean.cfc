@@ -120,6 +120,7 @@ component extends="mura.bean.beanORM"  table="tapprovalrequests" entityname="app
     }
 
     function cancel(comments){
+
 	    if(getValue('status') eq 'Pending'){
 	    	getBean('approvalAction').loadBy(requestID=getValue('requestID'), groupID=getValue('groupID'))
 		    	.setComments(arguments.comments)
