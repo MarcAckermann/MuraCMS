@@ -536,7 +536,7 @@ to your own modified versions of Mura CMS.
         
         <div class="control-group">
         <div class="span6">
-        <label class="control-label">Mail Server Username <a href="" rel="tooltip" data-original-title="<strong>Warning:</strong> Do Not Use a Personal Account. Email will be removed from server for tracking purposes."><i class="icon-warning-sign"></i></a></label>
+        <label class="control-label">Mail Server Username <a href="" rel="tooltip" data-original-title="WARNING: Do Not Use a Personal Account. Email will be removed from server for tracking purposes."><i class="icon-warning-sign"></i></a></label>
         <div class="controls">
             <input name="MailServerUserName" type="text" class="span12" value="#HTMLEditFormat(rc.siteBean.getMailServerUserName())#" size="50" maxlength="50">
           </div>

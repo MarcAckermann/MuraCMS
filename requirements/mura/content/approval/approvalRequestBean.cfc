@@ -177,12 +177,14 @@ component extends="mura.bean.beanORM"  table="tapprovalrequests" entityname="app
 				finder=refind('##.+?##',script,1,"true");
 			}
 			
-			getBean('mailer').sendText($.setDynamicContent(script),
-				$.event('requester').getEmail(),
-				$.siteConfig('MailServerUsernameEmail'),
-				subject,
-				$.event('siteid'),
-				$.event('approver').getEmail());
+			try{
+				getBean('mailer').sendText($.setDynamicContent(script),
+					$.event('requester').getEmail(),
+					$.siteConfig('MailServerUsernameEmail'),
+					subject,
+					$.event('siteid'),
+					$.event('approver').getEmail());
+			} catch (any e){}
 
 		}
 

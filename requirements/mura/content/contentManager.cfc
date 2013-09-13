@@ -925,7 +925,7 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 				<cflock type="exclusive" name="editingContent#arguments.data.siteid##application.instanceID#" timeout="600">
 	
 				<cfif isObject(pluginEvent.getValue('approvalRequest'))>
-					<cfset var approvalRequest=newBean.getApprovalRequest()>
+					<cfset var approvalRequest=pluginEvent.getValue('approvalRequest')>
 					<!---If it does not have a currently pending aproval request create one --->
 					<cfif approvalRequest.getIsNew() or (not newBean.getIsNew() and currentBean.getActive() and currentBean.getApproved())>			
 						<cfif isDefined("session.mura") and session.mura.isLoggedIn>

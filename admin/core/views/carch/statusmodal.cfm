@@ -131,7 +131,7 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 		</dl>
 		</cfif>
 					
-		
+	
 		<cfif requiresApproval>
 			<cfif not content.getApproved() and approvalRequest.getStatus() eq 'Pending'>
 			<dl class="approval-status">
@@ -143,11 +143,11 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 						<p>#HTMLEditFormat(group.getGroupName())#</p>
 					<cfelse>
 						<em>#application.rbFactory.getKeyValue(session.rb,"approvalchains.waitingforuser")#:</em>
-						<p>#HTMLEditFormat(action.getUser().getFullName())#</p>
+						<p>#HTMLEditFormat(group.getFullName())#</p>
 					</cfif>
 				</dd>
 			</dl>
-			</cfif>
+			</cfif>	
 		
 			<cfif actions.hasNext()>
 			<dl class="approval-chain-comments">
