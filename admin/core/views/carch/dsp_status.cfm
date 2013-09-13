@@ -5,7 +5,7 @@
 		<cfif rc.contentBean.getApprovalStatus() eq 'Rejected'>
 			#application.rbFactory.getKeyValue(session.rb,"sitemanager.content.rejectedmessage")#: 
 		<cfelseif rc.contentBean.getApprovalStatus() eq 'Cancelled'>
-			#application.rbFactory.getKeyValue(session.rb,"sitemanager.content.cancelledmessage")#: 
+			#application.rbFactory.getKeyValue(session.rb,"sitemanager.content.canceledmessage")#: 
 		<cfelse>
 			#application.rbFactory.getKeyValue(session.rb,"sitemanager.content.pendingmessage")#: 
 		</cfif>
