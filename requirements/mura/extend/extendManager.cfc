@@ -1605,7 +1605,7 @@ and tclassextendattributes.type='File'
 				      	
 				extendSetXML=extXML.xmlChildren[extset];
 
-				if(extendSetXML.xmlName == 'attributeset' && isdefined(' extendSetXML.xmlAttributes.name')){
+				if(extendSetXML.xmlName == 'attributeset' && isdefined('extendSetXML.xmlAttributes.name')){
 					extsetorder=extsetorder+1;
 
 					extendset= subType.getExtendSetByName(  extendSetXML.xmlAttributes.name );

@@ -70,7 +70,7 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 	<!--- <label class="control-label"><a href="##" rel="tooltip" title="#HTMLEditFormat(application.rbFactory.getKeyValue(session.rb,'tooltip.searchforassocfile'))#">#application.rbFactory.getKeyValue(session.rb,'sitemanager.content.fields.searchforassoc#rc.filetype#')# <i class="icon-question-sign"></i></a></label> --->
 	<div class="controls">
 		<div class="input-append">
-			<input class="filesearch" value="#HTMLEditFormat(rc.keywords)#" type="text" maxlength="50" placeholder="Search for existing file(s)" /><button type="submit" class="btn"><i class="icon-search"></i></button>
+			<input class="filesearch" value="#HTMLEditFormat(rc.keywords)#" type="text" maxlength="50" placeholder="#HTMLEditFormat(application.rbFactory.getKeyValue(session.rb,'sitemanager.content.fields.searchforexistingfiles'))#" /><button type="submit" class="btn"><i class="icon-search"></i></button>
 		</div>
 	</div>
 </div>
@@ -79,8 +79,8 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 <cfif len(rc.keywords)>
 	<div class="tabbable" id="selectAssocImageResults">
 		<ul class="nav nav-tabs tabs">
-			<li><a href="##mura-assoc-images" onclick="return false;"><i class="icon-picture"></i> Images</a></li>
-			<cfif rc.type eq 'file'><li><a href="##mura-assoc-files" onclick="return false;"><i class="icon-file-text-alt"></i> Other Files</a></li></cfif>
+			<li><a href="##mura-assoc-images" onclick="return false;"><i class="icon-picture"></i> #application.rbFactory.getKeyValue(session.rb,'sitemanager.content.fields.images')#</a></li>
+			<cfif rc.type eq 'file'><li><a href="##mura-assoc-files" onclick="return false;"><i class="icon-file-text-alt"></i> #application.rbFactory.getKeyValue(session.rb,'sitemanager.content.fields.otherfiles')#</a></li></cfif>
 		</ul>
 		<div class="tab-content">
 			<div id="mura-assoc-images" class="tab-pane fade">
