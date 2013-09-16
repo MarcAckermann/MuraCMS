@@ -108,7 +108,7 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 	<cfset versionStatus=application.rbFactory.getKeyValue(session.rb,'sitemanager.content.queued')>
 <cfelseif not rc.item.getapproved()>
 	<cfif rc.item.getApprovalStatus() eq 'Cancelled'>
-		<cfset versionStatus=application.rbFactory.getKeyValue(session.rb,'sitemanager.content.cancelled')>
+		<cfset versionStatus=application.rbFactory.getKeyValue(session.rb,'sitemanager.content.canceled')>
 	<cfelse>
 		<cfset versionStatus=application.rbFactory.getKeyValue(session.rb,'sitemanager.content.draft')>
 	</cfif>

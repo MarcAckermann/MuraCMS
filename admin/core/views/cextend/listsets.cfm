@@ -60,10 +60,21 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 	<div id="nav-module-specific" class="btn-group">
 		<a class="btn" href="./?muraAction=cExtend.listSubTypes&siteid=#URLEncodedFormat(rc.siteid)#"><i class="icon-circle-arrow-left"></i> Back to Class Extensions</a>
 		<a class="btn" href="./?muraAction=cExtend.editSubType&subTypeID=#rc.subTypeID#&siteid=#URLEncodedFormat(rc.siteid)#"><i class="icon-pencil"></i> Edit Class Extension</a>
-		<a class="btn" href="./?muraAction=cExtend.editSet&subTypeID=#rc.subTypeID#&siteid=#URLEncodedFormat(rc.siteid)#&extendSetID="><i class="icon-plus-sign"></i> Add Attribute Set</a>
 		<cfif showRelatedContentSets>
-			<a class="btn" href="./?muraAction=cExtend.editRelatedContentSet&subTypeID=#rc.subTypeID#&siteid=#URLEncodedFormat(rc.siteid)#&relatedContentSetID="><i class="icon-plus-sign"></i> Add Related Content Set</a>
+		
+		<div class="btn-group">
+	      <a class="btn dropdown-toggle" data-toggle="dropdown" href="##">
+	         <i class="icon-plus-sign"></i> Add <span class="caret"></span>
+	       </a>
+	       <ul class="dropdown-menu">
+	          <li><a href="./?muraAction=cExtend.editSet&subTypeID=#rc.subTypeID#&siteid=#URLEncodedFormat(rc.siteid)#&extendSetID=">Add Attribute Set</a></li>
+	          <li><a href="./?muraAction=cExtend.editRelatedContentSet&subTypeID=#rc.subTypeID#&siteid=#URLEncodedFormat(rc.siteid)#&relatedContentSetID=">Add Related Content Set</a></li>
+	       </ul>
+	   </div>
+		<cfelse>
+			<a class="btn" href="./?muraAction=cExtend.editSet&subTypeID=#rc.subTypeID#&siteid=#URLEncodedFormat(rc.siteid)#&extendSetID="><i class="icon-plus-sign"></i> Add Attribute Set</a>
 		</cfif>
+		</div>
 	</div>
 	<h2><i class="#subtype.getIconClass(includeDefault=true)# icon-large"></i> #application.classExtensionManager.getTypeAsString(subType.getType())# / #subType.getSubType()#</h2>
 </cfoutput>

@@ -53,36 +53,36 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 <h1>Manage Related Content Set</h1>
 
 <cfoutput>
-<div id="nav-module-specific" class="btn-toolbar">
+
+<div id="nav-module-specific" class="btn-group">
 	<div class="btn-group">
-	<a class="btn" href="./?muraAction=cExtend.listSubTypes&siteid=#URLEncodedFormat(rc.siteid)#"><i class="icon-circle-arrow-left"></i> Back to Class Extensions</a>
-	<a class="btn" href="./?muraAction=cExtend.editSubType&subTypeID=#URLEncodedFormat(rc.subTypeID)#&siteid=#URLEncodedFormat(rc.siteid)#"><i class="icon-pencil"></i> Edit Class Extension</a>
-	</div>
-	<div class="btn-group">
-	<a class="btn" href="./?muraAction=cExtend.listSets&subTypeID=#URLEncodedFormat(rc.subTypeID)#&siteid=#URLEncodedFormat(rc.siteid)#"><i class="icon-circle-arrow-left"></i> Back to Extension Overview</a>
-	<a class="btn" href="./?muraAction=cExtend.editSet&subTypeID=#URLEncodedFormat(rc.subTypeID)#&extendSetID=#URLEncodedFormat(rc.extendSetID)#&siteid=#URLEncodedFormat(rc.siteid)#"><i class="icon-pencil"></i> Edit Attribute Set</a>
-	</div>
+      <a class="btn dropdown-toggle" data-toggle="dropdown" href="##">
+         <i class="icon-circle-arrow-left"></i> Back <span class="caret"></span>
+       </a>
+       <ul class="dropdown-menu">
+          <li><a href="./?muraAction=cExtend.listSubTypes&siteid=#URLEncodedFormat(rc.siteid)#">&hellip;to Class Extensions</a></li>
+          <li><a href="./?muraAction=cExtend.listSets&subTypeID=#URLEncodedFormat(rc.subTypeID)#&siteid=#URLEncodedFormat(rc.siteid)#">&hellip;to Class Extension Overview</a></li>
+       </ul>
+       </div>
+       <div class="btn-group">
+       <a class="btn dropdown-toggle" data-toggle="dropdown" href="##">
+         <i class="icon-pencil"></i> Edit <span class="caret"></span>
+       </a>
+       <ul class="dropdown-menu">
+          <li><a href="./?muraAction=cExtend.editSubType&subTypeID=#URLEncodedFormat(rc.subTypeID)#&siteid=#URLEncodedFormat(rc.siteid)#">Class Extension</a></li>
+          <li><a href="./?muraAction=cExtend.editSet&subTypeID=#URLEncodedFormat(rc.subTypeID)#&extendSetID=#URLEncodedFormat(rc.extendSetID)#&siteid=#URLEncodedFormat(rc.siteid)#">Attribute Set</a></li>
+       </ul>
+       </div>
 </div>
 
 <h2><i class="#subtype.getIconClass(includeDefault=true)# icon-large"></i> #application.classExtensionManager.getTypeAsString(subType.getType())# / #subType.getSubType()#</h2>
 
-<ul class="metadata">
-	<li><strong>Attributes Set:</strong> #extendSet.getName()#</li>
-</ul>
+<h3><strong>Attributes Set:</strong> #extendSet.getName()#</h3>
 
 <cfset newAttribute=extendSet.getAttributeBean() />
 <cfset newAttribute.setSiteID(rc.siteID) />
 <cfset newAttribute.setOrderno(arrayLen(attributesArray)+1) />
 <cf_dsp_attribute_form attributesArray="#attributesArray#" attributeBean="#newAttribute#" action="add" subTypeID="#rc.subTypeID#" formName="newFrm">
-
-<!---
-<cfif arrayLen(attributesArray)>
-<ul class="nav nav-pills">
-<li><a href="javascript:;" class="btn" style="display:none;" id="saveSort" onclick="extendManager.saveAttributeSort('attributesList');return false;"><i class="icon-check"></i> Save Order</a></li>
-<li><a href="javascript:;" class="btn" id="showSort" onclick="extendManager.showSaveSort('attributesList');return false;"><i class="icon-move"></i> Reorder</a></li>
-</ul>
-</cfif>
---->
 
 <cfif arrayLen(attributesArray)>
 <ul id="attributesList" class="attr-list">

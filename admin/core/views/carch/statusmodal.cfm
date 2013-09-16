@@ -64,23 +64,7 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 <cfif rc.mode eq 'frontend'>
 	<h1>#application.rbFactory.getKeyValue(session.rb,'layout.status')#</h1>
 <div class="well">
-	<!---
-	<cfif requiresApproval>
-		<h2>#HTMLEditFormat(application.rbFactory.getKeyValue(session.rb,"sitemanager.content.#content.getApprovalStatus()#"))#</h2>
-	<cfelse>
-		<cfif $.content('active') gt 0 and  $.content('approved')  gt 0>
-			<h2>#application.rbFactory.getKeyValue(session.rb,"sitemanager.content.published")#</h2>
-		<cfelseif len($.content('approvalStatus')) and $.content().requiresApproval() >
-			<h2>#application.rbFactory.getKeyValue(session.rb,"sitemanager.content.#$.content('approvalstatus')#")#</h2>
-		<cfelseif $.content('approved') lt 1>
-			<h2>#application.rbFactory.getKeyValue(session.rb,"sitemanager.content.draft")#</h2>
-		<cfelse>
-			<h2>#application.rbFactory.getKeyValue(session.rb,"sitemanager.content.archived")#</h2>
-		</cfif>
-	</cfif>
-	--->
 </cfif>
-<!--- <div class="well"> --->
 <div id="status-modal" class="mura-list-grid">
 	<dl>
 		<dt>Created By</dt> 

@@ -48,6 +48,8 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 <cfoutput>
 <h1>Change Set Content List</h1>
 
+
+<cfset rc.previewLink="http://#application.settingsManager.getSite(rc.siteid).getDomain()##application.configBean.getServerPort()##application.configBean.getContext()##$.getURLStem(rc.siteid,"")#?changesetID=#rc.changesetID#">
 <cfinclude template="dsp_secondary_menu.cfm">
 
 <cfif rc.changeset.getPublished()>
@@ -67,24 +69,24 @@ version 2 without this exception.  You may, if you choose, apply this exception 
    <div class="alert">#application.rbFactory.getResourceBundle(session.rb).messageFormat(application.rbFactory.getKeyValue(session.rb,"changesets.hasclosedate"),LSDateFormat(rc.changeset.getCloseDate(),session.dateKeyFormat))#
     </div> 
 </cfif>
-
-<h2>#application.rbFactory.getKeyValue(session.rb,'changesets.name')#</h2>
-<p>#HTMLEditFormat(rc.changeset.getName())#</p>
-
-<cfset rc.rslist=rc.siteAssignments.getQuery()>
-<cfset rc.previewLink="http://#application.settingsManager.getSite(rc.siteid).getDomain()##application.configBean.getServerPort()##application.configBean.getContext()##$.getURLStem(rc.siteid,"")#?changesetID=#rc.changesetID#">
-<h3>#application.rbFactory.getKeyValue(session.rb,'changesets.filterview')#</h3>
-<p>#application.rbFactory.getKeyValue(session.rb,'changesets.filterviewnotice')#</p>
-<form class="form-inline" novalidate="novalidate" id="assignmentSearch" name="assignmentSearch" method="get">
-	<input name="keywords" value="#HTMLEditFormat(rc.keywords)#" type="text" class="text" maxlength="50" />
-	<input type="button" class="btn" onclick="return submitForm(document.forms.assignmentSearch);" value="Search" />
+<!--- <h2>#application.rbFactory.getKeyValue(session.rb,'changesets.name')#</h2> --->
+<h2>#HTMLEditFormat(rc.changeset.getName())#</h2>
+<p><a title="Change Set Name" href="##" onclick="return preview('#JSStringFormat(rc.previewLink)#','');">#HTMLEditFormat(rc.previewLink)#</a></p>
+<form class="form-inline separate" novalidate="novalidate" id="assignmentSearch" name="assignmentSearch" method="get">
+	<input name="keywords" placeholder="Keywords" value="#HTMLEditFormat(rc.keywords)#" type="text" class="text" maxlength="50" />
+	<input type="button" class="btn" onclick="return submitForm(document.forms.assignmentSearch);" value="#application.rbFactory.getKeyValue(session.rb,'changesets.filterview')#" />
 	<input type="hidden" name="muraAction" value="cChangesets.assignments">
 	<input type="hidden" name="siteid" value="#HTMLEditFormat(rc.siteid)#">
 	<input type="hidden" name="changesetID" value="#HTMLEditFormat(rc.changesetID)#">
 </form>
+<cfset rc.rslist=rc.siteAssignments.getQuery()>
+<!---
+<h3>#application.rbFactory.getKeyValue(session.rb,'changesets.filterview')#</h3>
+<p>#application.rbFactory.getKeyValue(session.rb,'changesets.filterviewnotice')#</p>
+--->
 
-<h3>#application.rbFactory.getKeyValue(session.rb,'changesets.previewlink')#</h3>
-<p><a title="Preview" href="##" onclick="return preview('#JSStringFormat(rc.previewLink)#','');">#HTMLEditFormat(rc.previewLink)#</a></p>
+<!--- <h3>#application.rbFactory.getKeyValue(session.rb,'changesets.previewlink')#</h3> --->
+
 <h3>#application.rbFactory.getKeyValue(session.rb,'changesets.sitearchitecture')#</h3>
  <table class="mura-table-grid">
     <tr> 
