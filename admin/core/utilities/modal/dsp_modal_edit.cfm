@@ -329,14 +329,14 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 							<cfif request.muraChangesetPreview and structKeyExists(previewData.previewmap,$.content("contentID")) >
 								<cfif previewData.previewmap[$.content("contentID")].changesetID eq previewData.changesetID>
 									<li>
-										<a href="" data-toggle="tooltip" title="first tooltip">
+										<a href="" data-toggle="tooltip" title="#htmlEditFormat(application.rbFactory.getKeyValue(session.rb,'changesets.content.in'))#">
 											<i class="icon-check"></i>
 											 <!---#application.rbFactory.getResourceBundle(session.rb).messageFormat(application.rbFactory.getKeyValue(session.rb,"changesets.previewnodemembership"),'<strong>"#HTMLEDitFormat(previewData.previewmap[$.content("contentID")].changesetName)#"</strong>')#--->
 										</a>
 									</li>
 								<cfelse>
 									<li>
-										<a href="" data-toggle="tooltip" title="first tooltip">
+										<a href="" data-toggle="tooltip" title="#htmlEditFormat(application.rbFactory.getKeyValue(session.rb,'changesets.content.dependent'))#">
 											<i class="icon-code-fork"></i>
 											<!---#application.rbFactory.getResourceBundle(session.rb).messageFormat(application.rbFactory.getKeyValue(session.rb,"changesets.previewnodemembership"),'<strong>"#HTMLEDitFormat(previewData.previewmap[$.content("contentID")].changesetName)#"</strong>')#--->
 										</a>
@@ -344,7 +344,7 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 								</cfif>
 							<cfelse>
 								<li>
-									<a href="" data-toggle="tooltip" title="first tooltip">
+									<a href="" data-toggle="tooltip" title="#htmlEditFormat(application.rbFactory.getKeyValue(session.rb,'changesets.content.notin'))#">
 										<i class="icon-ban-circle"></i>
 										<!---#application.rbFactory.getKeyValue(session.rb,"changesets.previewnodenotinchangeset")#--->
 									</a>
