@@ -58,6 +58,7 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 				<cfif listFind(session.mura.memberships,'Admin;#application.settingsManager.getSite(rc.siteid).getPrivateUserPoolID()#;0') or listFind(session.mura.memberships,'S2')>
 				<a class="btn <cfif rc.originalfuseaction eq 'module'> active</cfif>" href="./?muraAction=cPerm.module&contentid=00000000000000000000000000000000014&siteid=#URLEncodedFormat(rc.siteid)#&moduleid=00000000000000000000000000000000014"><i class="icon-group"></i> #application.rbFactory.getKeyValue(session.rb,'changesets.permissions')#</a>
 				</cfif>
+				<a class="btn" href="##" onclick="return preview('#JSStringFormat(rc.previewLink)#','');"><i class="icon-globe"></i> Preview Change Set</a>
 			</cfcase>
 			<cfcase value="edit">
 				<a class="btn" title="#application.rbFactory.getKeyValue(session.rb,'changesets.backtochangesets')#" href="./?muraAction=cChangesets.list&siteid=#URLEncodedFormat(rc.siteid)#"><i class="icon-circle-arrow-left"></i> #application.rbFactory.getKeyValue(session.rb,'changesets.backtochangesets')#</a>
@@ -66,6 +67,5 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 				</cfif>
 			</cfcase>
 		</cfswitch>
-		<a class="btn" href="##" onclick="return preview('#JSStringFormat(rc.previewLink)#','');"><i class="icon-globe"></i> Preview Change Set</a>
 	</div>
 </cfoutput>
