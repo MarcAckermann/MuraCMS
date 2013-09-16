@@ -50,9 +50,7 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 <cfinclude template="dsp_secondary_menu.cfm">
 
 <cfif rc.changeset.getPublished()>
-<p class="alert">
-#application.rbFactory.getKeyValue(session.rb,'changesets.publishednotice')#
-</p>
+<p class="alert">#application.rbFactory.getKeyValue(session.rb,'changesets.publishednotice')#</p>
 <cfelse>
   <cfset hasPendingApprovals=rc.changeset.hasPendingApprovals()>
   <cfif hasPendingApprovals>
@@ -68,7 +66,7 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 </cfif>
 <!--- <h2>#application.rbFactory.getKeyValue(session.rb,'changesets.name')#</h2> --->
 <h2>#HTMLEditFormat(rc.changeset.getName())#</h2>
-<p><a title="Change Set Name" href="##" onclick="return preview('#JSStringFormat(rc.previewLink)#','');">#HTMLEditFormat(rc.previewLink)#</a></p>
+<p><i class="icon-link"></i> <a title="Change Set Name" href="##" onclick="return preview('#JSStringFormat(rc.previewLink)#','');">#HTMLEditFormat(rc.previewLink)#</a></p>
 <form class="form-inline separate" novalidate="novalidate" id="assignmentSearch" name="assignmentSearch" method="get">
 	<input name="keywords" placeholder="Keywords" value="#HTMLEditFormat(rc.keywords)#" type="text" class="text" maxlength="50" />
 	<input type="button" class="btn" onclick="return submitForm(document.forms.assignmentSearch);" value="#application.rbFactory.getKeyValue(session.rb,'changesets.filterview')#" />
