@@ -47,9 +47,6 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 
 <cfoutput>
 <h1>Change Set Content List</h1>
-
-
-<cfset rc.previewLink="http://#application.settingsManager.getSite(rc.siteid).getDomain()##application.configBean.getServerPort()##application.configBean.getContext()##$.getURLStem(rc.siteid,"")#?changesetID=#rc.changesetID#">
 <cfinclude template="dsp_secondary_menu.cfm">
 
 <cfif rc.changeset.getPublished()>
