@@ -161,38 +161,15 @@ version 2 without this exception.  You may, if you choose, apply this exception 
 	<cfset this.mappings["/hyrule"] = variables.baseDir & "/requirements/hyrule">
 	
 	<cfset request.userAgent = LCase( CGI.http_user_agent ) />
+	
 	<!--- Should we even use sessions? --->
-	<cfset request.trackSession = not (NOT Len( request.userAgent ) OR
-	 REFind( "bot\b", request.userAgent ) OR
-	 Find( "_bot_", request.userAgent ) OR
-	 Find( "crawl", request.userAgent ) OR
-	 REFind( "\brss", request.userAgent ) OR
-	 Find( "feed", request.userAgent ) OR
-	 Find( "news", request.userAgent ) OR
-	 Find( "blog", request.userAgent ) OR
-	 Find( "reader", request.userAgent ) OR
-	 Find( "syndication", request.userAgent ) OR
-	 FindNoCase( "coldfusion", request.userAgent ) OR
-	 Find( "slurp", request.userAgent ) OR
-	 Find( "google", request.userAgent ) OR
-	 Find( "zyborg", request.userAgent ) OR
-	 Find( "emonitor", request.userAgent ) OR
-	 Find( "jeeves", request.userAgent ) OR 
-	 Find( "ping", request.userAgent ) OR 
-	 FindNoCase( "java", request.userAgent ) OR 
-	 FindNoCase( "cfschedule", request.userAgent ) OR
-	 FindNoCase( "reeder", request.userAgent ) OR
-	 FindNoCase( "Python", request.userAgent ) OR
-	 FindNoCase( "Synapse", request.userAgent ) OR
-	 FindNoCase( "facebookexternalhit", request.userAgent ) OR
-	 Find( "spider", request.userAgent ) OR
-	 Find( "semantic-visions", request.userAgent ))>
+	<cfset request.trackSession = structKeyExists(cookie,'cfid') or structKeyExists(cookie,'jsessionid')>
 	 
 	<!--- How long do session vars persist? --->
 	<cfif request.trackSession>
 		<cfset this.sessionTimeout = ( evalSetting(properties.getProperty("sessionTimeout","180")) / 24) / 60>
 	<cfelse>
-		<cfset this.sessionTimeout = createTimeSpan(0,0,5,0)>
+		<cfset this.sessionTimeout = createTimeSpan(0,0,0,2)>
 	</cfif>
 	
 	<cfset this.timeout =  evalSetting(properties.getProperty("requesttimeout","1000"))>
